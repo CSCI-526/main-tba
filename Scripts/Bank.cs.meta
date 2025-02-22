@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Bank.cs.meta
+guid: 5ee06de3789c4124ca01f3c0850718d1
+========
+guid: 21b9b51715f464e54baf3777daca0720
+>>>>>>>> df8e3b7da3e419654b9a496be851d95c88ec9933:Assets/Scripts/GamePlaying.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
