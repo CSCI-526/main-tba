@@ -6,11 +6,11 @@ public class Card : MonoBehaviour
 {
     public enum CardValue
     {
-        One = 1,
-        Two = 2,
-        Three = 3,
-        Four = 4,
-        Five = 5
+        Head = 1,
+        LeftArm = 2,
+        RightArm = 3,
+        LeftLeg = 4,
+        RightLeg = 5
     }
 
     public enum CardSuit
@@ -18,8 +18,7 @@ public class Card : MonoBehaviour
         Hearts,
         Diamonds,
         Clubs,
-        Spades,
-        Stars
+        Spades
     }
 
     public CardValue cardValue;
