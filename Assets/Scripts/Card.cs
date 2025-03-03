@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Android;
 
 public class Card : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class Card : MonoBehaviour
 
     public bool bankable = true;
 
+    public bool waiting_to_put = false;
+
+    public string place;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +45,8 @@ public class Card : MonoBehaviour
         this.cardValue = cV;
         this.cardSuit = cS;
         this.texture = tex;
+
+        this.place = "River";
 
         gm = GameObject.FindGameObjectWithTag("GameplayManager").GetComponent<GameplayManager>();
 
@@ -77,7 +84,77 @@ public class Card : MonoBehaviour
         Debug.Log("Clicked!");
         if (bankable)
         {
-            gm.LocateAndBank(GetCardData());
+            // gm.LocateAndBank(GetCardData());
+        }
+        
+        // TODO: use game phase to allow select card using place and cur game phase (avoid mix select)
+        /*if (GameplayManager.Instance.curr_phase == 1 && place != "River")
+        {
+            return;
+        }
+        if (GameplayManager.Instance.curr_phase == 2 && place != "Workbench1")
+        {
+            return;
+        }*/
+
+        if (place == "River")
+        {
+            // wait to be put somewhere (workbench or other place)
+            if (!waiting_to_put)
+            {
+                // If this card is not yet waiting, mark it as selected
+                waiting_to_put = true;
+                if (!GameplayManager.Instance.selected_cards.Contains(this))
+                {
+                    GameplayManager.Instance.selected_cards.Add(this);
+                }
+
+                Debug.Log("Card added to selection. Total selected = " + GameplayManager.Instance.selected_cards.Count);
+            }
+            else
+            {
+                // If it was already selected, unselect it
+                waiting_to_put = false;
+                if (GameplayManager.Instance.selected_cards.Contains(this))
+                {
+                    GameplayManager.Instance.selected_cards.Remove(this);
+                }
+
+                Debug.Log("Card removed from selection. Total selected = " +
+                          GameplayManager.Instance.selected_cards.Count);
+            }
+        } else if (place == "WorkBench1")
+        {
+            // find it's parent workbench
+            ExampleWorkBench wb = transform.parent.GetComponent<ExampleWorkBench>();
+            Debug.Log(wb.cards.Count);
+            
+            // one click and select all cards
+            if (!waiting_to_put)
+            {
+                foreach (Card card in wb.cards)
+                {
+                    card.waiting_to_put = true;
+                    if (!GameplayManager.Instance.selected_cards.Contains(card))
+                    {
+                        GameplayManager.Instance.selected_cards.Add(card);
+                    }
+                    Debug.Log("Card added to selection. Total selected = " + GameplayManager.Instance.selected_cards.Count);
+                }
+            }
+            else
+            {
+                foreach (Card card in wb.cards)
+                {
+                    card.waiting_to_put = false;
+                    if (GameplayManager.Instance.selected_cards.Contains(card))
+                    {
+                        GameplayManager.Instance.selected_cards.Remove(card);
+                    }
+                    Debug.Log("Card removed from selection. Total selected = " +
+                              GameplayManager.Instance.selected_cards.Count);
+                }
+            }
         }
     }
 }
