@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -102,6 +103,29 @@ public class GameplayManager : MonoBehaviour
     public TMP_InputField withdraw_input;
     public Button next_button;
     public Button next_player_button;
+    
+    // currectly selected cards
+    public List<Card> selected_cards = new List<Card>();
+    
+    // ---------- Singleton Setup -----------
+    public static GameplayManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        // If an Instance already exists and it’s not this, destroy this.
+        // Otherwise, make this the Singleton instance.
+        // outer class can refer to this single instance by GamePlayerManager.Instance
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            // If you want the GameplayManager to persist across scenes:
+            // DontDestroyOnLoad(this.gameObject);
+        }
+    }
 
     //initialize everything needed at the top of the game
     void Start()
@@ -633,5 +657,21 @@ public class GameplayManager : MonoBehaviour
             showHands();
         }
         
+    }
+    
+    public void ClearSelectedCards()
+    {
+        selected_cards.Clear();
+    }
+
+    public void Pass()
+    {
+        // TODO: implement pass logic after turn implementation is done
+    }
+
+    public void SellCard(CardData cd)
+    {
+        Debug.Log("Sell" + cd);
+        // TODO: implement interaction with score system
     }
 }
