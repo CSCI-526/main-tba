@@ -14,12 +14,14 @@ public class GameplayManager : MonoBehaviour
     public class GamePlayer
     {
         public int playerNum;
+        public int score;
         public Bank WB1;
         public Bank WB2;
 
         public GamePlayer(int playerNum, Bank WB1, Bank WB2)
         {
             this.playerNum = playerNum;
+            this.score = 0;
             this.WB1 = WB1;
             this.WB2 = WB2;
         }
@@ -79,6 +81,8 @@ public class GameplayManager : MonoBehaviour
     public TMP_Text currEventText;
     public TMP_Text instructionText;
     public TMP_Text currPlayerText;
+    public TMP_Text p1ScoreText;
+    public TMP_Text p2ScoreText;
     public Button next_button;
     public Button next_player_button;
     public Button rules_button;
@@ -370,11 +374,26 @@ public class GameplayManager : MonoBehaviour
         currPlayerText.text = "Player" + activePlayer.playerNum + "'s turn";
         if (activePlayer.playerNum == 1)
         {
+            // change location of active player indicator text 
             currPlayerText.rectTransform.anchoredPosition = new Vector2(-200, -150);
+
+            // disable Collider component of inactive player so active player can only click their workbenches
+            playerList[0].WB1.GetComponent<Collider2D>().enabled = true;
+            playerList[0].WB2.GetComponent<Collider2D>().enabled = true;
+            playerList[1].WB1.GetComponent<Collider2D>().enabled = false;
+            playerList[1].WB2.GetComponent<Collider2D>().enabled = false;
+            
         }
         else if (activePlayer.playerNum == 2)
         {
+            // change location of active player indicator text
             currPlayerText.rectTransform.anchoredPosition = new Vector2(-200, 130);
+
+            // change location of active player indicator text
+            playerList[1].WB1.GetComponent<Collider2D>().enabled = true;
+            playerList[1].WB2.GetComponent<Collider2D>().enabled = true;
+            playerList[0].WB1.GetComponent<Collider2D>().enabled = false;
+            playerList[0].WB2.GetComponent<Collider2D>().enabled = false;
         }
     }
 
@@ -606,5 +625,23 @@ public class GameplayManager : MonoBehaviour
     {
         Debug.Log("Sell" + cd);
         // TODO: implement interaction with score system
+    }
+
+    public void AwardPoints(int points)
+    {
+        activePlayer.score += points;
+        Debug.Log("Player " + activePlayer.playerNum + " now has " + activePlayer.score + " points!");
+    }
+
+    public void UpdatePointsDisplay()
+    {
+        if (activePlayer.playerNum == 1)
+        {
+            p1ScoreText.text = "Score: " + activePlayer.score;
+        }
+        else if (activePlayer.playerNum == 2)
+        {
+            p2ScoreText.text = "Score: " + activePlayer.score;
+        }
     }
 }
