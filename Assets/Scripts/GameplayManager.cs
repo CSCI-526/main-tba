@@ -167,6 +167,13 @@ public class GameplayManager : MonoBehaviour
 
         playerList[0] = p1;
         playerList[1] = p2;
+
+        p1.WB1.UpdateBankText();
+        p1.WB2.UpdateBankText();
+        p2.WB1.UpdateBankText();
+        p2.WB2.UpdateBankText();
+
+        activePlayer = playerList[0];
     }
 
     //Init game

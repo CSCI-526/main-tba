@@ -53,9 +53,10 @@ public class River : MonoBehaviour
         if (index < riverData.Count)
         {
             CardData cd = riverData[index];
-            gm.activePlayer.WB1.AddToBank(cd);
-            riverData.RemoveAt(index);
-            addToRiver(gm.deck);
+            if (gm.activePlayer.WB1.AddToBank(cd))
+            {
+                riverData.RemoveAt(index);
+            }
             RefreshRiver();
         }
     }

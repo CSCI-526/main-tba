@@ -19,7 +19,7 @@ public class CardData
 
     public string getCardString()
     {
-        return cardValue + " of " + cardSuit;
+        return cardSuit + " " + cardValue;
     }
 
 }

@@ -11,7 +11,8 @@ public class Card : MonoBehaviour
         LeftArm = 2,
         RightArm = 3,
         LeftFoot = 4,
-        RightFoot = 5
+        RightFoot = 5,
+        empty = 6
     }
 
     public enum CardSuit
@@ -20,7 +21,8 @@ public class Card : MonoBehaviour
         Blue,
         Red,
         Green,
-        Gold
+        Gold,
+        empty
     }
 
     public CardValue cardValue;
@@ -53,7 +55,6 @@ public class Card : MonoBehaviour
 
         if (spriteRenderer != null && texture != null)
         {
-            Debug.Log("Creating sprite");
             spriteRenderer.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height)
                 , new Vector2(0.5f, 0.5f));
         }
@@ -82,10 +83,10 @@ public class Card : MonoBehaviour
     //when clicked, a card should be banked
     private void OnMouseDown()
     {
-        Debug.Log("Clicked!");
         if (bankable)
         {
-            // gm.LocateAndBank(GetCardData());
+            gm.LocateAndBank(GetCardData());
+            return;
         }
         
         // TODO: use game phase to allow select card using place and cur game phase (avoid mix select)
