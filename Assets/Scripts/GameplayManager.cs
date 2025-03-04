@@ -103,6 +103,9 @@ public class GameplayManager : MonoBehaviour
     public TMP_InputField withdraw_input;
     public Button next_button;
     public Button next_player_button;
+    public Button rules_button;
+    public GameObject rules_panel;
+    private bool rules_toggle = false;
     
     // currectly selected cards
     public List<Card> selected_cards = new List<Card>();
@@ -141,7 +144,6 @@ public class GameplayManager : MonoBehaviour
         river.Flop(deck);
 
         HandleBettingRound();*/
-
         InitializePlayers();
         //StartBettingRound();
         InitializeGame();
@@ -217,25 +219,26 @@ public class GameplayManager : MonoBehaviour
     //Init game
     void InitializeGame()
     {
-        deck.InitializeDeck();
-        deck.ShuffleDeck();
+        //deck.InitializeDeck();
+        //deck.ShuffleDeck();
         //deal to the players
-        for(int i = 0; i < playerList.Length; i++)
+        for (int i = 0; i < playerList.Length; i++)
         {
             playerList[i].hand.GetStartingHand(deck);
         }
 
         //for now let's just start with player one as the dealer (conveniently they'll bet first since blinds have put in already)
-        SetActivePlayer(0);
+        //SetActivePlayer(0);
         dealer = 1;
         potTotal = 0;
-        
 
         //buttons
         next_button.gameObject.SetActive(true);
         next_player_button.gameObject.SetActive(false);
+        rules_button.gameObject.SetActive(true);
         next_button.onClick.AddListener(() => OnButtonClick(1));
         next_player_button.onClick.AddListener(() => OnButtonClick(2));
+        rules_button.onClick.AddListener(() => OnButtonClick(3));
         //withdraw_button.onClick.AddListener(() => OnButtonClick(3));
 
         //pot
@@ -565,7 +568,7 @@ public class GameplayManager : MonoBehaviour
     }
 
     void OnButtonClick(int buttonID)
-    {   
+    {
         switch (buttonID)
         {
             case 1:
@@ -595,6 +598,14 @@ public class GameplayManager : MonoBehaviour
                 //next_button.gameObject.SetActive(false);
                 ChangePhase(curr_phase);
                 break;
+            case 3:
+                Debug.Log("rules button clicked!");
+                rules_toggle = !rules_toggle;
+                // make other component active, change text
+                rules_button.GetComponentInChildren<TextMeshProUGUI>().text = rules_toggle ? "Hide" : "Rules";
+                rules_panel.SetActive(rules_toggle);
+                break;
+
             default:
                 Debug.Log("Unknown button clicked!");
                 break;
