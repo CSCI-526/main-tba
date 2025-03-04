@@ -71,7 +71,7 @@ public class GameplayManager : MonoBehaviour
     public Bank p2secondWB;
 
     //Player list
-    public GamePlayer[] playerList = new GamePlayer[3];
+    public GamePlayer[] playerList = new GamePlayer[2];
     public GamePlayer activePlayer;
 
 
@@ -136,10 +136,10 @@ public class GameplayManager : MonoBehaviour
         {
             int currPlayerNum = activePlayer.playerNum - 1;
             Debug.Log(currPlayerNum);
-            if (currPlayerNum >= 0 && currPlayerNum < 2)
+            if (currPlayerNum == 0)
             {
                 SetActivePlayer(currPlayerNum + 1);
-            } else if (currPlayerNum == 2)
+            } else if (currPlayerNum == 1)
             {
                 SetActivePlayer(0);
             }
@@ -183,7 +183,7 @@ public class GameplayManager : MonoBehaviour
         deck.ShuffleDeck();
 
         //for now let's just start with player one as the dealer (conveniently they'll bet first since blinds have put in already)
-        //SetActivePlayer(0);
+        SetActivePlayer(0);
         dealer = 1;
 
         //buttons
@@ -359,8 +359,8 @@ public class GameplayManager : MonoBehaviour
     {
         if (activePlayer != null)
         {
-            activePlayer.WB1.bankText.gameObject.SetActive(false);
-            activePlayer.WB2.bankText.gameObject.SetActive(false);
+            // activePlayer.WB1.bankText.gameObject.SetActive(false);
+            // activePlayer.WB2.bankText.gameObject.SetActive(false);
         }
         activePlayer = playerList[playerNum];
         //activePlayer.hand.ShowHand();
@@ -368,6 +368,14 @@ public class GameplayManager : MonoBehaviour
         activePlayer.WB1.UpdateBankText();
         activePlayer.WB2.UpdateBankText();
         currPlayerText.text = "Player" + activePlayer.playerNum + "'s turn";
+        if (activePlayer.playerNum == 1)
+        {
+            currPlayerText.rectTransform.anchoredPosition = new Vector2(-200, -150);
+        }
+        else if (activePlayer.playerNum == 2)
+        {
+            currPlayerText.rectTransform.anchoredPosition = new Vector2(-200, 130);
+        }
     }
 
     void DoBeforeStart(){
@@ -487,7 +495,7 @@ public class GameplayManager : MonoBehaviour
         {
             case 1:
                 Debug.Log("next_button clicked!");
-                if (activePlayer.playerNum == 3){
+                if (activePlayer.playerNum == 2){
                     SetActivePlayer(0);
                 }
                 else{
