@@ -113,6 +113,7 @@ public class GameplayManager : MonoBehaviour
     {
         InitializePlayers();
         InitializeGame();
+        river.Flop(deck);
     }
 
     //control handler
@@ -171,8 +172,8 @@ public class GameplayManager : MonoBehaviour
     //Init game
     void InitializeGame()
     {
-        //deck.InitializeDeck();
-        //deck.ShuffleDeck();
+        deck.InitializeDeck();
+        deck.ShuffleDeck();
 
         //for now let's just start with player one as the dealer (conveniently they'll bet first since blinds have put in already)
         //SetActivePlayer(0);
@@ -187,13 +188,11 @@ public class GameplayManager : MonoBehaviour
         rules_button.onClick.AddListener(() => OnButtonClick(3));
         //withdraw_button.onClick.AddListener(() => OnButtonClick(3));
 
-        //pot
-
 
         curr_phase = 0;
         ChangePhase(curr_phase);
 
-        instructionText.gameObject.SetActive(false);
+        //instructionText.gameObject.SetActive(false);
     }
 
 

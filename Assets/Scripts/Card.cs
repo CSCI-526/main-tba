@@ -10,16 +10,17 @@ public class Card : MonoBehaviour
         Head = 1,
         LeftArm = 2,
         RightArm = 3,
-        LeftLeg = 4,
-        RightLeg = 5
+        LeftFoot = 4,
+        RightFoot = 5
     }
 
     public enum CardSuit
     {
-        Hearts,
-        Diamonds,
-        Clubs,
-        Spades
+        Black,
+        Blue,
+        Red,
+        Green,
+        Gold
     }
 
     public CardValue cardValue;
