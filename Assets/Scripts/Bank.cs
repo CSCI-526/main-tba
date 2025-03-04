@@ -69,12 +69,62 @@ public class Bank : MonoBehaviour
         }
     }
 
-    public void sellWorkBench()
+    public void OnMouseDown()
     {
-        while(bankData.Count > 0)
+        sellWorkBench(bankData);
+    }
+
+    public void sellWorkBench(List<CardData> sellData)
+    {
+        // Score tables for selling robots and heaps 
+        //   - key is the number of parts
+        //   - value is the points to be awarded 
+        Dictionary<int, int> robotScoreTable = new()
         {
-            bankData.RemoveAt(0);
-            //increase points here for each part sold
+            {2, 2},
+            {3, 4},
+            {4, 8},
+            {5, 14}
+        };
+        Dictionary<int, int> heapScoreTable = new()
+        {
+            {2, 2}, 
+            {4, 4},
+            {6, 8},
+            {8, 11},
+            {10, 15}
+
+        };
+
+        if (sellData.Count > 1)
+        {
+            // The checks here only check from the first two cards inside the workbench; 
+            // This is (probably?) sufficient considering validity checks were done by the workbench class 
+            // already when cards were being added
+            if (sellData[0].cardSuit == sellData[1].cardSuit)
+            {
+                // this workbench contains a robot 
+                Debug.Log("Selling robot...");
+                Debug.Log("Awarding " + robotScoreTable[sellData.Count] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
+                GameplayManager.Instance.AwardPoints(robotScoreTable[sellData.Count]);
+                bankData.Clear();
+                UpdateBankText();
+                GameplayManager.Instance.UpdatePointsDisplay();
+            }
+            else if (sellData[0].cardValue == sellData[1].cardValue)
+            {
+                // this workbench contains a heap 
+                Debug.Log("Selling heap...");
+                Debug.Log("Awarding " + heapScoreTable[sellData.Count] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
+                GameplayManager.Instance.AwardPoints(heapScoreTable[sellData.Count]);
+                bankData.Clear();
+                UpdateBankText();
+                GameplayManager.Instance.UpdatePointsDisplay();
+            }
+        }
+        else
+        {
+            Debug.Log("This workbench can't be sold yet");
         }
     }
 }
