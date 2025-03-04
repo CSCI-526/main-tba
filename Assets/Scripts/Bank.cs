@@ -89,11 +89,14 @@ public class Bank : MonoBehaviour
         Dictionary<int, int> heapScoreTable = new()
         {
             {2, 2}, 
+            {3, 2},
             {4, 4},
+            {5, 4},
             {6, 8},
+            {7, 8},
             {8, 11},
+            {9, 11},
             {10, 15}
-
         };
 
         if (sellData.Count > 1)
