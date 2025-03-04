@@ -58,12 +58,18 @@ public class Deck : MonoBehaviour
     //Populate the deck of cards represented as a stack, needs shuffling
     public void InitializeDeck()
     {
-        //For right now deck consists of 5 suits, cards numbered 1-5
+        //For right now deck consists of 5 suits, cards numbered 1-5, with 2 of each copy
         for(int i = 0; i < cardTextures.Length; i++)
         {
             //right now deck creation depends on the filename
             CardData cardData = ParseTextureFileName(cardTextures[i]);
             deck.Add(cardData);  
+        }
+        for (int i = 0; i < cardTextures.Length; i++)
+        {
+            //right now deck creation depends on the filename
+            CardData cardData = ParseTextureFileName(cardTextures[i]);
+            deck.Add(cardData);
         }
         //Debug.Log(deck.Count);
     }
@@ -102,11 +108,9 @@ public class Deck : MonoBehaviour
     {
         if(deck.Count == 0)
         {
-            //Not sure on behavior here
-            //If the deck is empty but there is still a river to be created (in the case of every player banking a lot)
-            //Not sure if we want to just have an empty river
             Debug.Log("Deck is empty!");
-            return null;
+            InitializeDeck();
+
         }
         CardData cardData = deck[deck.Count - 1];
         deck.RemoveAt(deck.Count - 1);
