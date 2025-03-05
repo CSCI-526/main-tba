@@ -8,4 +8,8 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene(1); // Loads scene by index (Game Scene)
     }
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(1); // Loads scene by index (Game Scene)
+    }
 }

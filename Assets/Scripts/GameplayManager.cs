@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using static System.Net.Mime.MediaTypeNames;
+using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class GameplayManager : MonoBehaviour
 
 
 
-    public enum GamePhase{
+    /*public enum GamePhase{
         BeforeStart,//0//everyone can see the screen //show rules
         BlindBetting,//1//if player i is dealer, player i+1 and i+2 have to bet 10
         Deal3Hands_PreFlopBetting,//2//player i+3 start betting until everyone is call or fold
@@ -50,7 +51,7 @@ public class GameplayManager : MonoBehaviour
                         //give pot money to the winner
                         //show all player's remaining money on the scene
                         //check all player's money, if money == 0, game over
-    }
+    }*/
 
     //objects that carry over from turn to turn
     public Deck deck;
@@ -60,7 +61,7 @@ public class GameplayManager : MonoBehaviour
     int saved_phase;
     public int select_card;
     public List<CardData> combinedData = new List<CardData>();
-    public GamePlayer winner;
+    //public static GamePlayer winner;
 
     //int count;
 
@@ -153,6 +154,12 @@ public class GameplayManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             river.addToRiver(deck);
+        }
+
+        //terminate game when any player reach score 30
+        if (activePlayer.score >= 30){
+            Winner.gameWinner = activePlayer.playerNum;
+            SceneManager.LoadScene(2);
         }
     }
 

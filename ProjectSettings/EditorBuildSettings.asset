@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: ceb7c3d4f8d7e426f8c2173d397c1228
+  - enabled: 1
+    path: Assets/Scenes/WinningRestartScene.unity
+    guid: c84a6752b9a864e1ebe362905095a826
   m_configObjects: {}
