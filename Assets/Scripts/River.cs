@@ -32,7 +32,7 @@ public class River : MonoBehaviour
     }
 
     //call this to show the new cards that are added to the river
-    private void RefreshRiver()
+    public void RefreshRiver()
     {
         while (riverCards.Count > 0)
         {

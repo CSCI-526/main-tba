@@ -16,6 +16,7 @@ public class GameplayManager : MonoBehaviour
     {
         public int playerNum;
         public int score;
+        public bool passed;
         public Bank WB1;
         public Bank WB2;
 
@@ -23,6 +24,7 @@ public class GameplayManager : MonoBehaviour
         {
             this.playerNum = playerNum;
             this.score = 0;
+            this.passed = false;
             this.WB1 = WB1;
             this.WB2 = WB2;
         }
@@ -379,6 +381,7 @@ public class GameplayManager : MonoBehaviour
         activePlayer.WB1.UpdateBankText();
         activePlayer.WB2.UpdateBankText();
         currPlayerText.text = "Player" + activePlayer.playerNum + "'s turn";
+
         if (activePlayer.playerNum == 1)
         {
             // change location of active player indicator text 
@@ -520,18 +523,19 @@ public class GameplayManager : MonoBehaviour
         switch (buttonID)
         {
             case 1:
-                Debug.Log("next_button clicked!");
-                if (activePlayer.playerNum == 2){
-                    SetActivePlayer(0);
-                }
-                else{
-                    SetActivePlayer(activePlayer.playerNum);
-                }
+                Debug.Log("PASS button clicked!");
+                activePlayer.passed = true;
+                CheckRefreshRiver();
+                IncrementActivePlayer();
+                /*
                 curr_phase++;
                 Debug.Log("curr_phase: " + curr_phase);
                 Debug.Log("player "+ activePlayer.playerNum);
                 //next_button.gameObject.SetActive(false);
                 ChangePhase(curr_phase);
+                */
+
+                
                 break;
             case 2:
                 Debug.Log("next_player_button clicked!");
@@ -638,6 +642,58 @@ public class GameplayManager : MonoBehaviour
     {
         activePlayer.score += points;
         Debug.Log("Player " + activePlayer.playerNum + " now has " + activePlayer.score + " points!");
+    }
+
+    public void IncrementActivePlayer()
+    {
+        if (activePlayer.playerNum == 2)
+        {
+            SetActivePlayer(0);
+        }
+        else
+        {
+            SetActivePlayer(activePlayer.playerNum);
+        }
+    }
+
+    public void CheckRefreshRiver()
+    {
+        // If river has run dry: reflop river
+        if (river.riverCards.Count == 0)
+        {
+            playerList[0].passed = false;
+            playerList[1].passed = false;
+            river.Flop(deck);
+        }
+        // OR if both players have passed: delete current river and reflop river
+        // set the flags as false here too, before river.Flop(deck);
+        // also when opponent has passed, opponent gets ONE more card? or keep going?
+        if (playerList[0].passed && playerList[1].passed)
+        {
+            Debug.Log("Both players passed! New river...");
+            while (river.riverCards.Count > 0)
+            {
+                GameObject toDestroy = river.riverCards[0];
+                river.riverCards.RemoveAt(0);
+                Destroy(toDestroy);
+            }
+            river.riverData.Clear();
+            river.Flop(deck);
+            playerList[0].passed = false;
+            playerList[1].passed = false;
+        }
+    }
+
+    public bool InactivePlayerPassed()
+    {
+        if (activePlayer.playerNum == 1)
+        {
+            return playerList[1].passed;
+        }
+        else 
+        {
+            return playerList[0].passed;
+        }
     }
 
     public void UpdatePointsDisplay()

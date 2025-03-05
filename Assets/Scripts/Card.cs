@@ -86,6 +86,18 @@ public class Card : MonoBehaviour
         if (bankable)
         {
             gm.LocateAndBank(GetCardData());
+            if (gm.activePlayer.WB1.isValidAddition(GetCardData()) || gm.activePlayer.WB2.isValidAddition(GetCardData()))
+            {
+                if (!gm.InactivePlayerPassed())
+                {
+                    gm.IncrementActivePlayer();
+                }
+                else if (gm.InactivePlayerPassed() && gm.river.riverCards.Count == 0)
+                {
+                    gm.IncrementActivePlayer();
+                }
+            }
+            gm.CheckRefreshRiver();
             return;
         }
         

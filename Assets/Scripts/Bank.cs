@@ -75,6 +75,7 @@ public class Bank : MonoBehaviour
     public void OnMouseDown()
     {
         sellWorkBench(bankData);
+        GameplayManager.Instance.IncrementActivePlayer();
     }
 
     public void sellWorkBench(List<CardData> sellData)
