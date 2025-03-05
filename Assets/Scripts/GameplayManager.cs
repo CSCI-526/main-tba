@@ -646,6 +646,12 @@ public class GameplayManager : MonoBehaviour
 
     public void IncrementActivePlayer()
     {
+        // destroy other selects prefabs to reset selection for the turn.
+        GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+        foreach (GameObject instance in selectInstances)
+        {
+            Destroy(instance);
+        }
         if (activePlayer.playerNum == 2)
         {
             SetActivePlayer(0);
