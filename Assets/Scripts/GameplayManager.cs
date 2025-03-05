@@ -211,10 +211,10 @@ public class GameplayManager : MonoBehaviour
         //buttons
         next_button.gameObject.SetActive(true);
         next_player_button.gameObject.SetActive(false);
-        rules_button.gameObject.SetActive(true);
+        rules_button.gameObject.SetActive(false);
         next_button.onClick.AddListener(() => OnButtonClick(1));
         next_player_button.onClick.AddListener(() => OnButtonClick(2));
-        rules_button.onClick.AddListener(() => OnButtonClick(3));
+        // rules_button.onClick.AddListener(() => OnButtonClick(3));
         //withdraw_button.onClick.AddListener(() => OnButtonClick(3));
 
 
