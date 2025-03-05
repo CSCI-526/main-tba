@@ -30,11 +30,10 @@ public class Card : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Texture2D texture;
     public GameplayManager gm;
+    public GameObject select;
 
     public bool bankable = true;
-
     public bool waiting_to_put = false;
-
     public string place;
 
     // Start is called before the first frame update
@@ -83,7 +82,20 @@ public class Card : MonoBehaviour
     //when clicked, a card should be banked
     private void OnMouseDown()
     {
-        if (bankable)
+        if (!GameplayManager.Instance.selected_cards.Contains(this))
+        {
+            // destroy other selects first
+            GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+            foreach (GameObject instance in selectInstances)
+            {
+                Destroy(instance);
+            }
+            // clear selected_cards first then add this to selected_cards
+            gm.ClearSelectedCards();
+            GameplayManager.Instance.selected_cards.Add(this);
+            Instantiate(select, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+        }
+        else
         {
             gm.LocateAndBank(GetCardData());
             if (gm.activePlayer.WB1.isValidAddition(GetCardData()) || gm.activePlayer.WB2.isValidAddition(GetCardData()))
@@ -111,7 +123,7 @@ public class Card : MonoBehaviour
             return;
         }*/
 
-        if (place == "River")
+        /*if (place == "River")
         {
             // wait to be put somewhere (workbench or other place)
             if (!waiting_to_put)
@@ -169,6 +181,6 @@ public class Card : MonoBehaviour
                               GameplayManager.Instance.selected_cards.Count);
                 }
             }
-        }
+        }*/
     }
 }
