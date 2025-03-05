@@ -81,6 +81,13 @@ public class GameplayManager : MonoBehaviour
 
 
     //UI elements
+    [SerializeField]
+    private GameObject gameCanvas;
+    [SerializeField]
+    private GameObject inGameTut1;
+    [SerializeField]
+    private GameObject inGameTut2;
+
     public TMP_Text currEventText;
     public TMP_Text instructionText;
     public TMP_Text currPlayerText;
@@ -118,6 +125,8 @@ public class GameplayManager : MonoBehaviour
     //initialize everything needed at the top of the game
     void Start()
     {
+        inGameTut1.SetActive(false);
+        inGameTut2.SetActive(false);
         InitializePlayers();
         InitializeGame();
         river.Flop(deck);
@@ -554,8 +563,12 @@ public class GameplayManager : MonoBehaviour
                 Debug.Log("rules button clicked!");
                 rules_toggle = !rules_toggle;
                 // make other component active, change text
-                rules_button.GetComponentInChildren<TextMeshProUGUI>().text = rules_toggle ? "Hide" : "Rules";
-                rules_panel.SetActive(rules_toggle);
+                // rules_button.GetComponentInChildren<TextMeshProUGUI>().text = rules_toggle ? "Hide" : "Rules";
+                // rules_panel.SetActive(rules_toggle);
+                
+                // Work in progress!
+                //InGameTutorialDisplay();
+
                 break;
 
             default:
@@ -707,4 +720,15 @@ public class GameplayManager : MonoBehaviour
             p2ScoreText.text = "Score: " + activePlayer.score;
         }
     }
+
+    /* Work in progress to show in-game tutorial, feel free to disregard!
+    public void InGameTutorialDisplay()
+    {
+        gameCanvas.SetActive(false);
+        p1firstWB.GetComponent<BoxCollider2D>().enabled = false;
+        p1secondWB.GetComponent<BoxCollider2D>().enabled = false;
+        // p1secondWB.SetActive(false);
+        inGameTut1.SetActive(true);
+    }
+    */
 }
