@@ -50,6 +50,9 @@ public class Bank : MonoBehaviour
         //if there's one or more parts
         else
         {
+            //TODO: Possible issue here, I don't know if allow matches of cards with just the same color
+            //the way this is now, I think you could take a red right leg, red left leg, and then a red right leg
+
             //if it doesn't match parttype or color it's invalid
             if (cd.cardSuit != color && cd.cardValue != partType)
             {

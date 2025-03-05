@@ -53,7 +53,11 @@ public class River : MonoBehaviour
         if (index < riverData.Count)
         {
             CardData cd = riverData[index];
+            //I think there needs to be logic here to control which bench the river card goes to
             if (gm.activePlayer.WB1.AddToBank(cd))
+            {
+                riverData.RemoveAt(index);
+            } else if (gm.activePlayer.WB2.AddToBank(cd))
             {
                 riverData.RemoveAt(index);
             }
