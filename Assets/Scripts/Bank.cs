@@ -155,6 +155,9 @@ public class Bank : MonoBehaviour
                 Debug.Log("Selling robot...");
                 Debug.Log("Awarding " + robotScoreTable[sellData.Count] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
                 GameplayManager.Instance.AwardPoints(robotScoreTable[sellData.Count]);
+
+                //Analytics 
+                AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[sellData.Count]);
                 bankData.Clear();
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
@@ -165,6 +168,9 @@ public class Bank : MonoBehaviour
                 Debug.Log("Selling heap...");
                 Debug.Log("Awarding " + heapScoreTable[sellData.Count] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
                 GameplayManager.Instance.AwardPoints(heapScoreTable[sellData.Count]);
+
+                //Analytics 
+                AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[sellData.Count]);
                 bankData.Clear();
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
