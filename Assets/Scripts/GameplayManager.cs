@@ -98,6 +98,8 @@ public class GameplayManager : MonoBehaviour
     public Button rules_button;
     public GameObject rules_panel;
     private bool rules_toggle = false;
+
+    private int actionsTaken = 4;
     
     // currectly selected cards
     public List<Card> selected_cards = new List<Card>();
@@ -701,8 +703,20 @@ public class GameplayManager : MonoBehaviour
             playerList[0].passed = false;
             playerList[1].passed = false;
         }
+
+        /*
+        if(actionsTaken == 0)
+        {
+            river.riverData.Clear();
+            river.Flop(deck);
+            actionsTaken = 4;
+        }*/
     }
 
+    public void decrementActionsTaken()
+    {
+        //TODO decrement actions taken
+    }
     public bool InactivePlayerPassed()
     {
         if (activePlayer.playerNum == 1)

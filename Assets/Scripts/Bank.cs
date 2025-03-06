@@ -74,8 +74,34 @@ public class Bank : MonoBehaviour
 
     public void OnMouseDown()
     {
-        sellWorkBench(bankData);
-        GameplayManager.Instance.IncrementActivePlayer();
+        //Mousing down on a workbench means we either are adding a card to it, or selling the bench
+        if (GameplayManager.Instance.selected_cards.Count == 1)
+        {
+            //There is a card that has been selected from the belt
+            //Add it to the player's selected bench
+            Debug.Log("Adding to selected bench");
+            // destroy other selects first
+            GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+            foreach (GameObject instance in selectInstances)
+            {
+                Destroy(instance);
+            }
+
+            //Grab the card data from the selected card
+            CardData selectedCardData = GameplayManager.Instance.selected_cards[0].GetCardData();
+            // clear selected_cards first then add this to selected_cards
+            GameplayManager.Instance.ClearSelectedCards();
+
+            AddToBank(selectedCardData);
+
+            //Incrememt the turn player since adding to the bench is a turn
+            GameplayManager.Instance.IncrementActivePlayer();
+        }
+        else
+        {
+            sellWorkBench(bankData);
+            GameplayManager.Instance.IncrementActivePlayer();
+        }
     }
 
     public void sellWorkBench(List<CardData> sellData)

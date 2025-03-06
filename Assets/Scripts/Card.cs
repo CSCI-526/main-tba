@@ -95,7 +95,8 @@ public class Card : MonoBehaviour
             GameplayManager.Instance.selected_cards.Add(this);
             Instantiate(select, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
         }
-        else
+        //Commenting out this logic and moved it to the bank class so that you can select where the selected card goes
+        /*else
         {
             gm.LocateAndBank(GetCardData());
             if (gm.activePlayer.WB1.isValidAddition(GetCardData()) || gm.activePlayer.WB2.isValidAddition(GetCardData()))
@@ -111,7 +112,7 @@ public class Card : MonoBehaviour
             }
             gm.CheckRefreshRiver();
             return;
-        }
+        }*/
         
         // TODO: use game phase to allow select card using place and cur game phase (avoid mix select)
         /*if (GameplayManager.Instance.curr_phase == 1 && place != "River")
