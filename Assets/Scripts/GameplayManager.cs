@@ -99,7 +99,7 @@ public class GameplayManager : MonoBehaviour
     public GameObject rules_panel;
     private bool rules_toggle = false;
 
-    private int actionsTaken = 4;
+    private int actionsTakenInRound = 4;
     
     // currectly selected cards
     public List<Card> selected_cards = new List<Card>();
@@ -724,6 +724,16 @@ public class GameplayManager : MonoBehaviour
     public void decrementActionsTaken()
     {
         //TODO decrement actions taken
+        //There are a few actions to take in a turn
+        //Pick up a card
+        //Sell a workbench
+        //Pass
+        //Any of these actions decrement the actionsTakenInRound counter
+        //When it's 0 refresh with new river
+        if (actionsTakenInRound > 0)
+        {
+            actionsTakenInRound--;
+        }
     }
     public bool InactivePlayerPassed()
     {

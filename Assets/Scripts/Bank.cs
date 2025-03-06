@@ -92,22 +92,28 @@ public class Bank : MonoBehaviour
             // clear selected_cards first then add this to selected_cards
             GameplayManager.Instance.ClearSelectedCards();
 
-            //delete the card from the river
-            GameplayManager.Instance.RemoveCardFromRiver(selectedCardData);
+            
 
-            AddToBank(selectedCardData);
+            if (AddToBank(selectedCardData))
+            {
+                //delete the card from the river
+                GameplayManager.Instance.RemoveCardFromRiver(selectedCardData);
 
-            //Incrememt the turn player since adding to the bench is a turn
-            GameplayManager.Instance.IncrementActivePlayer();
+                //Incrememt the turn player since adding to the bench is a turn
+                GameplayManager.Instance.IncrementActivePlayer();
+            }
         }
         else
         {
-            sellWorkBench(bankData);
-            GameplayManager.Instance.IncrementActivePlayer();
+            //only on successful sell increment active player
+            if (sellWorkBench(bankData))
+            {
+                GameplayManager.Instance.IncrementActivePlayer();
+            }
         }
     }
 
-    public void sellWorkBench(List<CardData> sellData)
+    public bool sellWorkBench(List<CardData> sellData)
     {
         // Score tables for selling robots and heaps 
         //   - key is the number of parts
@@ -157,10 +163,12 @@ public class Bank : MonoBehaviour
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
             }
+            return true;
         }
         else
         {
             Debug.Log("This workbench can't be sold yet");
+            return false;
         }
     }
 }
