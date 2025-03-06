@@ -92,6 +92,9 @@ public class Bank : MonoBehaviour
             // clear selected_cards first then add this to selected_cards
             GameplayManager.Instance.ClearSelectedCards();
 
+            //delete the card from the river
+            GameplayManager.Instance.RemoveCardFromRiver(selectedCardData);
+
             AddToBank(selectedCardData);
 
             //Incrememt the turn player since adding to the bench is a turn

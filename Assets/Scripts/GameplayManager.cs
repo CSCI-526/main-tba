@@ -182,6 +182,14 @@ public class GameplayManager : MonoBehaviour
         river.LocateAndBank(cd);
     }
 
+    //Making this helper function to just remove a card from the river
+    //Adding the card to the bank will be hanled by the OnButtonClick in the bank so user has
+    //agency in adding card to which bank
+    public bool RemoveCardFromRiver(CardData cd)
+    {
+        return river.LocateAndDelete(cd);
+    }
+
     //Initialize players from the player objects given
     void InitializePlayers()
     {

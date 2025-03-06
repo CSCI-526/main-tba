@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
@@ -75,6 +76,23 @@ public class River : MonoBehaviour
             if (cd.cardSuit == riverData[i].cardSuit && cd.cardValue == riverData[i].cardValue)
             {
                 BankCard(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //Just a function to locate and delete a card in the river
+    //No banking, let the bank class handle that
+    public bool LocateAndDelete(CardData cd)
+    {
+        for (int i = 0; i < riverData.Count; i++)
+        {
+            //if card matches delete it
+            if (cd.cardSuit == riverData[i].cardSuit && cd.cardValue == riverData[i].cardValue)
+            {
+                riverData.RemoveAt(i);
+                RefreshRiver();
                 return true;
             }
         }
