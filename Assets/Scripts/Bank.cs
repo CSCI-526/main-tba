@@ -124,6 +124,9 @@ public class Bank : MonoBehaviour
         // Score tables for selling robots and heaps 
         //   - key is the number of parts
         //   - value is the points to be awarded 
+        int numRobotParts = 0;
+        int numHeapParts = 0;
+
         Dictionary<int, int> robotScoreTable = new()
         {
             {2, 2},
@@ -153,11 +156,19 @@ public class Bank : MonoBehaviour
             {
                 // this workbench contains a robot 
                 Debug.Log("Selling robot...");
-                Debug.Log("Awarding " + robotScoreTable[sellData.Count] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
-                GameplayManager.Instance.AwardPoints(robotScoreTable[sellData.Count]);
+
+                numRobotParts = sellData.Count;
+                // in current build, possible to have multiple of same body part, so adjust number 
+                if (sellData.Count > 5)
+                {
+                    numRobotParts = 5;
+                }
+
+                Debug.Log("Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
+                GameplayManager.Instance.AwardPoints(robotScoreTable[numRobotParts]);
 
                 //Analytics 
-                AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[sellData.Count]);
+                AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[numRobotParts]);
                 bankData.Clear();
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
@@ -166,11 +177,19 @@ public class Bank : MonoBehaviour
             {
                 // this workbench contains a heap 
                 Debug.Log("Selling heap...");
-                Debug.Log("Awarding " + heapScoreTable[sellData.Count] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
-                GameplayManager.Instance.AwardPoints(heapScoreTable[sellData.Count]);
+
+                numHeapParts = sellData.Count;
+                // in current build (I believe) possible to have more than 10 parts in a heap, so adjust number
+                if (sellData.Count > 10)
+                {
+                    numHeapParts = 10;
+                }
+
+                Debug.Log("Awarding " + heapScoreTable[numHeapParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
+                GameplayManager.Instance.AwardPoints(heapScoreTable[numHeapParts]);
 
                 //Analytics 
-                AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[sellData.Count]);
+                AnalyticsManager.Instance.LogWorkbenchSale(bankData, heapScoreTable[numHeapParts]);
                 bankData.Clear();
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
