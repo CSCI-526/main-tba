@@ -544,7 +544,8 @@ public class GameplayManager : MonoBehaviour
             case 1:
                 Debug.Log("PASS button clicked!");
                 activePlayer.passed = true;
-                CheckRefreshRiver();
+                decrementActionsTaken();
+                //CheckRefreshRiver();
                 IncrementActivePlayer();
                 /*
                 curr_phase++;
@@ -687,6 +688,7 @@ public class GameplayManager : MonoBehaviour
 
     public void CheckRefreshRiver()
     {
+        /*
         // If river has run dry: reflop river
         if (river.riverCards.Count == 0)
         {
@@ -710,29 +712,30 @@ public class GameplayManager : MonoBehaviour
             river.Flop(deck);
             playerList[0].passed = false;
             playerList[1].passed = false;
-        }
+        }*/
 
-        /*
-        if(actionsTaken == 0)
+        //River gets refreshed when actionsTakenInRound hits 0
+        //Round is over both players have taken 2 actions each (taken a card, passed, or sold a workbench)
+        Debug.Log("Actions in round taken: " + actionsTakenInRound);
+        if(actionsTakenInRound == 0)
         {
             river.riverData.Clear();
             river.Flop(deck);
-            actionsTaken = 4;
-        }*/
+            actionsTakenInRound = 4;
+        }
     }
 
     public void decrementActionsTaken()
     {
-        //TODO decrement actions taken
-        //There are a few actions to take in a turn
-        //Pick up a card
-        //Sell a workbench
-        //Pass
-        //Any of these actions decrement the actionsTakenInRound counter
-        //When it's 0 refresh with new river
         if (actionsTakenInRound > 0)
         {
             actionsTakenInRound--;
+        }
+
+        if(actionsTakenInRound == 0)
+        {
+            //Time to refresh the river
+            CheckRefreshRiver();
         }
     }
     public bool InactivePlayerPassed()

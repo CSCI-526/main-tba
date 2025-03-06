@@ -99,6 +99,9 @@ public class Bank : MonoBehaviour
                 //delete the card from the river
                 GameplayManager.Instance.RemoveCardFromRiver(selectedCardData);
 
+                //decrement turns in round
+                GameplayManager.Instance.decrementActionsTaken();
+
                 //Incrememt the turn player since adding to the bench is a turn
                 GameplayManager.Instance.IncrementActivePlayer();
             }
@@ -108,6 +111,9 @@ public class Bank : MonoBehaviour
             //only on successful sell increment active player
             if (sellWorkBench(bankData))
             {
+                //decrement turns in round
+                GameplayManager.Instance.decrementActionsTaken();
+
                 GameplayManager.Instance.IncrementActivePlayer();
             }
         }
