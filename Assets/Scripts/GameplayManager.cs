@@ -170,8 +170,12 @@ public class GameplayManager : MonoBehaviour
         }
 
         //terminate game when any player reach score 30
-        if (activePlayer.score >= 30){
-            Winner.gameWinner = activePlayer.playerNum;
+        if (playerList[0].score >= 30){
+            Winner.gameWinner = playerList[0].playerNum;
+            SceneManager.LoadScene(2);
+        }
+        if (playerList[1].score >= 30){
+            Winner.gameWinner = playerList[1].playerNum;
             SceneManager.LoadScene(2);
         }
     }
