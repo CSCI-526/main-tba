@@ -353,6 +353,8 @@ public class GameplayManager : MonoBehaviour
         {
             //Time to refresh the river
             CheckRefreshRiver();
+            // set active player to alternate who goes first
+            SetActivePlayer(activePlayer.playerNum);
         }
     }
     public bool InactivePlayerPassed()
