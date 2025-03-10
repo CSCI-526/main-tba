@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bank : MonoBehaviour
 {
@@ -13,6 +14,16 @@ public class Bank : MonoBehaviour
 
     //text listing all of the cards
     public TMP_Text bankText;
+
+    // button to sell this workbench
+    [SerializeField]
+    private Button sellButton;
+
+    void Start()
+    {
+        sellButton.onClick.AddListener(() => sellWorkBench(bankData));
+        sellButton.interactable = false;
+    }
 
     public bool AddToBank(CardData cd)
     {
@@ -104,17 +115,11 @@ public class Bank : MonoBehaviour
 
                 //Incrememt the turn player since adding to the bench is a turn
                 GameplayManager.Instance.IncrementActivePlayer();
-            }
-        }
-        else
-        {
-            //only on successful sell increment active player
-            if (sellWorkBench(bankData))
-            {
-                //decrement turns in round
-                GameplayManager.Instance.decrementActionsTaken();
 
-                GameplayManager.Instance.IncrementActivePlayer();
+                if (bankData.Count >= 2)
+                {
+                    sellButton.interactable = true;
+                }
             }
         }
     }
@@ -172,6 +177,9 @@ public class Bank : MonoBehaviour
                 bankData.Clear();
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
+                //decrement turns in round
+                GameplayManager.Instance.decrementActionsTaken();
+                GameplayManager.Instance.IncrementActivePlayer();
             }
             else if (sellData[0].cardValue == sellData[1].cardValue)
             {
@@ -193,7 +201,11 @@ public class Bank : MonoBehaviour
                 bankData.Clear();
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
+                //decrement turns in round
+                GameplayManager.Instance.decrementActionsTaken();
+                GameplayManager.Instance.IncrementActivePlayer();
             }
+            sellButton.interactable = false;
             return true;
         }
         else

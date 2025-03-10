@@ -182,6 +182,7 @@ public class GameplayManager : MonoBehaviour
     {
         deck.InitializeDeck();
         deck.ShuffleDeck();
+        SetActivePlayer(0);
 
         //buttons
         next_button.gameObject.SetActive(true);
@@ -210,7 +211,7 @@ public class GameplayManager : MonoBehaviour
         if (activePlayer.playerNum == 1)
         {
             // change location of active player indicator text 
-            currPlayerText.rectTransform.anchoredPosition = new Vector2(-200, -150);
+            currPlayerText.rectTransform.anchoredPosition = new Vector2(-180, -120);
 
             // disable Collider component of inactive player so active player can only click their workbenches
             playerList[0].WB1.GetComponent<Collider2D>().enabled = true;
@@ -222,7 +223,7 @@ public class GameplayManager : MonoBehaviour
         else if (activePlayer.playerNum == 2)
         {
             // change location of active player indicator text
-            currPlayerText.rectTransform.anchoredPosition = new Vector2(-200, 130);
+            currPlayerText.rectTransform.anchoredPosition = new Vector2(-180, 130);
 
             // change location of active player indicator text
             playerList[1].WB1.GetComponent<Collider2D>().enabled = true;
@@ -354,18 +355,8 @@ public class GameplayManager : MonoBehaviour
             //Time to refresh the river
             CheckRefreshRiver();
             // set active player to alternate who goes first
-            SetActivePlayer(activePlayer.playerNum);
-        }
-    }
-    public bool InactivePlayerPassed()
-    {
-        if (activePlayer.playerNum == 1)
-        {
-            return playerList[1].passed;
-        }
-        else 
-        {
-            return playerList[0].passed;
+            Debug.Log("current value of active's playerNum: " + activePlayer.playerNum);
+            IncrementActivePlayer();
         }
     }
 
