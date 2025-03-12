@@ -251,6 +251,7 @@ public class GameplayManager : MonoBehaviour
                 decrementActionsTaken();
                 //CheckRefreshRiver();
                 IncrementActivePlayer();
+                GameplayManager.Instance.selected_cards.Clear();
                 break;
 
             case 3:

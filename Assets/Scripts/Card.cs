@@ -78,6 +78,25 @@ public class Card : MonoBehaviour
         return new CardData(cardValue, cardSuit, texture);
     }
 
+    // Mouseover Tooltip functions 
+    private void OnMouseEnter()
+    {
+        if (GameplayManager.Instance.selected_cards.Count == 0)
+        {
+            TooltipManager._instance.SetAndShowTooltip("Click to select this card.");
+        }
+        else if (GameplayManager.Instance.selected_cards.Count == 1 && GameplayManager.Instance.selected_cards[0] != this)
+        {
+            TooltipManager._instance.SetAndShowTooltip("Click to change to this card.");
+        }
+        
+    }
+
+    private void OnMouseExit()
+    {
+        TooltipManager._instance.HideTooltip();
+    }
+
     //when clicked, pass to gameplay manager to find it in the river or hand and bank it
     //when clicked, a card should be banked
     private void OnMouseDown()

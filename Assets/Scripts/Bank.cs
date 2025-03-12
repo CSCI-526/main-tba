@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Bank : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class Bank : MonoBehaviour
     // button to sell this workbench
     [SerializeField]
     private Button sellButton;
+    [SerializeField]
+    private TextMeshProUGUI sellButtonText;
 
     void Start()
     {
@@ -153,6 +156,14 @@ public class Bank : MonoBehaviour
                 if (bankData.Count >= 2)
                 {
                     sellButton.interactable = true;
+                    if(bankData[0].cardSuit == bankData[1].cardSuit)
+                    {
+                        sellButtonText.text = "SELL";
+                    }
+                    else if(bankData[0].cardValue == bankData[1].cardValue)
+                    {
+                        sellButtonText.text = "USE";
+                    }
                 }
             }
         }
@@ -251,5 +262,49 @@ public class Bank : MonoBehaviour
             Debug.Log("This workbench can't be sold yet");
             return false;
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        string msg = string.Empty;
+        // Show Workbench info when mouse hover and no cards selected 
+        if (GameplayManager.Instance.selected_cards.Count == 0)
+        {
+            if (bankData.Count < 2)
+            {
+                msg += "Collect more parts to build a robot or a weapon!";
+            }
+            else
+            {
+                if (bankData[0].cardSuit == bankData[1].cardSuit)
+                {
+                    msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far.";
+                }
+                else if (bankData[0].cardValue == bankData[1].cardValue)
+                {
+                    msg += "Building " + bankData[0].cardValue + " weapon...\n" + bankData.Count + " parts so far.";
+                }
+            }
+            TooltipManager._instance.SetAndShowTooltip(msg);
+        }
+        /*
+        else if(GameplayManager.Instance.selected_cards.Count == 1)
+        {
+            CardData selectedCardData = GameplayManager.Instance.selected_cards[0].GetCardData();
+            if (isValidAddition(selectedCardData))
+            {
+                TooltipManager._instance.SetAndShowTooltip("Click to add selected card.");
+            }
+            else
+            {
+                TooltipManager._instance.SetAndShowTooltip("Selected card cannot be added to this workbench.");
+            }
+        }
+        */
+    }
+
+    private void OnMouseExit()
+    {
+        TooltipManager._instance.HideTooltip();
     }
 }
