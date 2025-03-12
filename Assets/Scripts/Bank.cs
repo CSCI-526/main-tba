@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,8 @@ public class Bank : MonoBehaviour
 
     public Card.CardSuit color = Card.CardSuit.empty;
     public Card.CardValue partType = Card.CardValue.empty;
+    //init an array of taken parts, this assumes only 5 distinct parts
+    private bool[] takenParts = { false, false, false, false, false };
 
     //text listing all of the cards
     public TMP_Text bankText;
@@ -51,35 +54,64 @@ public class Bank : MonoBehaviour
 
     public bool isValidAddition(CardData cd)
     {
-        //if empty then it has to be valid
         if (bankData.Count == 0)
         {
-            partType = cd.cardValue;
+            takenParts[(int)cd.cardValue - 1] = true;
+            //color is set for the bank at this point
             color = cd.cardSuit;
             return true;
-        }
-        //if there's one or more parts
-        else
+        } else
         {
-            //TODO: Possible issue here, I don't know if allow matches of cards with just the same color
-            //the way this is now, I think you could take a red right leg, red left leg, and then a red right leg
-
-            //if it doesn't match parttype or color it's invalid
-            if (cd.cardSuit != color && cd.cardValue != partType)
+            //what if this isn't the first card in the bench
+            //1) does it match the set color of the bench
+            if(cd.cardSuit == color)
             {
-                return false;
+                //is this a new robot part?
+                if(takenParts[(int)cd.cardValue - 1] == false)
+                {
+                    takenParts[(int)cd.cardValue - 1] = true;
+                    return true;
+                } 
             }
-            //if it doesn't match the color, then we're not building based on color
-            if (cd.cardSuit != color)
+
+            //2) is this part type already in the bench AND there is only one type in the bench?
+            if(takenParts[(int)cd.cardValue - 1] == true && hasOnlyOneType())
             {
+                //turn off the color now, we're dupe parts only
                 color = Card.CardSuit.empty;
+                return true;
             }
-            if (cd.cardValue != partType)
-            {
-                partType = Card.CardValue.empty;
-            }
-            return true;
 
+            return false;
+        }
+    }
+
+    //Helper method to tell if a workbench only has one part type in it
+    private bool hasOnlyOneType()
+    {
+        int counter = 0;
+        for (int i = 0; i < this.takenParts.Length; i++)
+        {
+            if (this.takenParts[i] == true)
+            {
+                counter++;
+            }
+        }
+
+        if(counter > 1)
+        {
+            return false;
+        } else
+        {
+            return true;
+        }
+    }
+
+    private void cleanupTakenParts()
+    {
+        for(int i = 0; i < this.takenParts.Length; i++)
+        {
+            this.takenParts[i] = false;
         }
     }
 
@@ -206,6 +238,10 @@ public class Bank : MonoBehaviour
                 GameplayManager.Instance.IncrementActivePlayer();
             }
             sellButton.interactable = false;
+
+            //cleanup operations on the workbench
+            this.color = Card.CardSuit.empty;
+            cleanupTakenParts();
             return true;
         }
         else
