@@ -11,6 +11,8 @@ public class Bank : MonoBehaviour
     public List<CardData> bankData = new List<CardData>();
 
     public Card.CardSuit color = Card.CardSuit.empty;
+    
+    //partType no longer in use, deletable?
     public Card.CardValue partType = Card.CardValue.empty;
     //init an array of taken parts, this assumes only 5 distinct parts
     private bool[] takenParts = { false, false, false, false, false };

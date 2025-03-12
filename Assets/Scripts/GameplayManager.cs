@@ -134,6 +134,13 @@ public class GameplayManager : MonoBehaviour
             river.addToRiver(deck);
         }
 
+        //testing head ability
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            HeadAbility headAbility = new HeadAbility();
+            headAbility.Activate(4);
+        }
+
         //terminate game when any player reach score 30
         if (playerList[0].score >= 30){
             Winner.gameWinner = playerList[0].playerNum;

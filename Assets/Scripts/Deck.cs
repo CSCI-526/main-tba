@@ -118,6 +118,24 @@ public class Deck : MonoBehaviour
         return cardData;
     }
 
+    //Peek at the next N cards in the deck
+    //Don't remove the card, just copy the cardData
+    public List<CardData> PeekNextNCards(int n)
+    {
+        List<CardData> peekList = new List<CardData>();
+        if (deck.Count < n)
+        {
+            Debug.Log("Not enough cards to peek");
+            InitializeDeck();
+        }
+
+        for(int i = 0; i < n; i++)
+        {
+            peekList.Add(deck[(deck.Count - 1) - i]);
+        }
+        return peekList;
+    }
+
     //Return a card to the deck
     //Used for cleaning up the cards after a round and returning
     //the river and player cards (not banked) to the deck
