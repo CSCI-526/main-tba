@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 public class AnalyticsManager : MonoBehaviour
 {
     //This DB is NOT locked currently
-    private string firebaseURL = "https://botorbought-default-rtdb.firebaseio.com/";
+    private string firebaseURL = "https://botorbought-85297-default-rtdb.firebaseio.com/";
     public static AnalyticsManager Instance { get; private set; }
 
     private void Awake()
