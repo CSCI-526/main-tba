@@ -9,6 +9,7 @@ public class CardData
     public Card.CardValue cardValue;
     public Card.CardSuit cardSuit;
     public Texture2D texture;
+    public int pos;
 
     public CardData(Card.CardValue value, Card.CardSuit suit, Texture2D texture)
     {

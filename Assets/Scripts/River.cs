@@ -22,16 +22,21 @@ public class River : MonoBehaviour
     public void Flop(Deck deck)
     {
         addToRiver(deck);
+        riverData[0].pos = 0;
         addToRiver(deck);
+        riverData[1].pos = 1;
         addToRiver(deck);
+        riverData[2].pos = 2;
         addToRiver(deck);
+        riverData[3].pos = 3;
         addToRiver(deck);
+        riverData[4].pos = 4;
+        RefreshRiver();
     }
 
     public void addToRiver(Deck deck)
     {
         riverData.Add(deck.DealCard());
-        RefreshRiver();
     }
 
     //call this to show the new cards that are added to the river
@@ -47,7 +52,7 @@ public class River : MonoBehaviour
         {
             riverCards.Add(Instantiate(cardPrefab));
             riverCards[i].GetComponent<Card>().Initialize(riverData[i].cardValue, riverData[i].cardSuit, riverData[i].texture);
-            riverCards[i].transform.position = new Vector3((xshift * i) - xshift*2.25f, yshift, 0f);
+            riverCards[i].transform.position = new Vector3((xshift * riverData[i].pos) - xshift*2.25f, yshift, 0f);
         }
     }
 
