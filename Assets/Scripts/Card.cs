@@ -83,11 +83,11 @@ public class Card : MonoBehaviour
     {
         if (GameplayManager.Instance.selected_cards.Count == 0)
         {
-            TooltipManager._instance.SetAndShowTooltip("Click to select this card.");
+            TooltipManager._instance.SetAndShowTooltip(cardSuit + " " + cardValue + "\nClick to select.");
         }
         else if (GameplayManager.Instance.selected_cards.Count == 1 && GameplayManager.Instance.selected_cards[0] != this)
         {
-            TooltipManager._instance.SetAndShowTooltip("Click to change to this card.");
+            TooltipManager._instance.SetAndShowTooltip(cardSuit + " " + cardValue + "\nClick to select.");
         }
         
     }

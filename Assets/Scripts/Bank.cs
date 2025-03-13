@@ -341,13 +341,43 @@ public class Bank : MonoBehaviour
             }
             else
             {
-                if (bankData[0].cardSuit == bankData[1].cardSuit)
+                if (bankData[0].cardValue == bankData[1].cardValue)
                 {
-                    msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far.";
+                    switch ((int)bankData[0].cardValue)
+                    {
+                        case 1:
+                        msg += "Peek at the next cards on conveyor belt.\nCurrent power: " + bankData.Count;
+                        break;
+
+                        case 2:
+                        msg += "Destroy parts from opponent's LEFT workbench.\nCurrent power: " + bankData.Count;
+                        break;
+
+                        case 3:
+                        msg += "Destroy parts from opponent's RIGHT workbench.\nCurrent power: " + bankData.Count;
+                        break;
+
+                        case 4:
+                        msg += "Collect points based on cards remaining on LEFT half of conveyor belt.\nCurrent power: " + bankData.Count;
+                        break;
+
+                        case 5:
+                        msg += "Collect points based on cards remaining on RIGHT half of conveyor belt.\nCurrent power: " + bankData.Count;
+                        break;
+                    }
                 }
-                else if (bankData[0].cardValue == bankData[1].cardValue)
+
+                else if (bankData[0].cardSuit == bankData[1].cardSuit)
                 {
-                    msg += "Building " + bankData[0].cardValue + " weapon...\n" + bankData.Count + " parts so far.";
+                    if (bankData.Count < 5)
+                    {
+                        msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far.";
+                    }
+                    else if (bankData.Count == 5)
+                    {
+                        msg += bankData[0].cardSuit + " robot complete!";
+                    }
+                    
                 }
             }
             TooltipManager._instance.SetAndShowTooltip(msg);

@@ -228,7 +228,7 @@ public class GameplayManager : MonoBehaviour
         activePlayer = playerList[playerNum];
         activePlayer.WB1.UpdateBankText();
         activePlayer.WB2.UpdateBankText();
-        currPlayerText.text = "Player" + activePlayer.playerNum + "'s turn";
+        currPlayerText.text = "P" + activePlayer.playerNum + "'s turn";
 
         if (activePlayer.playerNum == 1)
         {
