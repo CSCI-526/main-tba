@@ -203,13 +203,13 @@ public class Bank : MonoBehaviour
                 if (bankData.Count >= 2)
                 {
                     sellButton.interactable = true;
-                    if(bankData[0].cardSuit == bankData[1].cardSuit)
-                    {
-                        sellButtonText.text = "SELL";
-                    }
-                    else if(bankData[0].cardValue == bankData[1].cardValue)
+                    if(bankData[0].cardValue == bankData[1].cardValue)
                     {
                         sellButtonText.text = "USE";
+                    }
+                    else if(bankData[0].cardSuit == bankData[1].cardSuit)
+                    {
+                        sellButtonText.text = "SELL";
                     }
                 }
             }
