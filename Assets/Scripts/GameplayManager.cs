@@ -402,6 +402,7 @@ public class GameplayManager : MonoBehaviour
         if (cards_tmp_holder.Count == 0)
         {
             cards_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("Card"));
+            cards_tmp_holder.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("SelectPrefab")));
         }
         
         Debug.Log("toggle" + cards_tmp_holder.Count);
