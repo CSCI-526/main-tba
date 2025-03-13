@@ -40,6 +40,7 @@ public class Bank : MonoBehaviour
     public bool AddToBank(CardData cd)
     {
         if (isValidAddition(cd)) {
+            takenParts[(int)cd.cardValue - 1] = true;
             if (bankData.Count == 0)
             {
                 //color is set for the bank at this point
@@ -51,7 +52,6 @@ public class Bank : MonoBehaviour
                 color = Card.CardSuit.empty;
             }
             bankData.Add(cd);
-            takenParts[(int)cd.cardValue - 1] = true;
             UpdateBankText();
             return true;
         }
