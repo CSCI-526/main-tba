@@ -41,7 +41,7 @@ public class Card : MonoBehaviour
     {
         //Initialize(CardValue.One, CardSuit.Hearts, this.texture);
     }
-
+    
     public void Initialize(CardValue cV, CardSuit cS, Texture2D tex)
     {
         this.cardValue = cV;

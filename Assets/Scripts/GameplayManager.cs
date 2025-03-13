@@ -68,12 +68,17 @@ public class GameplayManager : MonoBehaviour
     public TextMeshProUGUI msg;
 
     private int actionsTakenInRound = 4;
+
+    public bool in_game_tutorial = false;
     
     // currectly selected cards
     public List<Card> selected_cards = new List<Card>();
 
     //editable variables
     public int pointsToWin = 20;
+    
+    public List<GameObject> cards_tmp_holder = new List<GameObject>();
+    public List<GameObject> wbs_tmp_holder = new List<GameObject>();
     
     // ---------- Singleton Setup -----------
     public static GameplayManager Instance { get; private set; }
@@ -387,6 +392,43 @@ public class GameplayManager : MonoBehaviour
         else if (activePlayer.playerNum == 2)
         {
             p2ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
+        }
+    }
+    
+    // Call this function whenever you change `inGameTutorial`.
+    public void ToggleCards()
+    {
+        // 1) Find all active objects with tag "card"
+        if (cards_tmp_holder.Count == 0)
+        {
+            cards_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("Card"));
+        }
+        
+        Debug.Log("toggle" + cards_tmp_holder.Count);
+        
+        // 2) If in tutorial, set them inactive, otherwise set them active
+        bool setActive = !in_game_tutorial; // e.g. if inGameTutorial = true => setActive = false
+        foreach (var card in cards_tmp_holder)
+        {
+            card.SetActive(setActive);
+        }
+    }
+    
+    public void ToggleWBs()
+    {
+        // 1) Find all active objects with tag "card"
+        if (wbs_tmp_holder.Count == 0)
+        {
+            wbs_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("WorkBench"));
+        }
+        
+        Debug.Log("toggle" + wbs_tmp_holder.Count);
+        
+        // 2) If in tutorial, set them inactive, otherwise set them active
+        bool setActive = !in_game_tutorial; // e.g. if inGameTutorial = true => setActive = false
+        foreach (var wb in wbs_tmp_holder)
+        {
+            wb.SetActive(setActive);
         }
     }
 
