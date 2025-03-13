@@ -21,6 +21,10 @@ public class Bank : MonoBehaviour
     //text listing all of the cards
     public TMP_Text bankText;
 
+    // determine which player this workbench belongs to
+    public int playerNumber;
+    public GameObject select;
+
     // button to sell this workbench
     [SerializeField]
     private Button sellButton;
@@ -36,7 +40,18 @@ public class Bank : MonoBehaviour
     public bool AddToBank(CardData cd)
     {
         if (isValidAddition(cd)) {
+            if (bankData.Count == 0)
+            {
+                //color is set for the bank at this point
+                color = cd.cardSuit;
+            }
+            else if (hasOnlyOneType())
+            {
+                // this means the build should only be parts, ignore color
+                color = Card.CardSuit.empty;
+            }
             bankData.Add(cd);
+            takenParts[(int)cd.cardValue - 1] = true;
             UpdateBankText();
             return true;
         }
@@ -61,9 +76,6 @@ public class Bank : MonoBehaviour
     {
         if (bankData.Count == 0)
         {
-            takenParts[(int)cd.cardValue - 1] = true;
-            //color is set for the bank at this point
-            color = cd.cardSuit;
             return true;
         } else
         {
@@ -74,7 +86,6 @@ public class Bank : MonoBehaviour
                 //is this a new robot part?
                 if(takenParts[(int)cd.cardValue - 1] == false)
                 {
-                    takenParts[(int)cd.cardValue - 1] = true;
                     return true;
                 } 
             }
@@ -82,8 +93,6 @@ public class Bank : MonoBehaviour
             //2) is this part type already in the bench AND there is only one type in the bench?
             if(takenParts[(int)cd.cardValue - 1] == true && hasOnlyOneType())
             {
-                //turn off the color now, we're dupe parts only
-                color = Card.CardSuit.empty;
                 return true;
             }
 
@@ -306,5 +315,22 @@ public class Bank : MonoBehaviour
     private void OnMouseExit()
     {
         TooltipManager._instance.HideTooltip();
+    }
+
+    // Method to spawn in selection ring around workbench given a valid placement
+    public void spawnSelection(CardData cd)
+    {
+        if (GameplayManager.Instance.activePlayer.playerNum != playerNumber)
+        {
+            return;
+        }
+        if (!isValidAddition(cd))
+        {
+            return;
+        }
+        // Passed all boolean checks, show selected asset
+        Quaternion setRotation = transform.rotation;
+        setRotation.eulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
+        Instantiate(select, new Vector2(transform.position.x, transform.position.y), setRotation);
     }
 }

@@ -113,6 +113,13 @@ public class Card : MonoBehaviour
             gm.ClearSelectedCards();
             GameplayManager.Instance.selected_cards.Add(this);
             Instantiate(select, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+            // spawn selected parts for workbench here
+            GameObject[] workbenches = GameObject.FindGameObjectsWithTag("WorkBench");
+            foreach (GameObject wb in workbenches)
+            {
+                Bank current = wb.GetComponent<Bank>();
+                current.spawnSelection(this.GetCardData());
+            }
         }
         //Commenting out this logic and moved it to the bank class so that you can select where the selected card goes
         /*else

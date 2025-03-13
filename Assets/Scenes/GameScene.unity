@@ -722,7 +722,7 @@ GameObject:
   - component: {fileID: 266640589}
   m_Layer: 0
   m_Name: P2 Workbench 1
-  m_TagString: Untagged
+  m_TagString: WorkBench
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -757,6 +757,8 @@ MonoBehaviour:
   color: 5
   partType: 6
   bankText: {fileID: 1343919372}
+  playerNumber: 2
+  select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}
   sellButton: {fileID: 198065689}
   sellButtonText: {fileID: 1835960740}
 --- !u!212 &266640589
@@ -1654,7 +1656,7 @@ GameObject:
   - component: {fileID: 613597419}
   m_Layer: 0
   m_Name: P1 Workbench 2
-  m_TagString: Untagged
+  m_TagString: WorkBench
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1689,6 +1691,8 @@ MonoBehaviour:
   color: 5
   partType: 6
   bankText: {fileID: 2011563591}
+  playerNumber: 1
+  select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}
   sellButton: {fileID: 1876394394}
   sellButtonText: {fileID: 1202430322}
 --- !u!212 &613597419
@@ -3974,7 +3978,7 @@ GameObject:
   - component: {fileID: 1266363852}
   m_Layer: 0
   m_Name: P1 Workbench 1
-  m_TagString: Untagged
+  m_TagString: WorkBench
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4009,6 +4013,8 @@ MonoBehaviour:
   color: 5
   partType: 6
   bankText: {fileID: 163644145}
+  playerNumber: 1
+  select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}
   sellButton: {fileID: 1339494086}
   sellButtonText: {fileID: 1955050247}
 --- !u!212 &1266363852
@@ -4618,7 +4624,7 @@ GameObject:
   - component: {fileID: 1353454565}
   m_Layer: 0
   m_Name: P2 Workbench 2
-  m_TagString: Untagged
+  m_TagString: WorkBench
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4653,6 +4659,8 @@ MonoBehaviour:
   color: 5
   partType: 6
   bankText: {fileID: 301548354}
+  playerNumber: 2
+  select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}
   sellButton: {fileID: 1416570253}
   sellButtonText: {fileID: 1100575064}
 --- !u!212 &1353454565
