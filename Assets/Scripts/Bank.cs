@@ -285,14 +285,15 @@ public class Bank : MonoBehaviour
             }
             else
             {
-                if (bankData[0].cardSuit == bankData[1].cardSuit)
+                if (bankData[0].cardValue == bankData[1].cardValue)
+                {
+                    msg += "Building " + bankData[0].cardValue + " ability...\n" + bankData.Count + " parts so far.";
+                }
+                else if (bankData[0].cardSuit == bankData[1].cardSuit)
                 {
                     msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far.";
                 }
-                else if (bankData[0].cardValue == bankData[1].cardValue)
-                {
-                    msg += "Building " + bankData[0].cardValue + " weapon...\n" + bankData.Count + " parts so far.";
-                }
+                
             }
             TooltipManager._instance.SetAndShowTooltip(msg);
         }
