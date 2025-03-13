@@ -1363,6 +1363,7 @@ MonoBehaviour:
   cardPrefab: {fileID: 8877676656652779440, guid: b55424c1d30595f4fbb5912acade4c71, type: 3}
   gm: {fileID: 1343590619}
   xshift: 70
+  yshift: -15
 --- !u!1 &552334776
 GameObject:
   m_ObjectHideFlags: 0
@@ -2551,7 +2552,7 @@ SpriteRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771300839}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -4464,6 +4465,7 @@ MonoBehaviour:
   rules_button: {fileID: 1042013183}
   rules_panel: {fileID: 714590091}
   selected_cards: []
+  pointsToWin: 20
 --- !u!1 &1343919370
 GameObject:
   m_ObjectHideFlags: 0

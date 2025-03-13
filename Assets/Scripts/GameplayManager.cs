@@ -68,6 +68,9 @@ public class GameplayManager : MonoBehaviour
     
     // currectly selected cards
     public List<Card> selected_cards = new List<Card>();
+
+    //editable variables
+    public int pointsToWin = 20;
     
     // ---------- Singleton Setup -----------
     public static GameplayManager Instance { get; private set; }
@@ -97,6 +100,8 @@ public class GameplayManager : MonoBehaviour
         InitializePlayers();
         InitializeGame();
         river.Flop(deck);
+        p1ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
+        p2ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
     }
 
     //control handler
@@ -142,11 +147,11 @@ public class GameplayManager : MonoBehaviour
         }
 
         //terminate game when any player reach score 30
-        if (playerList[0].score >= 30){
+        if (playerList[0].score >= pointsToWin){
             Winner.gameWinner = playerList[0].playerNum;
             SceneManager.LoadScene(2);
         }
-        if (playerList[1].score >= 30){
+        if (playerList[1].score >= pointsToWin){
             Winner.gameWinner = playerList[1].playerNum;
             SceneManager.LoadScene(2);
         }
@@ -372,11 +377,11 @@ public class GameplayManager : MonoBehaviour
     {
         if (activePlayer.playerNum == 1)
         {
-            p1ScoreText.text = "Score: " + activePlayer.score;
+            p1ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
         }
         else if (activePlayer.playerNum == 2)
         {
-            p2ScoreText.text = "Score: " + activePlayer.score;
+            p2ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
         }
     }
 
