@@ -22,7 +22,7 @@ public class SceneLoader : MonoBehaviour
     private GameObject tutPage5;
     [SerializeField]
     private GameObject tutPage6;
-
+    
     void Start()
     {
         menuCanvas.SetActive(true);

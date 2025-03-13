@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -31,10 +32,41 @@ public class Bank : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI sellButtonText;
 
+    private bool foot_ready_ = false;
+
+    private int last_card_num_;
+
     void Start()
     {
         sellButton.onClick.AddListener(() => sellWorkBench(bankData));
         sellButton.interactable = false;
+    }
+
+    void Update()
+    {
+        if (last_card_num_ != bankData.Count)
+        {
+            last_card_num_ = bankData.Count;
+            int res = CheckFootAbilityCondition();
+            if (res != 0)
+            {
+                if (res == 1) GameplayManager.Instance.foot_ability.setLeft(true);
+                else if (res == 2) GameplayManager.Instance.foot_ability.setLeft(false);
+                GameplayManager.Instance.foot_ability.duplicate_count_ = bankData.Count;
+                foot_ready_ = true;
+                sellButtonText.text = "USE";
+            }
+            else
+            {
+                sellButton.interactable = false;
+                foot_ready_ = false;
+                sellButtonText.text = "SELL";
+            }
+        }
+        if (GameplayManager.Instance.activePlayer.playerNum == playerNumber && foot_ready_)
+        {
+            sellButton.interactable = true;
+        }
     }
 
     public bool AddToBank(CardData cd)
@@ -164,7 +196,10 @@ public class Bank : MonoBehaviour
 
                 if (bankData.Count >= 2)
                 {
-                    sellButton.interactable = true;
+                    if (GameplayManager.Instance.activePlayer.playerNum == playerNumber)
+                    {
+                        sellButton.interactable = true;
+                    }
                     if(bankData[0].cardSuit == bankData[1].cardSuit)
                     {
                         sellButtonText.text = "SELL";
@@ -193,7 +228,7 @@ public class Bank : MonoBehaviour
             {4, 8},
             {5, 14}
         };
-        Dictionary<int, int> heapScoreTable = new()
+        /*Dictionary<int, int> heapScoreTable = new()
         {
             {2, 2}, 
             {3, 2},
@@ -204,7 +239,7 @@ public class Bank : MonoBehaviour
             {8, 11},
             {9, 11},
             {10, 15}
-        };
+        };*/
 
         if (sellData.Count > 1)
         {
@@ -247,11 +282,18 @@ public class Bank : MonoBehaviour
                     numHeapParts = 10;
                 }
 
-                Debug.Log("Awarding " + heapScoreTable[numHeapParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
-                GameplayManager.Instance.AwardPoints(heapScoreTable[numHeapParts]);
-
+                int point_award = 0;
+                if (foot_ready_)
+                {
+                    point_award = GameplayManager.Instance.foot_ability.Activate();
+                    StartCoroutine(RemoveAfterDelay(3f));
+                }
+                
+                GameplayManager.Instance.AwardPoints(point_award);
+                Debug.Log("Awarding " + point_award + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
+                
                 //Analytics 
-                AnalyticsManager.Instance.LogWorkbenchSale(bankData, heapScoreTable[numHeapParts]);
+                AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
                 bankData.Clear();
                 UpdateBankText();
                 GameplayManager.Instance.UpdatePointsDisplay();
@@ -272,6 +314,12 @@ public class Bank : MonoBehaviour
             return false;
         }
     }
+    
+    IEnumerator RemoveAfterDelay(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        GameplayManager.Instance.msg.text = "";
+    }
 
     private void OnMouseEnter()
     {
@@ -285,15 +333,14 @@ public class Bank : MonoBehaviour
             }
             else
             {
-                if (bankData[0].cardValue == bankData[1].cardValue)
-                {
-                    msg += "Building " + bankData[0].cardValue + " ability...\n" + bankData.Count + " parts so far.";
-                }
-                else if (bankData[0].cardSuit == bankData[1].cardSuit)
+                if (bankData[0].cardSuit == bankData[1].cardSuit)
                 {
                     msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far.";
                 }
-                
+                else if (bankData[0].cardValue == bankData[1].cardValue)
+                {
+                    msg += "Building " + bankData[0].cardValue + " weapon...\n" + bankData.Count + " parts so far.";
+                }
             }
             TooltipManager._instance.SetAndShowTooltip(msg);
         }
@@ -333,5 +380,23 @@ public class Bank : MonoBehaviour
         Quaternion setRotation = transform.rotation;
         setRotation.eulerAngles = new Vector3(0.0f, 0.0f, 90.0f);
         Instantiate(select, new Vector2(transform.position.x, transform.position.y), setRotation);
+    }
+
+    // return 1 for l, 2 for r, 0 for not met
+    private int CheckFootAbilityCondition()
+    {
+        if (hasOnlyOneType() && bankData.Count > 1)
+        {
+            if (bankData[0].cardValue == Card.CardValue.LeftFoot)
+            {
+                return 1;
+            }
+            else if (bankData[0].cardValue == Card.CardValue.RightFoot)
+            {
+                return 2;
+            }
+        }
+
+        return 0;
     }
 }
