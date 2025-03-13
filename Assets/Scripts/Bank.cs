@@ -89,6 +89,8 @@ public class Bank : MonoBehaviour
         }
         else
         {
+            GameplayManager.Instance.msg.text = "Invalid Add!";
+            StartCoroutine(RemoveAfterDelay(2f));
             Debug.Log("Card is invalid!");
             return false;
         }
@@ -258,6 +260,9 @@ public class Bank : MonoBehaviour
                     numRobotParts = 5;
                 }
 
+                GameplayManager.Instance.msg.text = "Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum;
+                StartCoroutine(RemoveAfterDelay(2f));
+                
                 Debug.Log("Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
                 GameplayManager.Instance.AwardPoints(robotScoreTable[numRobotParts]);
 
@@ -289,8 +294,8 @@ public class Bank : MonoBehaviour
                     StartCoroutine(RemoveAfterDelay(3f));
                 }
                 
-                GameplayManager.Instance.AwardPoints(point_award);
-                Debug.Log("Awarding " + point_award + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
+                GameplayManager.Instance.msg.text = "Awarding " + point_award + " points to Player " + GameplayManager.Instance.activePlayer.playerNum;
+                StartCoroutine(RemoveAfterDelay(2f));
                 
                 //Analytics 
                 AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
@@ -310,6 +315,8 @@ public class Bank : MonoBehaviour
         }
         else
         {
+            GameplayManager.Instance.msg.text = "This workbench can't be sold yet";
+            StartCoroutine(RemoveAfterDelay(3f));
             Debug.Log("This workbench can't be sold yet");
             return false;
         }
