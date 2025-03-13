@@ -63,6 +63,9 @@ public class GameplayManager : MonoBehaviour
     public Button rules_button;
     public GameObject rules_panel;
     private bool rules_toggle = false;
+    
+    public FootAbility foot_ability;
+    public TextMeshProUGUI msg;
 
     private int actionsTakenInRound = 4;
     
@@ -102,6 +105,8 @@ public class GameplayManager : MonoBehaviour
         river.Flop(deck);
         p1ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
         p2ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
+        
+        foot_ability = new FootAbility();
     }
 
     //control handler
@@ -254,7 +259,7 @@ public class GameplayManager : MonoBehaviour
                 Debug.Log("PASS button clicked!");
                 activePlayer.passed = true;
                 decrementActionsTaken();
-                //CheckRefreshRiver();
+                // CheckRefreshRiver();
                 IncrementActivePlayer();
                 GameplayManager.Instance.selected_cards.Clear();
                 break;
