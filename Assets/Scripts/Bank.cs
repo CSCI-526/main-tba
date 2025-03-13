@@ -58,14 +58,18 @@ public class Bank : MonoBehaviour
             }
             else
             {
-                sellButton.interactable = false;
                 foot_ready_ = false;
                 sellButtonText.text = "SELL";
             }
         }
-        if (GameplayManager.Instance.activePlayer.playerNum == playerNumber && foot_ready_)
+
+        if (GameplayManager.Instance.activePlayer.playerNum == playerNumber && bankData.Count >= 2)
         {
             sellButton.interactable = true;
+        }
+        else
+        {
+            sellButton.interactable = false;
         }
     }
 
@@ -198,10 +202,7 @@ public class Bank : MonoBehaviour
 
                 if (bankData.Count >= 2)
                 {
-                    if (GameplayManager.Instance.activePlayer.playerNum == playerNumber)
-                    {
-                        sellButton.interactable = true;
-                    }
+                    sellButton.interactable = true;
                     if(bankData[0].cardSuit == bankData[1].cardSuit)
                     {
                         sellButtonText.text = "SELL";

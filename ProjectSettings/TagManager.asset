@@ -7,6 +7,7 @@ TagManager:
   - GameplayManager
   - SelectPrefab
   - WorkBench
+  - Card
   layers:
   - Default
   - TransparentFX
