@@ -8,7 +8,7 @@ public class FootAbility : IAbility
     private bool left_;
     public int duplicate_count_;
     
-    public void Activate(int duplicateCount)
+    public void Activate(int duplicateCount, Bank workBench)
     {
         Debug.Log("FootAbility Activated" + left_);
     }

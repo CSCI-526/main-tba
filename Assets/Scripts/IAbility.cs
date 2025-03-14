@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IAbility
 {
     //All abilities share this behavior
-    void Activate(int duplicateCount);
+    void Activate(int duplicateCount, Bank workBench);
 }

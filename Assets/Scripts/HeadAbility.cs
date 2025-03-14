@@ -7,7 +7,7 @@ public class HeadAbility : IAbility
     //Handles the head ability
     //Shows the player the next 2 + duplicateCount cards
     //We can fix this scaling function later
-    public void Activate(int duplicateCount)
+    public void Activate(int duplicateCount, Bank workBench)
     {
         //Get the peekList from the GameplayManagaer
         List<CardData> peekList = GameplayManager.Instance.deck.PeekNextNCards(duplicateCount);

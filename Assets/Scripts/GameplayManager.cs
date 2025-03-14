@@ -66,6 +66,7 @@ public class GameplayManager : MonoBehaviour
     
     public FootAbility foot_ability;
     public HeadAbility head_ability;
+    public ArmAbility arm_ability;
 
     public TextMeshProUGUI msg;
 
@@ -115,6 +116,7 @@ public class GameplayManager : MonoBehaviour
         
         foot_ability = new FootAbility();
         head_ability = new HeadAbility();
+        arm_ability = new ArmAbility();
     }
 
     //control handler
@@ -153,11 +155,11 @@ public class GameplayManager : MonoBehaviour
         }
 
         //testing head ability
-        if (Input.GetKeyDown(KeyCode.H))
+        /*if (Input.GetKeyDown(KeyCode.H))
         {
             HeadAbility headAbility = new HeadAbility();
             headAbility.Activate(4);
-        }
+        }*/
 
         //terminate game when any player reach score 30
         if (playerList[0].score >= pointsToWin){

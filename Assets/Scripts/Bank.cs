@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Bank : MonoBehaviour
 {
@@ -100,6 +101,33 @@ public class Bank : MonoBehaviour
         }
     }
 
+    public void RemoveFromBank()
+    {
+        if (bankData.Count > 0)
+        {
+            //Get the card data before removal
+            CardData cD = bankData[0];
+            //Remove the first item from the bank
+            bankData.RemoveAt(0);
+            //Use card data to clean takenArray
+            takenParts[(int)cD.cardValue - 1] = false;
+
+            //If we're down to our last card, set the color of the workbench, give option back to build robot
+            //Need to set the takenParts as well just in case this was a dupe stack
+            if(bankData.Count == 1)
+            {
+                color = bankData[0].cardSuit;
+                takenParts[(int)bankData[0].cardValue - 1] = true;
+            }
+
+            //Update bank text to reflect change
+            this.UpdateBankText();
+        } else
+        {
+            Debug.Log("Can't remove bank empty");
+        }
+    }
+
     public void UpdateBankText()
     {
         string t = "Workbench:\n";
@@ -129,7 +157,8 @@ public class Bank : MonoBehaviour
             }
 
             //2) is this part type already in the bench AND there is only one type in the bench?
-            if(takenParts[(int)cd.cardValue - 1] == true && hasOnlyOneType())
+            Debug.Log("CHECKING VALIDATION: " + takenParts[0] + " " + takenParts[1] + " " + takenParts[2] + " " + takenParts[3] + " " + takenParts[4]);
+            if (takenParts[(int)cd.cardValue - 1] == true && hasOnlyOneType())
             {
                 return true;
             }
@@ -149,6 +178,8 @@ public class Bank : MonoBehaviour
                 counter++;
             }
         }
+
+        Debug.Log("CHECKING VALIDATION: " + counter);
 
         if(counter > 1)
         {
@@ -294,18 +325,22 @@ public class Bank : MonoBehaviour
                         Debug.Log("Activating head ability, see future");
                         //activate head ability
                         print(sellData.Count + " heap size");
-                        GameplayManager.Instance.head_ability.Activate(sellData.Count);
+                        GameplayManager.Instance.head_ability.Activate(sellData.Count, this);
                         StartCoroutine(RemoveAfterDelay(3f));
                         cleanUpBench();
                         return true;
                     case Card.CardValue.LeftArm:
                         Debug.Log("Activating left arm ability, destroy left bench");
+                        GameplayManager.Instance.arm_ability.setLeft(true);
+                        GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
                         cleanUpBench();
                         //activate ability
                         StartCoroutine(RemoveAfterDelay(3f));
                         return true;
                     case Card.CardValue.RightArm:
-                        Debug.Log("Activating right arm ability, destroy left bench");
+                        Debug.Log("Activating right arm ability, destroy right bench");
+                        GameplayManager.Instance.arm_ability.setLeft(false);
+                        GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
                         cleanUpBench();
                         //activate ability
                         StartCoroutine(RemoveAfterDelay(3f));
