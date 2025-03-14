@@ -65,6 +65,8 @@ public class GameplayManager : MonoBehaviour
     private bool rules_toggle = false;
     
     public FootAbility foot_ability;
+    public HeadAbility head_ability;
+
     public TextMeshProUGUI msg;
 
     private int actionsTakenInRound = 4;
@@ -112,6 +114,7 @@ public class GameplayManager : MonoBehaviour
         p2ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
         
         foot_ability = new FootAbility();
+        head_ability = new HeadAbility();
     }
 
     //control handler

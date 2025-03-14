@@ -13,10 +13,27 @@ public class HeadAbility : IAbility
         List<CardData> peekList = GameplayManager.Instance.deck.PeekNextNCards(duplicateCount);
 
         //Display this list for the current player somehow
-        foreach (CardData card in peekList)
+        //Gameplaymanager has to start the coroutine unfortunately because start coroutine requires monobehavior
+        GameplayManager.Instance.StartCoroutine(SeeFutureCards(peekList));
+
+    }
+
+    private IEnumerator SeeFutureCards(List<CardData> cards)
+    {
+        GameplayManager.Instance.msg.text = "Head player, press H next turn to see future cards!";
+
+        //Weird issue where this only good at the beginning of your turn
+        //And you need your opponent to turn their back lol
+        while (!Input.GetKeyDown(KeyCode.H))
         {
-            Debug.Log(card.getCardString());
+            yield return null;
         }
 
+        string futureText = "";
+        foreach (CardData card in cards) 
+        { 
+            futureText += card.getCardString() + " ";
+        }
+        GameplayManager.Instance.msg.text = futureText;
     }
 }

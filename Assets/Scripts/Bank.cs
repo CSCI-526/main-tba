@@ -280,6 +280,42 @@ public class Bank : MonoBehaviour
             {
                 // this workbench contains a heap 
                 Debug.Log("Selling heap...");
+                Debug.Log(sellData[0].cardValue);
+                Debug.Log(sellData[1].cardValue);
+
+                //head ability check
+                Card.CardValue abilityValue = CheckAbility();
+
+                //send cardValue to switch statement that activates the relevant ability
+                //There has to be a more elegant way to do this but for now this is the way
+                switch (abilityValue)
+                {
+                    case Card.CardValue.Head:
+                        Debug.Log("Activating head ability, see future");
+                        //activate head ability
+                        print(sellData.Count + " heap size");
+                        GameplayManager.Instance.head_ability.Activate(sellData.Count);
+                        StartCoroutine(RemoveAfterDelay(3f));
+                        cleanUpBench();
+                        return true;
+                    case Card.CardValue.LeftArm:
+                        Debug.Log("Activating left arm ability, destroy left bench");
+                        cleanUpBench();
+                        //activate ability
+                        StartCoroutine(RemoveAfterDelay(3f));
+                        return true;
+                    case Card.CardValue.RightArm:
+                        Debug.Log("Activating right arm ability, destroy left bench");
+                        cleanUpBench();
+                        //activate ability
+                        StartCoroutine(RemoveAfterDelay(3f));
+                        return true;
+                    //TODO make this better or add the feet cases, right now I just break out of the 
+                    //switch to do the feet conditions
+                    default:
+                        Debug.Log("Probably leg ability activated");
+                        break;
+                }
 
                 numHeapParts = sellData.Count;
                 // in current build (I believe) possible to have more than 10 parts in a heap, so adjust number
@@ -435,5 +471,28 @@ public class Bank : MonoBehaviour
         }
 
         return 0;
+    }
+
+    //more general method to check which ability
+    //just return the cardvalue of the first card in the bench
+    private Card.CardValue CheckAbility()
+    {
+        return bankData[0].cardValue;
+    }
+
+    private void cleanUpBench()
+    {
+        bankData.Clear();
+        UpdateBankText();
+        GameplayManager.Instance.UpdatePointsDisplay();
+        //decrement turns in round
+        GameplayManager.Instance.decrementActionsTaken();
+        GameplayManager.Instance.IncrementActivePlayer();
+
+        sellButton.interactable = false;
+
+        //cleanup operations on the workbench
+        this.color = Card.CardSuit.empty;
+        cleanupTakenParts();
     }
 }
