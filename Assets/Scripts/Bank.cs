@@ -327,12 +327,14 @@ public class Bank : MonoBehaviour
                         print(sellData.Count + " heap size");
                         GameplayManager.Instance.head_ability.Activate(sellData.Count, this);
                         StartCoroutine(RemoveAfterDelay(3f));
+                        AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
                         cleanUpBench();
                         return true;
                     case Card.CardValue.LeftArm:
                         Debug.Log("Activating left arm ability, destroy left bench");
                         GameplayManager.Instance.arm_ability.setLeft(true);
                         GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
+                        AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
                         cleanUpBench();
                         //activate ability
                         StartCoroutine(RemoveAfterDelay(3f));
@@ -341,6 +343,7 @@ public class Bank : MonoBehaviour
                         Debug.Log("Activating right arm ability, destroy right bench");
                         GameplayManager.Instance.arm_ability.setLeft(false);
                         GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
+                        AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
                         cleanUpBench();
                         //activate ability
                         StartCoroutine(RemoveAfterDelay(3f));
