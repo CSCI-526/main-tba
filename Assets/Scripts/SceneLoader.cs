@@ -11,6 +11,8 @@ public class SceneLoader : MonoBehaviour
     private GameObject menuCanvas;
 
     [SerializeField]
+    private GameObject tutPage0;
+    [SerializeField]
     private GameObject tutPage1;
     [SerializeField]
     private GameObject tutPage2;
@@ -64,9 +66,21 @@ public class SceneLoader : MonoBehaviour
         tutPage6.SetActive(false);
     }
 
+    public void ShowTutPage0()
+    {
+        menuCanvas.SetActive(false);
+        tutPage0.SetActive(true);
+        tutPage1.SetActive(false);
+        tutPage2.SetActive(false);
+        tutPage3.SetActive(false);
+        tutPage4.SetActive(false);
+        tutPage5.SetActive(false);
+        tutPage6.SetActive(false);
+    }
     public void ShowTutPage1()
     {
         menuCanvas.SetActive(false);
+        tutPage0.SetActive(false);
         tutPage1.SetActive(true);
         tutPage2.SetActive(false);
         tutPage3.SetActive(false);
@@ -77,6 +91,7 @@ public class SceneLoader : MonoBehaviour
     public void ShowTutPage2()
     {
         menuCanvas.SetActive(false);
+        tutPage0.SetActive(false);
         tutPage1.SetActive(false);
         tutPage2.SetActive(true);
         tutPage3.SetActive(false);
@@ -87,6 +102,7 @@ public class SceneLoader : MonoBehaviour
     public void ShowTutPage3()
     {
         menuCanvas.SetActive(false);
+        tutPage0.SetActive(false);
         tutPage1.SetActive(false);
         tutPage2.SetActive(false);
         tutPage3.SetActive(true);
@@ -97,6 +113,7 @@ public class SceneLoader : MonoBehaviour
     public void ShowTutPage4()
     {
         menuCanvas.SetActive(false);
+        tutPage0.SetActive(false);
         tutPage1.SetActive(false);
         tutPage2.SetActive(false);
         tutPage3.SetActive(false);
@@ -107,6 +124,7 @@ public class SceneLoader : MonoBehaviour
     public void ShowTutPage5()
     {
         menuCanvas.SetActive(false);
+        tutPage0.SetActive(false);
         tutPage1.SetActive(false);
         tutPage2.SetActive(false);
         tutPage3.SetActive(false);
@@ -117,6 +135,7 @@ public class SceneLoader : MonoBehaviour
     public void ShowTutPage6()
     {
         menuCanvas.SetActive(false);
+        tutPage0.SetActive(false);
         tutPage1.SetActive(false);
         tutPage2.SetActive(false);
         tutPage3.SetActive(false);
