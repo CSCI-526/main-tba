@@ -54,12 +54,12 @@ public class Bank : MonoBehaviour
                 else if (res == 2) GameplayManager.Instance.foot_ability.setLeft(false);
                 GameplayManager.Instance.foot_ability.duplicate_count_ = bankData.Count;
                 foot_ready_ = true;
-                sellButtonText.text = "USE";
+                // sellButtonText.text = "USE";
             }
             else
             {
                 foot_ready_ = false;
-                sellButtonText.text = "SELL";
+                // sellButtonText.text = "SELL";
             }
         }
 
