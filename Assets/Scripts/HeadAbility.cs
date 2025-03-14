@@ -14,17 +14,25 @@ public class HeadAbility : IAbility
 
         //Display this list for the current player somehow
         //Gameplaymanager has to start the coroutine unfortunately because start coroutine requires monobehavior
-        GameplayManager.Instance.StartCoroutine(SeeFutureCards(peekList));
+        //GameplayManager.Instance.StartCoroutine(SeeFutureCards(peekList, workBench));
+
+        string futureText = "";
+        foreach (CardData card in peekList)
+        {
+            futureText += card.getCardString() + " ";
+        }
+
+        GameplayManager.Instance.msg.text = "Here are the future cards! " + futureText;
 
     }
 
-    private IEnumerator SeeFutureCards(List<CardData> cards)
+    private IEnumerator SeeFutureCards(List<CardData> cards, Bank workBench)
     {
-        GameplayManager.Instance.msg.text = "Head player, press H next turn to see future cards!";
+        GameplayManager.Instance.msg.text = "Head player, press L next turn to see future cards!";
 
         //Weird issue where this only good at the beginning of your turn
         //And you need your opponent to turn their back lol
-        while (!Input.GetKeyDown(KeyCode.H))
+        while (!Input.GetKeyDown(KeyCode.L) && GameplayManager.Instance.activePlayer.playerNum == workBench.playerNumber)
         {
             yield return null;
         }
@@ -34,6 +42,13 @@ public class HeadAbility : IAbility
         { 
             futureText += card.getCardString() + " ";
         }
-        GameplayManager.Instance.msg.text = futureText;
+        GameplayManager.Instance.msg.text = futureText + " press L again to hide this text";
+
+        while (!Input.GetKeyDown(KeyCode.L) && GameplayManager.Instance.activePlayer.playerNum == workBench.playerNumber)
+        {
+            yield return null;
+        }
+        GameplayManager.Instance.msg.text = "";
+
     }
 }
