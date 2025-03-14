@@ -54,12 +54,12 @@ public class Bank : MonoBehaviour
                 else if (res == 2) GameplayManager.Instance.foot_ability.setLeft(false);
                 GameplayManager.Instance.foot_ability.duplicate_count_ = bankData.Count;
                 foot_ready_ = true;
-                sellButtonText.text = "USE";
+                // sellButtonText.text = "USE";
             }
             else
             {
                 foot_ready_ = false;
-                sellButtonText.text = "SELL";
+                // sellButtonText.text = "SELL";
             }
         }
 
@@ -203,13 +203,13 @@ public class Bank : MonoBehaviour
                 if (bankData.Count >= 2)
                 {
                     sellButton.interactable = true;
-                    if(bankData[0].cardSuit == bankData[1].cardSuit)
-                    {
-                        sellButtonText.text = "SELL";
-                    }
-                    else if(bankData[0].cardValue == bankData[1].cardValue)
+                    if(bankData[0].cardValue == bankData[1].cardValue)
                     {
                         sellButtonText.text = "USE";
+                    }
+                    else if(bankData[0].cardSuit == bankData[1].cardSuit)
+                    {
+                        sellButtonText.text = "SELL";
                     }
                 }
             }
