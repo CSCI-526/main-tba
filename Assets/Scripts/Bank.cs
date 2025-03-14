@@ -295,8 +295,7 @@ public class Bank : MonoBehaviour
                     StartCoroutine(RemoveAfterDelay(3f));
                 }
                 
-                GameplayManager.Instance.msg.text = "Awarding " + point_award + " points to Player " + GameplayManager.Instance.activePlayer.playerNum;
-                StartCoroutine(RemoveAfterDelay(2f));
+                GameplayManager.Instance.AwardPoints(point_award);
                 
                 //Analytics 
                 AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
