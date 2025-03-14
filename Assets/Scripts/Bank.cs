@@ -280,6 +280,9 @@ public class Bank : MonoBehaviour
             // The checks here only check from the first two cards inside the workbench; 
             // This is (probably?) sufficient considering validity checks were done by the workbench class 
             // already when cards were being added
+
+            //TODO pretty sure there is a bug here if the first 2 cards are the suit and same part
+            //Should be treated as an ability not a robot sale
             if (sellData[0].cardSuit == sellData[1].cardSuit)
             {
                 // this workbench contains a robot 
