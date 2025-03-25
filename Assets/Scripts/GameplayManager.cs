@@ -186,6 +186,11 @@ public class GameplayManager : MonoBehaviour
         return river.LocateAndDelete(cd);
     }
 
+    public void ShakeCard()
+    {
+        StartCoroutine(selected_cards[0].GetComponent<Card>().Shake());
+    }
+
     //Initialize players from the player objects given
     void InitializePlayers()
     {
@@ -241,11 +246,11 @@ public class GameplayManager : MonoBehaviour
             currPlayerText.rectTransform.anchoredPosition = new Vector2(-180, -120);
 
             // disable Collider component of inactive player so active player can only click their workbenches
-            playerList[0].WB1.GetComponent<Collider2D>().enabled = true;
-            playerList[0].WB2.GetComponent<Collider2D>().enabled = true;
-            playerList[1].WB1.GetComponent<Collider2D>().enabled = false;
-            playerList[1].WB2.GetComponent<Collider2D>().enabled = false;
-            
+            playerList[0].WB1.GetComponent<Bank>().enabled = true;
+            playerList[0].WB2.GetComponent<Bank>().enabled = true;
+            playerList[1].WB1.GetComponent<Bank>().enabled = false;
+            playerList[1].WB2.GetComponent<Bank>().enabled = false;
+
         }
         else if (activePlayer.playerNum == 2)
         {
@@ -253,10 +258,10 @@ public class GameplayManager : MonoBehaviour
             currPlayerText.rectTransform.anchoredPosition = new Vector2(-180, 130);
 
             // change location of active player indicator text
-            playerList[1].WB1.GetComponent<Collider2D>().enabled = true;
-            playerList[1].WB2.GetComponent<Collider2D>().enabled = true;
-            playerList[0].WB1.GetComponent<Collider2D>().enabled = false;
-            playerList[0].WB2.GetComponent<Collider2D>().enabled = false;
+            playerList[1].WB1.GetComponent<Bank>().enabled = true;
+            playerList[1].WB2.GetComponent<Bank>().enabled = true;
+            playerList[0].WB1.GetComponent<Bank>().enabled = false;
+            playerList[0].WB2.GetComponent<Bank>().enabled = false;
         }
     }
 
