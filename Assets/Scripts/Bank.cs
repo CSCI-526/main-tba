@@ -37,6 +37,9 @@ public class Bank : MonoBehaviour
 
     private int last_card_num_;
 
+    // public variable to see if the bank is enabled or not
+    public bool enabled = true;
+
     void Start()
     {
         sellButton.onClick.AddListener(() => sellWorkBench(bankData));
@@ -76,7 +79,7 @@ public class Bank : MonoBehaviour
 
     public bool AddToBank(CardData cd)
     {
-        if (isValidAddition(cd)) {
+        if (isValidAddition(cd) && enabled) {
             takenParts[(int)cd.cardValue - 1] = true;
             if (bankData.Count == 0)
             {
@@ -206,22 +209,23 @@ public class Bank : MonoBehaviour
             //There is a card that has been selected from the belt
             //Add it to the player's selected bench
             Debug.Log("Adding to selected bench");
-            // destroy other selects first
-            GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
-            foreach (GameObject instance in selectInstances)
-            {
-                Destroy(instance);
-            }
 
             //Grab the card data from the selected card
             CardData selectedCardData = GameplayManager.Instance.selected_cards[0].GetCardData();
-            // clear selected_cards first then add this to selected_cards
-            GameplayManager.Instance.ClearSelectedCards();
 
             
 
             if (AddToBank(selectedCardData))
             {
+                // destroy other selects first
+                GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+                foreach (GameObject instance in selectInstances)
+                {
+                    Destroy(instance);
+                }
+                // clear selected_cards first then add this to selected_cards
+                GameplayManager.Instance.ClearSelectedCards();
+
                 //delete the card from the river
                 GameplayManager.Instance.RemoveCardFromRiver(selectedCardData);
 
@@ -243,6 +247,11 @@ public class Bank : MonoBehaviour
                         sellButtonText.text = "SELL";
                     }
                 }
+            }
+            else
+            {
+                Debug.Log("Shake");
+                GameplayManager.Instance.ShakeCard();
             }
         }
     }
