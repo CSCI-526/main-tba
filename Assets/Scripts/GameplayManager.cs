@@ -54,6 +54,10 @@ public class GameplayManager : MonoBehaviour
     private GameObject inGameTut1;
     [SerializeField]
     private GameObject inGameTut2;
+    [SerializeField]
+    private GameObject turnLights1;
+    [SerializeField]
+    private GameObject turnLights2;
 
     public TMP_Text instructionText;
     public TMP_Text currPlayerText;
@@ -339,32 +343,6 @@ public class GameplayManager : MonoBehaviour
 
     public void CheckRefreshRiver()
     {
-        /*
-        // If river has run dry: reflop river
-        if (river.riverCards.Count == 0)
-        {
-            playerList[0].passed = false;
-            playerList[1].passed = false;
-            river.Flop(deck);
-        }
-        // OR if both players have passed: delete current river and reflop river
-        // set the flags as false here too, before river.Flop(deck);
-        // also when opponent has passed, opponent gets ONE more card? or keep going?
-        if (playerList[0].passed && playerList[1].passed)
-        {
-            Debug.Log("Both players passed! New river...");
-            while (river.riverCards.Count > 0)
-            {
-                GameObject toDestroy = river.riverCards[0];
-                river.riverCards.RemoveAt(0);
-                Destroy(toDestroy);
-            }
-            river.riverData.Clear();
-            river.Flop(deck);
-            playerList[0].passed = false;
-            playerList[1].passed = false;
-        }*/
-
         //River gets refreshed when actionsTakenInRound hits 0
         //Round is over both players have taken 2 actions each (taken a card, passed, or sold a workbench)
         Debug.Log("Actions in round taken: " + actionsTakenInRound);
@@ -381,12 +359,25 @@ public class GameplayManager : MonoBehaviour
         if (actionsTakenInRound > 0)
         {
             actionsTakenInRound--;
+
+            if (activePlayer.playerNum == 1)
+            {
+                turnLights1.GetComponent<TurnIndicator>().DecrementTurn();
+            }
+            else if (activePlayer.playerNum == 2)
+            {
+                turnLights2.GetComponent<TurnIndicator>().DecrementTurn();
+            }
         }
 
         if(actionsTakenInRound == 0)
         {
             //Time to refresh the river
             CheckRefreshRiver();
+
+            turnLights1.GetComponent<TurnIndicator>().AllLightsOn();
+            turnLights2.GetComponent<TurnIndicator>().AllLightsOn();
+
             // set active player to alternate who goes first
             Debug.Log("current value of active's playerNum: " + activePlayer.playerNum);
             IncrementActivePlayer();
@@ -442,15 +433,4 @@ public class GameplayManager : MonoBehaviour
             wb.SetActive(setActive);
         }
     }
-
-    /* Work in progress to show in-game tutorial, feel free to disregard!
-    public void InGameTutorialDisplay()
-    {
-        gameCanvas.SetActive(false);
-        p1firstWB.GetComponent<BoxCollider2D>().enabled = false;
-        p1secondWB.GetComponent<BoxCollider2D>().enabled = false;
-        // p1secondWB.SetActive(false);
-        inGameTut1.SetActive(true);
-    }
-    */
 }
