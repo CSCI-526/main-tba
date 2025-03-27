@@ -47,6 +47,18 @@ public class Bank : MonoBehaviour
     [SerializeField]
     private GameObject robotRLeg;
 
+    // for weapon visuals 
+    [SerializeField]
+    private GameObject headWeapon;
+    [SerializeField]
+    private GameObject lArmWeapon;
+    [SerializeField]
+    private GameObject rArmWeapon;
+    [SerializeField]
+    private GameObject lLegWeapon;
+    [SerializeField]
+    private GameObject rLegWeapon;
+
     private bool foot_ready_ = false;
 
     private int last_card_num_;
@@ -65,6 +77,12 @@ public class Bank : MonoBehaviour
         robotRArm.SetActive(false);
         robotLLeg.SetActive(false);
         robotRLeg.SetActive(false);
+
+        headWeapon.SetActive(false);
+        lArmWeapon.SetActive(false);
+        rArmWeapon.SetActive(false);
+        lLegWeapon.SetActive(false);
+        rLegWeapon.SetActive(false);
 
     }
 
@@ -411,18 +429,9 @@ public class Bank : MonoBehaviour
                 
                 //Analytics 
                 AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
-                bankData.Clear();
-                UpdateBankText();
-                GameplayManager.Instance.UpdatePointsDisplay();
-                //decrement turns in round
-                GameplayManager.Instance.decrementActionsTaken();
-                GameplayManager.Instance.IncrementActivePlayer();
+                
+                cleanUpBench();
             }
-            sellButton.interactable = false;
-
-            //cleanup operations on the workbench
-            this.color = Card.CardSuit.empty;
-            cleanupTakenParts();
             return true;
         }
         else
@@ -567,12 +576,17 @@ public class Bank : MonoBehaviour
 
         sellButton.interactable = false;
 
-        // remove all robot part sprites
+        // remove all sprites
         robotHead.SetActive(false);
         robotLArm.SetActive(false);
         robotRArm.SetActive(false);
         robotLLeg.SetActive(false);
         robotRLeg.SetActive(false);
+        headWeapon.SetActive(false);
+        lArmWeapon.SetActive(false);
+        rArmWeapon.SetActive(false);
+        lLegWeapon.SetActive(false);
+        rLegWeapon.SetActive(false);
 
         //cleanup operations on the workbench
         this.color = Card.CardSuit.empty;
@@ -585,32 +599,65 @@ public class Bank : MonoBehaviour
         Takes in CardData of added part, sets the corresponding sprite to active, and changes its color accordingly
     */
     {
-        switch ((int)cd.cardValue)
+        if (bankData.Count == 1 || (bankData[0].cardSuit == bankData[1].cardSuit && bankData[0].cardValue != bankData[1].cardValue))
         {
-            case 1:
-            robotHead.SetActive(true);
-            robotHead.GetComponent<SpriteRenderer>().color = getColor(cd);
-            break;
+            switch ((int)cd.cardValue)
+            {
+                case 1:
+                robotHead.SetActive(true);
+                robotHead.GetComponent<SpriteRenderer>().color = getColor(cd);
+                break;
 
-            case 2:
-            robotLArm.SetActive(true);
-            robotLArm.GetComponent<SpriteRenderer>().color = getColor(cd);
-            break;
+                case 2:
+                robotLArm.SetActive(true);
+                robotLArm.GetComponent<SpriteRenderer>().color = getColor(cd);
+                break;
 
-            case 3:
-            robotRArm.SetActive(true);
-            robotRArm.GetComponent<SpriteRenderer>().color = getColor(cd);
-            break;
+                case 3:
+                robotRArm.SetActive(true);
+                robotRArm.GetComponent<SpriteRenderer>().color = getColor(cd);
+                break;
 
-            case 4:
-            robotLLeg.SetActive(true);
-            robotLLeg.GetComponent<SpriteRenderer>().color = getColor(cd);
-            break;
+                case 4:
+                robotLLeg.SetActive(true);
+                robotLLeg.GetComponent<SpriteRenderer>().color = getColor(cd);
+                break;
 
-            case 5:
-            robotRLeg.SetActive(true);
-            robotRLeg.GetComponent<SpriteRenderer>().color = getColor(cd);
-            break;
+                case 5:
+                robotRLeg.SetActive(true);
+                robotRLeg.GetComponent<SpriteRenderer>().color = getColor(cd);
+                break;
+            }
+        }
+        else if (bankData.Count != 1 && bankData[0].cardValue == bankData[1].cardValue)
+        {
+            switch ((int) cd.cardValue)
+            {
+                case 1:
+                robotHead.SetActive(false);
+                headWeapon.SetActive(true);
+                break;
+
+                case 2:
+                robotLArm.SetActive(false);
+                lArmWeapon.SetActive(true);
+                break;
+
+                case 3:
+                robotRArm.SetActive(false);
+                rArmWeapon.SetActive(true);
+                break;
+
+                case 4:
+                robotLLeg.SetActive(false);
+                lLegWeapon.SetActive(true);
+                break;
+
+                case 5:
+                robotRLeg.SetActive(false);
+                rLegWeapon.SetActive(true);
+                break;
+            }
         }
     }
 
