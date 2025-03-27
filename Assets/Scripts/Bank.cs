@@ -33,6 +33,20 @@ public class Bank : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI sellButtonText;
 
+    // for robot visual representations
+    [SerializeField]
+    private GameObject emptyFrame;
+    [SerializeField]
+    private GameObject robotHead;
+    [SerializeField]
+    private GameObject robotLArm;
+    [SerializeField]
+    private GameObject robotRArm;
+    [SerializeField]
+    private GameObject robotLLeg;
+    [SerializeField]
+    private GameObject robotRLeg;
+
     private bool foot_ready_ = false;
 
     private int last_card_num_;
@@ -44,6 +58,14 @@ public class Bank : MonoBehaviour
     {
         sellButton.onClick.AddListener(() => sellWorkBench(bankData));
         sellButton.interactable = false;
+
+        emptyFrame.SetActive(false);
+        robotHead.SetActive(false);
+        robotLArm.SetActive(false);
+        robotRArm.SetActive(false);
+        robotLLeg.SetActive(false);
+        robotRLeg.SetActive(false);
+
     }
 
     void Update()
@@ -92,6 +114,10 @@ public class Bank : MonoBehaviour
                 color = Card.CardSuit.empty;
             }
             bankData.Add(cd);
+            Debug.Log("DEBUG: Added " + cd.cardValue + " " + cd.cardSuit); 
+
+            drawRobot(cd);
+            
             UpdateBankText();
             return true;
         }
@@ -124,7 +150,8 @@ public class Bank : MonoBehaviour
             }
 
             //Update bank text to reflect change
-            this.UpdateBankText();
+            // this.UpdateBankText();
+            removeSprite(cD);
         } else
         {
             Debug.Log("Can't remove bank empty");
@@ -133,12 +160,15 @@ public class Bank : MonoBehaviour
 
     public void UpdateBankText()
     {
+        /* Commenting out, since we now have robot icons and no longer need text. 
         string t = "Workbench:\n";
+        
         for(int i = 0; i < bankData.Count; i++)
         {
             t += bankData[i].getCardString() + "\n";
         }
         bankText.text = t;
+        */
     }
 
     public bool isValidAddition(CardData cd)
@@ -312,12 +342,8 @@ public class Bank : MonoBehaviour
 
                 //Analytics 
                 AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[numRobotParts]);
-                bankData.Clear();
-                UpdateBankText();
-                GameplayManager.Instance.UpdatePointsDisplay();
-                //decrement turns in round
-                GameplayManager.Instance.decrementActionsTaken();
-                GameplayManager.Instance.IncrementActivePlayer();
+
+                cleanUpBench();
             }
             else if (sellData[0].cardValue == sellData[1].cardValue)
             {
@@ -541,8 +567,102 @@ public class Bank : MonoBehaviour
 
         sellButton.interactable = false;
 
+        // remove all robot part sprites
+        robotHead.SetActive(false);
+        robotLArm.SetActive(false);
+        robotRArm.SetActive(false);
+        robotLLeg.SetActive(false);
+        robotRLeg.SetActive(false);
+
         //cleanup operations on the workbench
         this.color = Card.CardSuit.empty;
         cleanupTakenParts();
+    }
+
+    private void drawRobot(CardData cd)
+    /*
+        Method to draw new robot part on bench
+        Takes in CardData of added part, sets the corresponding sprite to active, and changes its color accordingly
+    */
+    {
+        switch ((int)cd.cardValue)
+        {
+            case 1:
+            robotHead.SetActive(true);
+            robotHead.GetComponent<SpriteRenderer>().color = getColor(cd);
+            break;
+
+            case 2:
+            robotLArm.SetActive(true);
+            robotLArm.GetComponent<SpriteRenderer>().color = getColor(cd);
+            break;
+
+            case 3:
+            robotRArm.SetActive(true);
+            robotRArm.GetComponent<SpriteRenderer>().color = getColor(cd);
+            break;
+
+            case 4:
+            robotLLeg.SetActive(true);
+            robotLLeg.GetComponent<SpriteRenderer>().color = getColor(cd);
+            break;
+
+            case 5:
+            robotRLeg.SetActive(true);
+            robotRLeg.GetComponent<SpriteRenderer>().color = getColor(cd);
+            break;
+        }
+    }
+
+    private Color getColor(CardData cd)
+    /*
+        Helper method for drawRobot 
+        Implemented mostly to avoid nested switch statements for better clarity 
+    */
+    {
+        switch ((int) cd.cardSuit)
+        {
+            case 0:
+            return new Color(0f, 0f, 0f);
+
+            case 1:
+            return new Color(0f, 0f, 1f);
+
+            case 2:
+            return new Color(1f, 0f, 0f);
+
+            case 3:
+            return new Color(0f, 1f, 0f);
+
+            case 4:
+            return new Color(1f, 1f, 0f);
+        }
+        return new Color(1f, 1f, 1f);
+    }
+
+    private void removeSprite(CardData cd)
+    {
+        switch ((int)cd.cardValue)
+        {
+            case 1:
+            robotHead.SetActive(false);
+            break;
+
+            case 2:
+            robotLArm.SetActive(false);
+            break;
+
+            case 3:
+            robotRArm.SetActive(false);
+            break;
+
+            case 4:
+            robotLLeg.SetActive(false);
+            break;
+
+            case 5:
+            robotRLeg.SetActive(false);
+            break;
+        }
     }
 }
