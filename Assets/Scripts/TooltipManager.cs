@@ -36,17 +36,28 @@ public class TooltipManager : MonoBehaviour
     {
         Vector2 mousePos = Input.mousePosition;
 
+        float tooltipWidth = rectTransform.rect.width;
+        float tooltipHeight = rectTransform.rect.height;
+        float buffer = 10f;
         float pivotX = 0;
         float pivotY = 0;
 
-        if (mousePos.y < Screen.height * 0.2f)
+        if (mousePos.y - tooltipHeight + buffer < 0)
         {
-            pivotY = 1;
+            pivotY = 0f;
+        }
+        else
+        {
+            pivotY = 1f;
         }
 
-        if (mousePos.x > Screen.width * 0.8f)
+        if (mousePos.x + tooltipWidth + buffer > Screen.width)
         {
-            pivotX = 1;
+            pivotX = 1f;
+        }
+        else
+        {
+            pivotX = 0f;
         }
 
         rectTransform.pivot = new Vector2(pivotX, pivotY);
