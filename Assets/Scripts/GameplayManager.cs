@@ -62,6 +62,7 @@ public class GameplayManager : MonoBehaviour
     private GameObject turnMessagePanel;
     [SerializeField]
     private TMP_Text turnMessageText;
+    private Coroutine turnOverlayCoroutine;
     [SerializeField]
     private GameObject p1ScoreMeter;
     [SerializeField]
@@ -465,7 +466,12 @@ public class GameplayManager : MonoBehaviour
     // Function for displaying turn messages, i.e. "Player 1's Turn!" for 2 seconds
     // Calls corresponding coroutine 
     {
-        StartCoroutine(ShowTurnMessageCoroutine(turnMessage, duration));
+        if (turnOverlayCoroutine != null)
+        {
+            StopCoroutine(turnOverlayCoroutine);
+        }
+        // start a new overlay coroutine
+        turnOverlayCoroutine = StartCoroutine(ShowTurnMessageCoroutine(turnMessage, duration));
     }
 
     private IEnumerator ShowTurnMessageCoroutine(string turnMessage, float duration)
@@ -474,5 +480,6 @@ public class GameplayManager : MonoBehaviour
         turnMessagePanel.SetActive(true);
         yield return new WaitForSeconds(duration);
         turnMessagePanel.SetActive(false);
+        turnOverlayCoroutine = null;
     }
 }
