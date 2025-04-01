@@ -82,6 +82,8 @@ public class GameplayManager : MonoBehaviour
     private int actionsTakenInRound = 4;
 
     public bool in_game_tutorial = false;
+    public GameObject frame1;
+    public GameObject frame2;
     
     // currectly selected cards
     public List<Card> selected_cards = new List<Card>();
@@ -277,6 +279,23 @@ public class GameplayManager : MonoBehaviour
             playerList[0].WB2.GetComponent<Bank>().enabled = false;
 
             ShowTurnMessage(currPlayerText.text);
+        }
+        
+        // set active frame
+        setActiveFrame(playerNum);
+    }
+
+    void setActiveFrame(int playerNum)
+    {
+        if (playerNum == 0)
+        {
+            frame2.SetActive(true);
+            frame1.SetActive(false);
+        }
+        else
+        {
+            frame2.SetActive(false);
+            frame1.SetActive(true);
         }
     }
 
