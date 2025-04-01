@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      staricon_0: -7231772446402136418
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
