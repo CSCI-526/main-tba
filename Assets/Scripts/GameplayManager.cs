@@ -58,6 +58,10 @@ public class GameplayManager : MonoBehaviour
     private GameObject turnLights1;
     [SerializeField]
     private GameObject turnLights2;
+    [SerializeField]
+    private GameObject turnMessagePanel;
+    [SerializeField]
+    private TMP_Text turnMessageText;
 
     public TMP_Text instructionText;
     public TMP_Text currPlayerText;
@@ -242,7 +246,7 @@ public class GameplayManager : MonoBehaviour
         activePlayer = playerList[playerNum];
         activePlayer.WB1.UpdateBankText();
         activePlayer.WB2.UpdateBankText();
-        currPlayerText.text = "P" + activePlayer.playerNum + "'s turn";
+        currPlayerText.text = "Player " + activePlayer.playerNum + "'s Turn!";
 
         if (activePlayer.playerNum == 1)
         {
@@ -255,6 +259,8 @@ public class GameplayManager : MonoBehaviour
             playerList[1].WB1.GetComponent<Bank>().enabled = false;
             playerList[1].WB2.GetComponent<Bank>().enabled = false;
 
+            ShowTurnMessage(currPlayerText.text);
+
         }
         else if (activePlayer.playerNum == 2)
         {
@@ -266,6 +272,8 @@ public class GameplayManager : MonoBehaviour
             playerList[1].WB2.GetComponent<Bank>().enabled = true;
             playerList[0].WB1.GetComponent<Bank>().enabled = false;
             playerList[0].WB2.GetComponent<Bank>().enabled = false;
+
+            ShowTurnMessage(currPlayerText.text);
         }
     }
 
@@ -432,5 +440,20 @@ public class GameplayManager : MonoBehaviour
         {
             wb.SetActive(setActive);
         }
+    }
+
+    public void ShowTurnMessage(string turnMessage, float duration = 2f)
+    // Function for displaying turn messages, i.e. "Player 1's Turn!" for 2 seconds
+    // Calls corresponding coroutine 
+    {
+        StartCoroutine(ShowTurnMessageCoroutine(turnMessage, duration));
+    }
+
+    private IEnumerator ShowTurnMessageCoroutine(string turnMessage, float duration)
+    {
+        turnMessageText.text = turnMessage;
+        turnMessagePanel.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        turnMessagePanel.SetActive(false);
     }
 }
