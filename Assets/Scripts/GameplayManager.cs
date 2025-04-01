@@ -62,11 +62,12 @@ public class GameplayManager : MonoBehaviour
     private GameObject turnMessagePanel;
     [SerializeField]
     private TMP_Text turnMessageText;
+    [SerializeField]
+    private GameObject p1ScoreMeter;
+    [SerializeField]
+    private GameObject p2ScoreMeter;
 
-    public TMP_Text instructionText;
     public TMP_Text currPlayerText;
-    public TMP_Text p1ScoreText;
-    public TMP_Text p2ScoreText;
     public Button next_button;
     public Button rules_button;
     public GameObject rules_panel;
@@ -119,8 +120,6 @@ public class GameplayManager : MonoBehaviour
         InitializePlayers();
         InitializeGame();
         river.Flop(deck);
-        p1ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
-        p2ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
         
         foot_ability = new FootAbility();
         head_ability = new HeadAbility();
@@ -231,7 +230,6 @@ public class GameplayManager : MonoBehaviour
         // rules_button.onClick.AddListener(() => OnButtonClick(3));
         //withdraw_button.onClick.AddListener(() => OnButtonClick(3));
 
-        //instructionText.gameObject.SetActive(false);
     }
 
     //Helper to switch to a different player
@@ -246,7 +244,12 @@ public class GameplayManager : MonoBehaviour
         activePlayer = playerList[playerNum];
         activePlayer.WB1.UpdateBankText();
         activePlayer.WB2.UpdateBankText();
-        currPlayerText.text = "Player " + activePlayer.playerNum + "'s Turn!";
+        currPlayerText.text = "";
+        if (actionsTakenInRound == 4)
+        {
+            currPlayerText.text += "New Round!\n";
+        }
+        currPlayerText.text += "Player " + activePlayer.playerNum + "'s Turn!";
 
         if (activePlayer.playerNum == 1)
         {
@@ -328,6 +331,15 @@ public class GameplayManager : MonoBehaviour
     public void AwardPoints(int points)
     {
         activePlayer.score += points;
+        if(activePlayer.playerNum == 1)
+        {
+            p1ScoreMeter.GetComponent<ScoreMeter>().AwardPoints(points);
+        }
+        else if(activePlayer.playerNum == 2)
+        {
+            p2ScoreMeter.GetComponent<ScoreMeter>().AwardPoints(points);
+        }
+
         Debug.Log("Player " + activePlayer.playerNum + " now has " + activePlayer.score + " points!");
     }
 
@@ -389,18 +401,6 @@ public class GameplayManager : MonoBehaviour
             // set active player to alternate who goes first
             Debug.Log("current value of active's playerNum: " + activePlayer.playerNum);
             IncrementActivePlayer();
-        }
-    }
-
-    public void UpdatePointsDisplay()
-    {
-        if (activePlayer.playerNum == 1)
-        {
-            p1ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
-        }
-        else if (activePlayer.playerNum == 2)
-        {
-            p2ScoreText.text = "Score: " + activePlayer.score + "/" + pointsToWin;
         }
     }
     

@@ -566,7 +566,6 @@ public class Bank : MonoBehaviour
     {
         bankData.Clear();
         UpdateBankText();
-        GameplayManager.Instance.UpdatePointsDisplay();
         //decrement turns in round
         GameplayManager.Instance.decrementActionsTaken();
         GameplayManager.Instance.IncrementActivePlayer();
