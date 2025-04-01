@@ -31,7 +31,7 @@ public class Bank : MonoBehaviour
     [SerializeField]
     private Button sellButton;
     [SerializeField]
-    private TextMeshProUGUI sellButtonText;
+    public TextMeshProUGUI sellButtonText;
 
     // for robot visual representations
     [SerializeField]
@@ -49,7 +49,7 @@ public class Bank : MonoBehaviour
 
     // for weapon visuals 
     [SerializeField]
-    private GameObject headWeapon;
+    public GameObject headWeapon;
     [SerializeField]
     private GameObject lArmWeapon;
     [SerializeField]
@@ -60,6 +60,8 @@ public class Bank : MonoBehaviour
     private GameObject rLegWeapon;
 
     private bool foot_ready_ = false;
+
+    public bool isHeadAbilityActive = false;
 
     private int last_card_num_;
 
@@ -141,8 +143,8 @@ public class Bank : MonoBehaviour
         }
         else
         {
-            GameplayManager.Instance.msg.text = "Invalid Add!";
-            StartCoroutine(RemoveAfterDelay(2f));
+            GameplayManager.Instance.msg.text = "Invalid Add! Trying to add " + cd.cardSuit + " to " + color + "; Valid: " + isValidAddition(cd);
+            StartCoroutine(RemoveAfterDelay(3f));
             Debug.Log("Card is invalid!");
             return false;
         }
@@ -241,7 +243,7 @@ public class Bank : MonoBehaviour
         }
     }
 
-    private void cleanupTakenParts()
+    public void cleanupTakenParts()
     {
         for(int i = 0; i < this.takenParts.Length; i++)
         {
@@ -282,6 +284,7 @@ public class Bank : MonoBehaviour
 
                 //Incrememt the turn player since adding to the bench is a turn
                 GameplayManager.Instance.IncrementActivePlayer();
+                
 
                 if (bankData.Count >= 2)
                 {
@@ -352,13 +355,25 @@ public class Bank : MonoBehaviour
                 switch (abilityValue)
                 {
                     case Card.CardValue.Head:
-                        Debug.Log("Activating head ability, see future");
+                        Debug.Log("Activating head ability, copying bench");
                         //activate head ability
-                        print(sellData.Count + " heap size");
-                        GameplayManager.Instance.head_ability.Activate(sellData.Count, this);
+                        isHeadAbilityActive = true;
+                        
+                        int benchNum = 0;
+                        if(gameObject.name == "P1 Workbench 1" || gameObject.name == "P2 Workbench 1")
+                        {
+                            benchNum = 1;
+                        }
+                        else if (gameObject.name == "P1 Workbench 2" || gameObject.name == "P2 Workbench 2")
+                        {
+                            benchNum = 2;
+                        }
+                        // Debug.Log("BENCH NUM OF HEAD: " + benchNum);
+
+                        GameplayManager.Instance.head_ability.Activate(sellData.Count, this, benchNum);
                         StartCoroutine(RemoveAfterDelay(3f));
                         AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
-                        cleanUpBench();
+                        // cleanUpBench();
                         return true;
                     case Card.CardValue.LeftArm:
                         Debug.Log("Activating left arm ability, destroy left bench");
@@ -449,6 +464,12 @@ public class Bank : MonoBehaviour
     private void OnMouseEnter()
     {
         string msg = string.Empty;
+        /* FOR TESTING; feel free to ignore
+        msg += "COUNT: " + bankData.Count;
+        msg += "\nCOLOR: " + color;
+        TooltipManager._instance.SetAndShowTooltip(msg);
+        */
+        
         // Show Workbench info when mouse hover and no cards selected 
         if (GameplayManager.Instance.selected_cards.Count == 0)
         {
@@ -499,6 +520,7 @@ public class Bank : MonoBehaviour
             }
             TooltipManager._instance.SetAndShowTooltip(msg);
         }
+        
         /*
         else if(GameplayManager.Instance.selected_cards.Count == 1)
         {
@@ -562,7 +584,7 @@ public class Bank : MonoBehaviour
         return bankData[0].cardValue;
     }
 
-    private void cleanUpBench()
+    public void cleanUpBench()
     {
         bankData.Clear();
         UpdateBankText();
