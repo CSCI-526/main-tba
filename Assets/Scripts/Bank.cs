@@ -69,7 +69,9 @@ public class Bank : MonoBehaviour
     void Start()
     {
         sellButton.onClick.AddListener(() => sellWorkBench(bankData));
-        sellButton.interactable = false;
+        // sellButton.enabled = false;
+        sellButton.gameObject.SetActive(false);
+        // sellButton.interactable = false;
 
         emptyFrame.SetActive(false);
         robotHead.SetActive(false);
@@ -109,11 +111,15 @@ public class Bank : MonoBehaviour
 
         if (GameplayManager.Instance.activePlayer.playerNum == playerNumber && bankData.Count >= 2)
         {
-            sellButton.interactable = true;
+            // sellButton.interactable = true;
+            sellButton.gameObject.SetActive(true);
+            // sellButton.enabled = true;
         }
         else
         {
-            sellButton.interactable = false;
+            // sellButton.enabled = false;
+            sellButton.gameObject.SetActive(false);
+            // sellButton.interactable = false;
         }
     }
 
@@ -285,7 +291,9 @@ public class Bank : MonoBehaviour
 
                 if (bankData.Count >= 2)
                 {
-                    sellButton.interactable = true;
+                    // sellButton.interactable = true;
+                    sellButton.gameObject.SetActive(true);
+                    // sellButton.enabled = true;
                     if(bankData[0].cardValue == bankData[1].cardValue)
                     {
                         sellButtonText.text = "USE";
@@ -571,7 +579,9 @@ public class Bank : MonoBehaviour
         GameplayManager.Instance.decrementActionsTaken();
         GameplayManager.Instance.IncrementActivePlayer();
 
-        sellButton.interactable = false;
+        // sellButton.enabled = false;
+        sellButton.gameObject.SetActive(false);
+        // sellButton.interactable = false;
 
         // remove all sprites
         robotHead.SetActive(false);
