@@ -16,7 +16,7 @@ public class River : MonoBehaviour
     public GameplayManager gm;
 
     public float xshift = 70f;
-    public float yshift = -15f;
+    public float yshift;
 
     //initial flop
     public void Flop(Deck deck)
@@ -53,6 +53,7 @@ public class River : MonoBehaviour
             riverCards.Add(Instantiate(cardPrefab));
             riverCards[i].GetComponent<Card>().Initialize(riverData[i].cardValue, riverData[i].cardSuit, riverData[i].texture);
             riverCards[i].transform.position = new Vector3((xshift * riverData[i].pos) - xshift*2.25f, yshift, 0f);
+            Debug.Log("Card " + i + " position: " + riverCards[i].transform.position);
         }
     }
 
