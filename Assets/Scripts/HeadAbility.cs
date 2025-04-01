@@ -4,51 +4,104 @@ using UnityEngine;
 
 public class HeadAbility : IAbility
 {
-    //Handles the head ability
-    //Shows the player the next 2 + duplicateCount cards
-    //We can fix this scaling function later
+    // Handles the head ability
+    // Copies n-1 cards of the opponent's bench that it "looks at" 
+
     public void Activate(int duplicateCount, Bank workBench)
+    // This is just here to avoid the error when we don't inherit this apparently?
     {
-        //Get the peekList from the GameplayManagaer
-        List<CardData> peekList = GameplayManager.Instance.deck.PeekNextNCards(duplicateCount);
-
-        //Display this list for the current player somehow
-        //Gameplaymanager has to start the coroutine unfortunately because start coroutine requires monobehavior
-        //GameplayManager.Instance.StartCoroutine(SeeFutureCards(peekList, workBench));
-
-        string futureText = "";
-        foreach (CardData card in peekList)
-        {
-            futureText += card.getCardString() + " ";
-        }
-
-        GameplayManager.Instance.msg.text = "Here are the future cards! " + futureText;
-
+        return;
     }
 
-    private IEnumerator SeeFutureCards(List<CardData> cards, Bank workBench)
+    public void Activate(int duplicateCount, Bank workBench, int bankNum)
+    // Overriden Activate, since Head ability also needs an int variable to identify if it's left or right
     {
-        GameplayManager.Instance.msg.text = "Head player, press L next turn to see future cards!";
+        Bank bankToCopy = null;
 
-        //Weird issue where this only good at the beginning of your turn
-        //And you need your opponent to turn their back lol
-        while (!Input.GetKeyDown(KeyCode.L) && GameplayManager.Instance.activePlayer.playerNum == workBench.playerNumber)
+        // Based on activePlayer at the time of activation, determine the bank to copy from!
+        if (GameplayManager.Instance.activePlayer.playerNum == 1)
         {
-            yield return null;
-        }
+            GameplayManager.Instance.playerList[1].WB1.GetComponent<Bank>().enabled = true;
+            GameplayManager.Instance.playerList[1].WB2.GetComponent<Bank>().enabled = true;
 
-        string futureText = "";
-        foreach (CardData card in cards) 
-        { 
-            futureText += card.getCardString() + " ";
-        }
-        GameplayManager.Instance.msg.text = futureText + " press L again to hide this text";
+            Debug.Log("P2 Benches enabled? " + GameplayManager.Instance.playerList[1].WB1.GetComponent<Bank>().enabled + " and " + 
+            GameplayManager.Instance.playerList[1].WB2.GetComponent<Bank>().enabled);
 
-        while (!Input.GetKeyDown(KeyCode.L) && GameplayManager.Instance.activePlayer.playerNum == workBench.playerNumber)
+            if (bankNum == 1)
+            {
+                bankToCopy = GameplayManager.Instance.p2firstWB;
+            }
+            else if (bankNum == 2)
+            {
+                bankToCopy = GameplayManager.Instance.p2secondWB;
+            }
+        }
+        else if (GameplayManager.Instance.activePlayer.playerNum == 2)
         {
-            yield return null;
-        }
-        GameplayManager.Instance.msg.text = "";
+            GameplayManager.Instance.playerList[0].WB1.GetComponent<Bank>().enabled = true;
+            GameplayManager.Instance.playerList[0].WB2.GetComponent<Bank>().enabled = true;
 
+            Debug.Log("P1 Benches enabled? " + GameplayManager.Instance.playerList[0].WB1.GetComponent<Bank>().enabled + " and " + 
+            GameplayManager.Instance.playerList[0].WB2.GetComponent<Bank>().enabled);
+
+            if (bankNum == 1)
+            {
+                bankToCopy = GameplayManager.Instance.p1firstWB;
+            }
+            else if (bankNum == 2)
+            {
+                bankToCopy = GameplayManager.Instance.p1secondWB;
+            }
+        }
+
+        // workBench.cleanUpBench();
+        workBench.bankData.Clear();
+        workBench.headWeapon.SetActive(false);
+        workBench.cleanupTakenParts();
+        workBench.color = Card.CardSuit.empty;
+        
+        if (bankToCopy.enabled)
+        {
+            for (int i = 0; i < duplicateCount-1; i++)
+            {
+                
+                if (i < bankToCopy.bankData.Count)
+                {
+                    Debug.Log("Copying card number " + (i+1));
+                    Debug.Log("Own bench enabled? " + workBench.enabled);
+                    workBench.AddToBank(bankToCopy.bankData[i]);
+                }
+            }
+            GameplayManager.Instance.IncrementActivePlayer();
+        }
+        else
+        {
+            Debug.Log("BANK TO COPY NOT ENABLED!");
+        }
+        
+
+        if (GameplayManager.Instance.activePlayer.playerNum == 1)
+        {
+            GameplayManager.Instance.playerList[1].WB1.GetComponent<Bank>().enabled = false;
+            GameplayManager.Instance.playerList[1].WB2.GetComponent<Bank>().enabled = false;
+        }
+
+        else if (GameplayManager.Instance.activePlayer.playerNum == 2)
+        {
+            GameplayManager.Instance.playerList[0].WB1.GetComponent<Bank>().enabled = false;
+            GameplayManager.Instance.playerList[0].WB2.GetComponent<Bank>().enabled = false;
+        }
+
+        if (workBench.bankData.Count >= 2)
+        {
+            if(workBench.bankData[0].cardValue == workBench.bankData[1].cardValue)
+            {
+                workBench.sellButtonText.text = "USE";
+            }
+            else if(workBench.bankData[0].cardSuit == workBench.bankData[1].cardSuit)
+            {
+                workBench.sellButtonText.text = "SELL";
+            }
+        }
     }
 }
