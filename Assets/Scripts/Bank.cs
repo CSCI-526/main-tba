@@ -143,7 +143,7 @@ public class Bank : MonoBehaviour
         }
         else
         {
-            GameplayManager.Instance.msg.text = "Invalid Add! Trying to add " + cd.cardSuit + " to " + color + "; Valid: " + isValidAddition(cd);
+            GameplayManager.Instance.msg.text = "Invalid Add!";
             StartCoroutine(RemoveAfterDelay(3f));
             Debug.Log("Card is invalid!");
             return false;
@@ -484,7 +484,7 @@ public class Bank : MonoBehaviour
                     switch ((int)bankData[0].cardValue)
                     {
                         case 1:
-                        msg += "Peek at the next cards on conveyor belt.\nCurrent power: " + bankData.Count;
+                        msg += "Copy some parts from opposite workbench.\nCurrent power: " + bankData.Count;
                         break;
 
                         case 2:
