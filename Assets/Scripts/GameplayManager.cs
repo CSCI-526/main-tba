@@ -67,6 +67,7 @@ public class GameplayManager : MonoBehaviour
     private GameObject p1ScoreMeter;
     [SerializeField]
     private GameObject p2ScoreMeter;
+    public GameObject PointTable;
 
     public TMP_Text currPlayerText;
     public Button next_button;
@@ -485,5 +486,15 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(duration);
         turnMessagePanel.SetActive(false);
         turnOverlayCoroutine = null;
+    }
+
+    public void ShowPointTable()
+    {
+        PointTable.SetActive(true);
+    }
+
+    public void HidePointTable()
+    {
+        PointTable.SetActive(false);
     }
 }
