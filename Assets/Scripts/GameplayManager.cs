@@ -94,7 +94,10 @@ public class GameplayManager : MonoBehaviour
     
     public List<GameObject> cards_tmp_holder = new List<GameObject>();
     public List<GameObject> wbs_tmp_holder = new List<GameObject>();
-    
+
+    // Audio Sources
+    public AudioSource passSound;
+
     // ---------- Singleton Setup -----------
     public static GameplayManager Instance { get; private set; }
 
@@ -308,6 +311,7 @@ public class GameplayManager : MonoBehaviour
             case 1:
                 Debug.Log("PASS button clicked!");
                 activePlayer.passed = true;
+                passSound.Play(0);
                 decrementActionsTaken();
                 // CheckRefreshRiver();
                 IncrementActivePlayer();
