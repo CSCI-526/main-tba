@@ -489,6 +489,10 @@ public class Bank : MonoBehaviour
             if (bankData.Count < 2)
             {
                 msg += "Collect more parts to build a robot or a weapon!";
+                if (bankData.Count == 1)
+                {
+                    msg += "\nCurrent Part:\n" + bankData[0].cardSuit + " " + bankData[0].cardValue;
+                }
             }
             else
             {
@@ -522,7 +526,11 @@ public class Bank : MonoBehaviour
                 {
                     if (bankData.Count < 5)
                     {
-                        msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far.";
+                        msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far:";
+                        for (int i = 0; i < bankData.Count; i++)
+                        {
+                            msg += "\n" + bankData[i].cardValue;
+                        }
                     }
                     else if (bankData.Count == 5)
                     {

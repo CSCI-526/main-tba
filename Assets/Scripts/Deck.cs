@@ -110,6 +110,7 @@ public class Deck : MonoBehaviour
         {
             Debug.Log("Deck is empty!");
             InitializeDeck();
+            ShuffleDeck();
 
         }
         CardData cardData = deck[deck.Count - 1];
