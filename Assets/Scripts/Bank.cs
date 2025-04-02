@@ -68,6 +68,13 @@ public class Bank : MonoBehaviour
     // public variable to see if the bank is enabled or not
     public bool enabled = true;
 
+    // audio files to play
+    public AudioSource insertSound;
+    public AudioSource sellSound;
+    public AudioSource punchSound;
+    public AudioSource footSound;
+    public AudioSource headSound;
+
     void Start()
     {
         sellButton.onClick.AddListener(() => sellWorkBench(bankData));
@@ -134,8 +141,9 @@ public class Bank : MonoBehaviour
                 color = Card.CardSuit.empty;
             }
             bankData.Add(cd);
-            Debug.Log("DEBUG: Added " + cd.cardValue + " " + cd.cardSuit); 
+            Debug.Log("DEBUG: Added " + cd.cardValue + " " + cd.cardSuit);
 
+            insertSound.Play(0);
             drawRobot(cd);
             
             UpdateBankText();
@@ -371,6 +379,7 @@ public class Bank : MonoBehaviour
                         // Debug.Log("BENCH NUM OF HEAD: " + benchNum);
 
                         GameplayManager.Instance.head_ability.Activate(sellData.Count, this, benchNum);
+                        headSound.Play(0);
                         StartCoroutine(RemoveAfterDelay(3f));
                         AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
                         // cleanUpBench();
@@ -379,6 +388,7 @@ public class Bank : MonoBehaviour
                         Debug.Log("Activating left arm ability, destroy left bench");
                         GameplayManager.Instance.arm_ability.setLeft(true);
                         GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
+                        punchSound.Play(0);
                         AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
                         cleanUpBench();
                         //activate ability
@@ -388,6 +398,7 @@ public class Bank : MonoBehaviour
                         Debug.Log("Activating right arm ability, destroy right bench");
                         GameplayManager.Instance.arm_ability.setLeft(false);
                         GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
+                        punchSound.Play(0);
                         AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
                         cleanUpBench();
                         //activate ability
@@ -411,6 +422,7 @@ public class Bank : MonoBehaviour
                 if (foot_ready_)
                 {
                     point_award = GameplayManager.Instance.foot_ability.Activate();
+                    footSound.Play(0);
                     StartCoroutine(RemoveAfterDelay(3f));
                 }
                 
@@ -425,6 +437,7 @@ public class Bank : MonoBehaviour
             {
                 // this workbench contains a robot 
                 Debug.Log("Selling robot...");
+                sellSound.Play(0);
 
                 numRobotParts = sellData.Count;
                 // in current build, possible to have multiple of same body part, so adjust number 
