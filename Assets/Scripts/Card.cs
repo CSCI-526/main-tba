@@ -141,4 +141,20 @@ public class Card : MonoBehaviour
 
         transform.position = position;
     }
+
+    public IEnumerator LinearAnimation(Vector2 targetPosition, Bank wb, CardData cd)
+    {
+        Vector2 startPosition = transform.position;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 0.5f)
+        {
+            transform.position = Vector2.Lerp(startPosition, targetPosition, elapsedTime / 0.5f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.position = targetPosition;
+        wb.AddToWB(cd);
+    }
 }
