@@ -45,7 +45,8 @@ public class GameplayManager : MonoBehaviour
     //Player list
     public GamePlayer[] playerList = new GamePlayer[2];
     public GamePlayer activePlayer;
-
+    public string player1Name = "Player 1";
+    public string player2Name = "Player 2";
 
     //UI elements
     [SerializeField]
@@ -67,7 +68,8 @@ public class GameplayManager : MonoBehaviour
     private GameObject p1ScoreMeter;
     [SerializeField]
     private GameObject p2ScoreMeter;
-    public GameObject PointTable;
+    public GameObject pointTable;
+    public GameObject nameScreen;
 
     public TMP_Text currPlayerText;
     public Button next_button;
@@ -126,7 +128,6 @@ public class GameplayManager : MonoBehaviour
         inGameTut2.SetActive(false);
         InitializePlayers();
         InitializeGame();
-        river.Flop(deck);
         
         foot_ability = new FootAbility();
         head_ability = new HeadAbility();
@@ -228,7 +229,7 @@ public class GameplayManager : MonoBehaviour
     {
         deck.InitializeDeck();
         deck.ShuffleDeck();
-        SetActivePlayer(0);
+        //SetActivePlayer(0);
 
         //buttons
         next_button.gameObject.SetActive(true);
@@ -256,7 +257,14 @@ public class GameplayManager : MonoBehaviour
         {
             currPlayerText.text += "New Round!\n";
         }
-        currPlayerText.text += "Player " + activePlayer.playerNum + "'s Turn!";
+        if (activePlayer.playerNum == 1)
+        {
+            currPlayerText.text += player1Name + "'s Turn!";
+        }
+        else
+        {
+            currPlayerText.text += player2Name + "'s Turn!";
+        }
 
         if (activePlayer.playerNum == 1)
         {
@@ -269,8 +277,6 @@ public class GameplayManager : MonoBehaviour
             playerList[1].WB1.GetComponent<Bank>().enabled = false;
             playerList[1].WB2.GetComponent<Bank>().enabled = false;
 
-            ShowTurnMessage(currPlayerText.text);
-
         }
         else if (activePlayer.playerNum == 2)
         {
@@ -282,10 +288,9 @@ public class GameplayManager : MonoBehaviour
             playerList[1].WB2.GetComponent<Bank>().enabled = true;
             playerList[0].WB1.GetComponent<Bank>().enabled = false;
             playerList[0].WB2.GetComponent<Bank>().enabled = false;
-
-            ShowTurnMessage(currPlayerText.text);
         }
-        
+        ShowTurnMessage(currPlayerText.text);
+
         // set active frame
         setActiveFrame(playerNum);
     }
@@ -490,11 +495,29 @@ public class GameplayManager : MonoBehaviour
 
     public void ShowPointTable()
     {
-        PointTable.SetActive(true);
+        pointTable.SetActive(true);
     }
 
     public void HidePointTable()
     {
-        PointTable.SetActive(false);
+        pointTable.SetActive(false);
+    }
+
+    public void HideNameScreen()
+    {
+        nameScreen.SetActive(false);
+        river.Flop(deck);
+        turnMessagePanel.SetActive(true);
+        SetActivePlayer(0);
+    }
+
+    public void GetPlayer1Name(string name)
+    {
+        player1Name = name;
+    }
+
+    public void GetPlayer2Name(string name)
+    {
+        player2Name = name;
     }
 }

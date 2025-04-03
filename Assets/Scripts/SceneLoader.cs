@@ -143,8 +143,4 @@ public class SceneLoader : MonoBehaviour
         tutPage5.SetActive(false);
         tutPage6.SetActive(true);
     }
-    
-
-
-
 }
