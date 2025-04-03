@@ -568,8 +568,10 @@ public class GameplayManager : MonoBehaviour
     {
         ShowTurnMessage("Welcome to bot or be bought!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Build robots and sell them for points! First player to reach 20 points wins!", 3f, true, 2, 3);
-        yield return new WaitForSeconds(3f);
+        ShowTurnMessage("Build robots and sell them for points! First player to reach 20 points wins!", 4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+        ShowTurnMessage("Your turn!", 2f);
+        yield return new WaitForSeconds(2f);
     }
     /*
      * Method to start the tutorial if gameplay manager detects in start 
@@ -596,7 +598,29 @@ public class GameplayManager : MonoBehaviour
         
         
         StartCoroutine(RunTutorialMessages());
-        
+
+        //Once the message completes, we need to fill the bench with some cards
+        //Set player as active
+        SetActivePlayer(0);
+        //Flop with predefined cards
+        List<Card.CardSuit> suits = new List<Card.CardSuit>();
+        suits.Add(Card.CardSuit.Blue);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Red);
+        suits.Add(Card.CardSuit.Gold);
+        suits.Add(Card.CardSuit.Green);
+
+        List<Card.CardValue> values = new List<Card.CardValue>();
+        values.Add(Card.CardValue.Head);
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.RightArm);
+        values.Add(Card.CardValue.LeftFoot);
+        values.Add(Card.CardValue.RightFoot);
+
+        river.PredefinedFlop(deck, suits, values);
+
+        //We need the mouseover message to change
+
     }
 
     

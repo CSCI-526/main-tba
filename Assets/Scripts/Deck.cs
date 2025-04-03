@@ -119,6 +119,22 @@ public class Deck : MonoBehaviour
         return cardData;
     }
 
+    //Not an amazing way to do this, linear search through the deck for a card
+    //We sometimes need a specific card from the deck for scenarios and tutorials
+    //In the future, we should move to not shuffling the deck, just leaving cards as a static table
+    //and cards are selected for the conveyor belt by chance
+    public CardData DealSpecificCard(Card.CardSuit suit, Card.CardValue value)
+    {
+        foreach (CardData card in deck)
+        {
+            if (card.cardSuit == suit && card.cardValue == value)
+            {
+                return card;
+            }
+        }
+        return null;
+    }
+
     //Peek at the next N cards in the deck
     //Don't remove the card, just copy the cardData
     public List<CardData> PeekNextNCards(int n)

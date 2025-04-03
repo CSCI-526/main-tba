@@ -34,6 +34,24 @@ public class River : MonoBehaviour
         RefreshRiver();
     }
 
+    //Add a predefined list of cards to the river instead of
+    //randomly dealing from the deck
+    public void PredefinedFlop(Deck deck, List<Card.CardSuit> suits, List<Card.CardValue> values)
+    {
+        if(suits.Count != values.Count)
+        {
+            Debug.Log("More suits than values given or vice versa.");
+            return;
+        }
+        for (int i = 0; i < suits.Count; i++)
+        {
+            CardData card = deck.DealSpecificCard(suits[i], values[i]);
+            riverData.Add(card);
+            riverData[i].pos = i;
+        }
+        RefreshRiver();
+    }
+
     public void addToRiver(Deck deck)
     {
         riverData.Add(deck.DealCard());
