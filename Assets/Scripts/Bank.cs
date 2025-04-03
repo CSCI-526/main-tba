@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -35,7 +36,7 @@ public class Bank : MonoBehaviour
 
     // for robot visual representations
     [SerializeField]
-    private GameObject emptyFrame;
+    private GameObject robotBody;
     [SerializeField]
     private GameObject robotHead;
     [SerializeField]
@@ -80,7 +81,7 @@ public class Bank : MonoBehaviour
         sellButton.onClick.AddListener(() => sellWorkBench(bankData));
         sellButton.gameObject.SetActive(false);
 
-        emptyFrame.SetActive(false);
+        robotBody.SetActive(false);
         robotHead.SetActive(false);
         robotLArm.SetActive(false);
         robotRArm.SetActive(false);
@@ -147,6 +148,14 @@ public class Bank : MonoBehaviour
             drawRobot(cd);
             
             UpdateBankText();
+
+            // activate body when all parts are present
+            if (takenParts.All(b => b))
+            {
+                robotBody.SetActive(true);
+                robotBody.GetComponent<SpriteRenderer>().color = getColor(cd);
+            }
+
             return true;
         }
         else
@@ -616,6 +625,7 @@ public class Bank : MonoBehaviour
         sellButton.gameObject.SetActive(false);
 
         // remove all sprites
+        robotBody.SetActive(false);
         robotHead.SetActive(false);
         robotLArm.SetActive(false);
         robotRArm.SetActive(false);
@@ -712,16 +722,16 @@ public class Bank : MonoBehaviour
             return new Color(0f, 0f, 0f);
 
             case 1:
-            return new Color(0f, 0f, 1f);
+            return new Color(0.1804f, 0.2745f, 0.8314f);
 
             case 2:
-            return new Color(1f, 0f, 0f);
+            return new Color(0.9451f, 0.0627f, 0.0627f);
 
             case 3:
-            return new Color(0f, 1f, 0f);
+            return new Color(0.1098f,0.79611f, 0.1882f);
 
             case 4:
-            return new Color(1f, 1f, 0f);
+            return new Color(0.9412f, 0.9412f, 0.0902f);
         }
         return new Color(1f, 1f, 1f);
     }
