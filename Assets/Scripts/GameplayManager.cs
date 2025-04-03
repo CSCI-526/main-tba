@@ -132,6 +132,12 @@ public class GameplayManager : MonoBehaviour
         foot_ability = new FootAbility();
         head_ability = new HeadAbility();
         arm_ability = new ArmAbility();
+
+        //important to note that scene names matter
+        if(SceneManager.GetActiveScene().name == "TutorialScene")
+        {
+            StartTutorial();
+        }
     }
 
     //control handler
@@ -472,24 +478,38 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    public void ShowTurnMessage(string turnMessage, float duration = 2f)
+    public void ShowTurnMessage(string turnMessage, float duration = 2f, bool scaleImage = false, float scaleX = 1f, float scaleY = 1f)
     // Function for displaying turn messages, i.e. "Player 1's Turn!" for 2 seconds
     // Calls corresponding coroutine 
+    // Adding scaling values so that the background image can be scaled up if the message content is larger
     {
         if (turnOverlayCoroutine != null)
         {
             StopCoroutine(turnOverlayCoroutine);
         }
         // start a new overlay coroutine
-        turnOverlayCoroutine = StartCoroutine(ShowTurnMessageCoroutine(turnMessage, duration));
+        turnOverlayCoroutine = StartCoroutine(ShowTurnMessageCoroutine(turnMessage, duration, scaleImage, scaleX, scaleY));
     }
 
-    private IEnumerator ShowTurnMessageCoroutine(string turnMessage, float duration)
+    private IEnumerator ShowTurnMessageCoroutine(string turnMessage, float duration, bool scaleImage, float scaleX, float scaleY)
     {
         turnMessageText.text = turnMessage;
+        Vector3 oldImageScale = new Vector3(1f,1f,1f);
+        if (scaleImage)
+        {
+            Transform imageBackgroundTransform = turnMessagePanel.transform.Find("Image");
+            oldImageScale = imageBackgroundTransform.localScale;
+            imageBackgroundTransform.localScale = new Vector3(scaleX, scaleY, 1f);
+        }
         turnMessagePanel.SetActive(true);
         yield return new WaitForSeconds(duration);
         turnMessagePanel.SetActive(false);
+
+        if (scaleImage)
+        {
+            Transform imageBackgroundTransform = turnMessagePanel.transform.Find("Image");
+            imageBackgroundTransform.localScale = oldImageScale;
+        }
         turnOverlayCoroutine = null;
     }
 
@@ -519,5 +539,21 @@ public class GameplayManager : MonoBehaviour
     public void GetPlayer2Name(string name)
     {
         player2Name = name;
+    }
+
+    private IEnumerator RunTutorialMessages()
+    {
+        ShowTurnMessage("Welcome to bot or be bought!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+        ShowTurnMessage("Build robots and sell them for points! First player to reach 20 points wins!", 3f, true, 2, 3);
+        yield return new WaitForSeconds(3f);
+    }
+    /*
+     * Method to start the tutorial if gameplay manager detects in start 
+     * it is in TutorialScene scene.
+     */
+    public void StartTutorial()
+    {
+        StartCoroutine(RunTutorialMessages());
     }
 }

@@ -34,8 +34,16 @@ public class SceneLoader : MonoBehaviour
 
     // This function loads the Game Scene
     public void StartGame()
+    { 
+        SceneManager.LoadScene("GameScene");
+    }
+
+    // Function to start the tutorial
+    public void StartTutorial()
     {
-        SceneManager.LoadScene(1);
+        //For the old menu tutorial 
+        //The tutorial button on the menu used to go to ShowTutPage0 on click
+        SceneManager.LoadScene("TutorialScene");
     }
 
     public void ShowTut1()
