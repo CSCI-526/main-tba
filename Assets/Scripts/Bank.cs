@@ -130,31 +130,7 @@ public class Bank : MonoBehaviour
     public bool AddToBank(CardData cd)
     {
         if (isValidAddition(cd) && enabled) {
-            takenParts[(int)cd.cardValue - 1] = true;
-            if (bankData.Count == 0)
-            {
-                //color is set for the bank at this point
-                color = cd.cardSuit;
-            }
-            else if (hasOnlyOneType())
-            {
-                // this means the build should only be parts, ignore color
-                color = Card.CardSuit.empty;
-            }
-            bankData.Add(cd);
-            Debug.Log("DEBUG: Added " + cd.cardValue + " " + cd.cardSuit);
-
-            insertSound.Play(0);
-            drawRobot(cd);
-            
-            UpdateBankText();
-
-            // activate body when all parts are present
-            if (takenParts.All(b => b))
-            {
-                robotBody.SetActive(true);
-                robotBody.GetComponent<SpriteRenderer>().color = getColor(cd);
-            }
+            GameplayManager.Instance.MoveCardToWB(transform.position, this, cd);
 
             return true;
         }
@@ -164,6 +140,67 @@ public class Bank : MonoBehaviour
             StartCoroutine(RemoveAfterDelay(3f));
             Debug.Log("Card is invalid!");
             return false;
+        }
+    }
+
+    public void AddToWB(CardData cd)
+    {
+        takenParts[(int)cd.cardValue - 1] = true;
+        if (bankData.Count == 0)
+        {
+            //color is set for the bank at this point
+            color = cd.cardSuit;
+        }
+        else if (hasOnlyOneType())
+        {
+            // this means the build should only be parts, ignore color
+            color = Card.CardSuit.empty;
+        }
+        bankData.Add(cd);
+        Debug.Log("DEBUG: Added " + cd.cardValue + " " + cd.cardSuit);
+
+        insertSound.Play(0);
+        drawRobot(cd);
+
+        UpdateBankText();
+
+        // activate body when all parts are present
+        if (takenParts.All(b => b))
+        {
+            robotBody.SetActive(true);
+            robotBody.GetComponent<SpriteRenderer>().color = getColor(cd);
+        }
+
+        // destroy other selects first
+        GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+        foreach (GameObject instance in selectInstances)
+        {
+            Destroy(instance);
+        }
+        // clear selected_cards first then add this to selected_cards
+        GameplayManager.Instance.ClearSelectedCards();
+
+        //delete the card from the river
+        GameplayManager.Instance.RemoveCardFromRiver(cd);
+
+        //decrement turns in round
+        GameplayManager.Instance.decrementActionsTaken();
+
+        //Incrememt the turn player since adding to the bench is a turn
+        GameplayManager.Instance.IncrementActivePlayer();
+
+
+        if (bankData.Count >= 2)
+        {
+            sellButton.gameObject.SetActive(true);
+            if (bankData[0].cardValue == bankData[1].cardValue)
+            {
+                sellButtonText.text = "USE";
+            }
+            else if (bankData[0].cardSuit == bankData[1].cardSuit)
+            {
+                sellButtonText.text = "SELL";
+            }
         }
     }
 
@@ -280,41 +317,9 @@ public class Bank : MonoBehaviour
             //Grab the card data from the selected card
             CardData selectedCardData = GameplayManager.Instance.selected_cards[0].GetCardData();
 
-            
-
             if (AddToBank(selectedCardData))
             {
-                // destroy other selects first
-                GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
-                foreach (GameObject instance in selectInstances)
-                {
-                    Destroy(instance);
-                }
-                // clear selected_cards first then add this to selected_cards
-                GameplayManager.Instance.ClearSelectedCards();
 
-                //delete the card from the river
-                GameplayManager.Instance.RemoveCardFromRiver(selectedCardData);
-
-                //decrement turns in round
-                GameplayManager.Instance.decrementActionsTaken();
-
-                //Incrememt the turn player since adding to the bench is a turn
-                GameplayManager.Instance.IncrementActivePlayer();
-                
-
-                if (bankData.Count >= 2)
-                {
-                    sellButton.gameObject.SetActive(true);
-                    if(bankData[0].cardValue == bankData[1].cardValue)
-                    {
-                        sellButtonText.text = "USE";
-                    }
-                    else if(bankData[0].cardSuit == bankData[1].cardSuit)
-                    {
-                        sellButtonText.text = "SELL";
-                    }
-                }
             }
             else
             {

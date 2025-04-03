@@ -218,6 +218,11 @@ public class GameplayManager : MonoBehaviour
         StartCoroutine(selected_cards[0].GetComponent<Card>().Shake());
     }
 
+    public void MoveCardToWB(Vector2 position, Bank wb, CardData cd)
+    {
+        StartCoroutine(selected_cards[0].GetComponent<Card>().LinearAnimation(position, wb, cd));
+    }
+
     //Initialize players from the player objects given
     void InitializePlayers()
     {
