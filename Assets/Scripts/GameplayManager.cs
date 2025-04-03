@@ -101,6 +101,10 @@ public class GameplayManager : MonoBehaviour
     // Audio Sources
     public AudioSource passSound;
 
+    // analytics
+    public int totalTurns = 0;
+    public int totalPassTurns = 0;
+
     // ---------- Singleton Setup -----------
     public static GameplayManager Instance { get; private set; }
 
@@ -185,10 +189,12 @@ public class GameplayManager : MonoBehaviour
         //terminate game when any player reach score 30
         if (playerList[0].score >= pointsToWin){
             Winner.gameWinner = playerList[0].playerNum;
+            AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns);
             SceneManager.LoadScene(2);
         }
         if (playerList[1].score >= pointsToWin){
             Winner.gameWinner = playerList[1].playerNum;
+            AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns);
             SceneManager.LoadScene(2);
         }
     }
@@ -328,6 +334,7 @@ public class GameplayManager : MonoBehaviour
                 // CheckRefreshRiver();
                 IncrementActivePlayer();
                 GameplayManager.Instance.selected_cards.Clear();
+                totalPassTurns++;
                 break;
 
             case 3:
@@ -438,6 +445,8 @@ public class GameplayManager : MonoBehaviour
             Debug.Log("current value of active's playerNum: " + activePlayer.playerNum);
             IncrementActivePlayer();
         }
+
+        totalTurns++;
     }
     
     // Call this function whenever you change `inGameTutorial`.

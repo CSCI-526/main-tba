@@ -39,6 +39,15 @@ public class AnalyticsManager : MonoBehaviour
         StartCoroutine(PostRequest(url, json));
     }
 
+    public void LogGameTurns(int totalTurns, int totalPassTurns)
+    {
+        string url = $"{firebaseURL}game_turns.json";
+
+        GameTurnsCounts turns = new GameTurnsCounts(totalTurns, totalPassTurns);
+        string json = JsonUtility.ToJson(turns);
+        StartCoroutine(PostRequest(url, json));
+    }
+
     IEnumerator PostRequest(string url, string json)
     {
         using (UnityWebRequest request = new UnityWebRequest(url, "POST"))
