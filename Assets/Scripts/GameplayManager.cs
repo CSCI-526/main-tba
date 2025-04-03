@@ -105,6 +105,15 @@ public class GameplayManager : MonoBehaviour
     public int totalTurns = 0;
     public int totalPassTurns = 0;
 
+    //tutorial UI
+    public GameObject workbenches;
+    public GameObject p1Work1SellButton;
+    public GameObject p1Work2SellButton;
+    public GameObject p2Work1SellButton;
+    public GameObject p2Work2SellButton;
+    public GameObject passButton;
+    
+
     // ---------- Singleton Setup -----------
     public static GameplayManager Instance { get; private set; }
 
@@ -568,6 +577,27 @@ public class GameplayManager : MonoBehaviour
      */
     public void StartTutorial()
     {
+        //Turn off everythign that isn't needed for now UI wise
+        //Stuff in Game Components
+        workbenches.SetActive(false);
+        turnLights1.SetActive(false);
+        turnLights2.SetActive(false);
+        p1ScoreMeter.SetActive(false);
+        p2ScoreMeter.SetActive(false);
+        frame1.SetActive(false);
+        frame2.SetActive(false);
+
+        //And some UI buttons
+        p1Work1SellButton.SetActive(false);
+        p1Work2SellButton.SetActive(false);
+        p2Work1SellButton.SetActive(false);
+        p2Work2SellButton.SetActive(false);
+        passButton.SetActive(false);
+        
+        
         StartCoroutine(RunTutorialMessages());
+        
     }
+
+    
 }

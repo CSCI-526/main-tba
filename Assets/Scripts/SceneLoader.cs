@@ -27,9 +27,12 @@ public class SceneLoader : MonoBehaviour
     
     void Start()
     {
-        menuCanvas.SetActive(true);
-        tutMessage1.SetActive(false);
-        tutMessage2.SetActive(false);
+        if (menuCanvas != null && tutMessage1 != null && tutMessage2 != null)
+        {
+            menuCanvas.SetActive(true);
+            tutMessage1.SetActive(false);
+            tutMessage2.SetActive(false);
+        }
     }
 
     // This function loads the Game Scene
@@ -44,6 +47,12 @@ public class SceneLoader : MonoBehaviour
         //For the old menu tutorial 
         //The tutorial button on the menu used to go to ShowTutPage0 on click
         SceneManager.LoadScene("TutorialScene");
+    }
+
+    //Function to go back to main menu
+    public void StartMainMenu()
+    {
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public void ShowTut1()
