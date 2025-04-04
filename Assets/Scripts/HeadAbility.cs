@@ -69,7 +69,7 @@ public class HeadAbility : IAbility
                 {
                     Debug.Log("Copying card number " + (i+1));
                     Debug.Log("Own bench enabled? " + workBench.enabled);
-                    workBench.AddToBank(bankToCopy.bankData[i]);
+                    workBench.AddToWB(bankToCopy.bankData[i]);
                 }
             }
             GameplayManager.Instance.IncrementActivePlayer();
