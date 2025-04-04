@@ -115,6 +115,7 @@ public class GameplayManager : MonoBehaviour
     public GameObject passButton;
     public bool pastFirstTutorial = false;
     public bool onFinalTutorial = false;
+    public bool MadeWrongChoice = false;
     
 
     // ---------- Singleton Setup -----------
@@ -583,7 +584,7 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
     }
 
-    private IEnumerator RunMoreTutorialMessages()
+    public IEnumerator RunMoreTutorialMessages()
     {
         ShowTurnMessage("Nice job!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
@@ -605,6 +606,16 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(4f);
         ShowTurnMessage("Try a new game with a friend!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
+    }
+
+    public IEnumerator FailedTutorialMessages()
+    {
+        ShowTurnMessage("Not quite right!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+        ShowTurnMessage("You built a weapon!", 3f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+        ShowTurnMessage("Try again!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
     }
 
     /*
@@ -706,7 +717,14 @@ public class GameplayManager : MonoBehaviour
     {
         pastFirstTutorial = true;
         onFinalTutorial = true;
-        yield return StartCoroutine(RunMoreTutorialMessages());
+
+        if (!MadeWrongChoice)
+        {
+            yield return StartCoroutine(RunMoreTutorialMessages());
+        } else
+        {
+            yield return StartCoroutine(FailedTutorialMessages());
+        }
 
         //Now we should clear everything in the benches and river and reactivate all UI items
         
@@ -729,18 +747,28 @@ public class GameplayManager : MonoBehaviour
 
         //Clear the banks first then add
         p1firstWB.ClearBank();
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));
+        /*
         p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
         p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
         p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
-        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));*/
         Debug.Log(p1firstWB.bankData.Count);
-        p1firstWB.drawBench();
+        //p1firstWB.drawBench();
 
         p1secondWB.ClearBank();
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
+        /*
         p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
-        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
-        p1secondWB.drawBench();
-        
+        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));*/
+        Debug.Log(p1secondWB.bankData.Count);
+        //p1secondWB.drawBench();
+
+
     }
 
     public IEnumerator EndTutorial()

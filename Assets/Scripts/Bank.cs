@@ -120,7 +120,10 @@ public class Bank : MonoBehaviour
 
         if (GameplayManager.Instance.activePlayer.playerNum == playerNumber && bankData.Count >= 2)
         {
-            sellButton.gameObject.SetActive(true);
+            if (SceneManager.GetActiveScene().name != "TutorialScene")
+            {
+                sellButton.gameObject.SetActive(true);
+            }
         }
         else
         {
@@ -144,6 +147,26 @@ public class Bank : MonoBehaviour
         }
     }
 
+    public void AddToWBTutorial(CardData cd)
+    {
+        takenParts[(int)cd.cardValue - 1] = true;
+        if (bankData.Count == 0)
+        {
+            //color is set for the bank at this point
+            color = cd.cardSuit;
+        }
+        else if (hasOnlyOneType())
+        {
+            // this means the build should only be parts, ignore color
+            color = Card.CardSuit.empty;
+        }
+        bankData.Add(cd);
+        Debug.Log("DEBUG: Added " + cd.cardValue + " " + cd.cardSuit);
+
+        drawRobot(cd);
+
+        UpdateBankText();
+    }
     public void AddToWB(CardData cd)
     {
         takenParts[(int)cd.cardValue - 1] = true;
@@ -184,8 +207,11 @@ public class Bank : MonoBehaviour
         //delete the card from the river
         GameplayManager.Instance.RemoveCardFromRiver(cd);
 
-        //decrement turns in round
-        GameplayManager.Instance.decrementActionsTaken();
+        if (SceneManager.GetActiveScene().name != "TutorialScene")
+        {
+            //decrement turns in round
+            GameplayManager.Instance.decrementActionsTaken();
+        }
 
         //don't increment active player if we're in the beginning stages of the tutorial
         if (SceneManager.GetActiveScene().name != "TutorialScene")
@@ -202,13 +228,20 @@ public class Bank : MonoBehaviour
             if(this.name == "P1 Workbench 1")
             {
                 StartCoroutine(GameplayManager.Instance.EndTutorial());
+            } else if (this.name == "P1 Workbench 2")
+            {
+                GameplayManager.Instance.MadeWrongChoice = true;
+                StartCoroutine(GameplayManager.Instance.TriggerNextTutorial());
             }
         }
 
 
         if (bankData.Count >= 2)
         {
-            sellButton.gameObject.SetActive(true);
+            if (SceneManager.GetActiveScene().name != "TutorialScene")
+            {
+                sellButton.gameObject.SetActive(true);
+            }
             if (bankData[0].cardValue == bankData[1].cardValue)
             {
                 sellButtonText.text = "USE";
@@ -250,7 +283,11 @@ public class Bank : MonoBehaviour
 
     public void ClearBank()
     {
-        bankData.Clear();
+        while(bankData.Count != 0)
+        {
+            RemoveFromBank();
+        }
+        
     }
 
     public void UpdateBankText()
