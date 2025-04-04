@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 //using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Bank : MonoBehaviour
@@ -496,10 +497,11 @@ public class Bank : MonoBehaviour
         msg += "\nCOLOR: " + color;
         TooltipManager._instance.SetAndShowTooltip(msg);
         */
-        
+
         // Show Workbench info when mouse hover and no cards selected 
         if (GameplayManager.Instance.selected_cards.Count == 0)
         {
+            
             if (bankData.Count < 2)
             {
                 msg += "Collect more parts to build a robot or a weapon!";
@@ -554,6 +556,15 @@ public class Bank : MonoBehaviour
                 }
             }
             TooltipManager._instance.SetAndShowTooltip(msg);
+        } else
+        {
+            Debug.Log("got here with 1 selected card");
+            //Gross tutorial only code
+            if (SceneManager.GetActiveScene().name == "TutorialScene")
+            {
+                msg += "Click a workbench to collect selected part.";
+                TooltipManager._instance.SetAndShowTooltip(msg);
+            }
         }
         
         /*

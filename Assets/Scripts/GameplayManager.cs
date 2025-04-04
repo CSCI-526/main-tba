@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using static System.Net.Mime.MediaTypeNames;
 using UnityEngine.SceneManagement;
+using static Card;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -112,6 +113,7 @@ public class GameplayManager : MonoBehaviour
     public GameObject p2Work1SellButton;
     public GameObject p2Work2SellButton;
     public GameObject passButton;
+    private bool pastFirstTutorial = false;
     
 
     // ---------- Singleton Setup -----------
@@ -573,6 +575,30 @@ public class GameplayManager : MonoBehaviour
         ShowTurnMessage("Your turn!", 2f);
         yield return new WaitForSeconds(2f);
     }
+
+    /*
+     * Ripped this logic out from the card class
+     * Let the gameplay manager decide what the tooltip should be for the card on hover
+     */
+    public String GetCardTooltip(Card card)
+    {
+        if (SceneManager.GetActiveScene().name == "TutorialScene" && !pastFirstTutorial)
+        {
+            return "Click a part to select it!";
+        }
+
+        if (selected_cards.Count == 0)
+        {
+            return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+        }
+        else if (selected_cards.Count == 1 && selected_cards[0] != card)
+        {
+            return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+        }
+
+        return "";
+    }
+
     /*
      * Method to start the tutorial if gameplay manager detects in start 
      * it is in TutorialScene scene.
@@ -600,8 +626,8 @@ public class GameplayManager : MonoBehaviour
         StartCoroutine(RunTutorialMessages());
 
         //Once the message completes, we need to fill the bench with some cards
-        //Set player as active
-        SetActivePlayer(0);
+        //Set player as active?
+   
         //Flop with predefined cards
         List<Card.CardSuit> suits = new List<Card.CardSuit>();
         suits.Add(Card.CardSuit.Blue);
@@ -619,8 +645,17 @@ public class GameplayManager : MonoBehaviour
 
         river.PredefinedFlop(deck, suits, values);
 
-        //We need the mouseover message to change
+    }
 
+    /*
+     * At this point, the player has selected a card while in the tutorial
+     */
+    public void UpdateTutorial()
+    {
+        //Reenable the player 1 workbenches
+        //This is bad I need to reenable only player 1's workbenches
+        //And only allow them to assign
+        workbenches.SetActive(true);
     }
 
     

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Android;
+using UnityEngine.SceneManagement;
 
 public class Card : MonoBehaviour
 {
@@ -81,15 +82,20 @@ public class Card : MonoBehaviour
     // Mouseover Tooltip functions 
     private void OnMouseEnter()
     {
-        if (GameplayManager.Instance.selected_cards.Count == 0)
+        /*if (GameplayManager.Instance.selected_cards.Count == 0)
         {
             TooltipManager._instance.SetAndShowTooltip(cardSuit + " " + cardValue + "\nClick to select.");
         }
         else if (GameplayManager.Instance.selected_cards.Count == 1 && GameplayManager.Instance.selected_cards[0] != this)
         {
             TooltipManager._instance.SetAndShowTooltip(cardSuit + " " + cardValue + "\nClick to select.");
+        }*/
+        string tooltip = GameplayManager.Instance.GetCardTooltip(this);
+
+        if (tooltip != "")
+        {
+            TooltipManager._instance.SetAndShowTooltip(tooltip);
         }
-        
     }
 
     private void OnMouseExit()
@@ -120,6 +126,12 @@ public class Card : MonoBehaviour
                 Bank current = wb.GetComponent<Bank>();
                 current.spawnSelection(this.GetCardData());
             }
+        }
+
+        //Tutorial specific on mouse down logic
+        if(SceneManager.GetActiveScene().name == "TutorialScene")
+        { 
+            GameplayManager.Instance.UpdateTutorial();
         }
     }
 
