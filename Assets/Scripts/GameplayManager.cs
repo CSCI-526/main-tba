@@ -160,6 +160,7 @@ public class GameplayManager : MonoBehaviour
     //control handler
     void Update()
     {
+        /*
         //dev debug keys - h to hide hand, s to show hand
         if (Input.GetKeyDown(KeyCode.H))
         {
@@ -193,7 +194,7 @@ public class GameplayManager : MonoBehaviour
         }
 
         //testing head ability
-        /*if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             HeadAbility headAbility = new HeadAbility();
             headAbility.Activate(4);
