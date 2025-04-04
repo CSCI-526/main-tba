@@ -5300,6 +5300,8 @@ MonoBehaviour:
   p2Work1SellButton: {fileID: 1728845857}
   p2Work2SellButton: {fileID: 1669359175}
   passButton: {fileID: 694666959}
+  pastFirstTutorial: 0
+  onFinalTutorial: 0
 --- !u!4 &609991462
 Transform:
   m_ObjectHideFlags: 0
@@ -10665,7 +10667,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1253221709
 Transform:
   m_ObjectHideFlags: 0
@@ -17709,7 +17711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2127800951
 Transform:
   m_ObjectHideFlags: 0

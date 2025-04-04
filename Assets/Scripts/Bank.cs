@@ -187,8 +187,23 @@ public class Bank : MonoBehaviour
         //decrement turns in round
         GameplayManager.Instance.decrementActionsTaken();
 
-        //Incrememt the turn player since adding to the bench is a turn
-        GameplayManager.Instance.IncrementActivePlayer();
+        //don't increment active player if we're in the beginning stages of the tutorial
+        if (SceneManager.GetActiveScene().name != "TutorialScene")
+        {
+            //Incrememt the turn player since adding to the bench is a turn
+            GameplayManager.Instance.IncrementActivePlayer();
+        } else if (!GameplayManager.Instance.pastFirstTutorial)
+        {
+            //Don't increment, print out a nice job message
+            StartCoroutine(GameplayManager.Instance.TriggerNextTutorial());
+        } else if (GameplayManager.Instance.onFinalTutorial)
+        {
+            Debug.Log(this.name);
+            if(this.name == "P1 Workbench 1")
+            {
+                StartCoroutine(GameplayManager.Instance.EndTutorial());
+            }
+        }
 
 
         if (bankData.Count >= 2)
@@ -231,6 +246,11 @@ public class Bank : MonoBehaviour
         {
             Debug.Log("Can't remove bank empty");
         }
+    }
+
+    public void ClearBank()
+    {
+        bankData.Clear();
     }
 
     public void UpdateBankText()
@@ -656,6 +676,14 @@ public class Bank : MonoBehaviour
         //cleanup operations on the workbench
         this.color = Card.CardSuit.empty;
         cleanupTakenParts();
+    }
+
+    public void drawBench()
+    {
+        foreach (CardData card in bankData)
+        {
+            drawRobot(card);
+        }
     }
 
     private void drawRobot(CardData cd)

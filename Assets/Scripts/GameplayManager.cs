@@ -113,7 +113,8 @@ public class GameplayManager : MonoBehaviour
     public GameObject p2Work1SellButton;
     public GameObject p2Work2SellButton;
     public GameObject passButton;
-    private bool pastFirstTutorial = false;
+    public bool pastFirstTutorial = false;
+    public bool onFinalTutorial = false;
     
 
     // ---------- Singleton Setup -----------
@@ -231,6 +232,12 @@ public class GameplayManager : MonoBehaviour
 
     public void MoveCardToWB(Vector2 position, Bank wb, CardData cd)
     {
+        if (selected_cards.Count == 0)
+        {
+            Debug.LogWarning("Tried to move card to workbench, but no card is selected!");
+            return;
+        }
+
         StartCoroutine(selected_cards[0].GetComponent<Card>().LinearAnimation(position, wb, cd));
     }
 
@@ -568,12 +575,36 @@ public class GameplayManager : MonoBehaviour
 
     private IEnumerator RunTutorialMessages()
     {
-        ShowTurnMessage("Welcome to bot or be bought!", 2f, true, 2, 3);
+        ShowTurnMessage("Welcome to Bot or be Bought!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
         ShowTurnMessage("Build robots and sell them for points! First player to reach 20 points wins!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
         ShowTurnMessage("Your turn!", 2f);
         yield return new WaitForSeconds(2f);
+    }
+
+    private IEnumerator RunMoreTutorialMessages()
+    {
+        ShowTurnMessage("Nice job!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+        ShowTurnMessage("Add more missing robot parts to complete the robot!", 4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+        ShowTurnMessage("Or add more of the same part to build a weapon!",4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+        ShowTurnMessage("Let's skip ahead in the game...", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+        ShowTurnMessage("Can you build a robot and sell it to win this game?", 4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+    }
+
+    private IEnumerator FinalTutorialMessages()
+    {
+        ShowTurnMessage("Nice work!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+        ShowTurnMessage("You completed the robot!", 4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+        ShowTurnMessage("Try a new game with a friend!", 4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
     }
 
     /*
@@ -653,9 +684,69 @@ public class GameplayManager : MonoBehaviour
     public void UpdateTutorial()
     {
         //Reenable the player 1 workbenches
-        //This is bad I need to reenable only player 1's workbenches
         //And only allow them to assign
+
+        /*
+        Transform wb1 = workbenches.transform.Find("P1 Workbench 1");
+        Transform wb2 = workbenches.transform.Find("P1 Workbench 2");
+
+        if(wb1 != null && wb2 != null)
+        {
+            wb1.gameObject.SetActive(true);
+            wb2.gameObject.SetActive(true);
+        }*/
         workbenches.SetActive(true);
+    }
+
+    /*
+     * Trigger the next half of the tutorial
+     * We call this from the bank onmouseclick button when a card is added to the bank for the first time
+     */
+    public IEnumerator TriggerNextTutorial()
+    {
+        pastFirstTutorial = true;
+        onFinalTutorial = true;
+        yield return StartCoroutine(RunMoreTutorialMessages());
+
+        //Now we should clear everything in the benches and river and reactivate all UI items
+        
+        river.riverData.Clear();
+        List<Card.CardSuit> suits = new List<Card.CardSuit>();
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Red);
+        suits.Add(Card.CardSuit.Blue);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Green);
+
+        List<Card.CardValue> values = new List<Card.CardValue>();
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.RightArm);
+        values.Add(Card.CardValue.LeftFoot);
+        values.Add(Card.CardValue.Head);
+
+        river.PredefinedFlop(deck, suits, values);
+
+        //Clear the banks first then add
+        p1firstWB.ClearBank();
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));
+        Debug.Log(p1firstWB.bankData.Count);
+        p1firstWB.drawBench();
+
+        p1secondWB.ClearBank();
+        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
+        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
+        p1secondWB.drawBench();
+        
+    }
+
+    public IEnumerator EndTutorial()
+    {
+        yield return StartCoroutine(FinalTutorialMessages());
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     
