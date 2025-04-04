@@ -397,10 +397,10 @@ public class Bank : MonoBehaviour
 
         Dictionary<int, int> robotScoreTable = new()
         {
-            {2, 2},
-            {3, 4},
+            {2, 3},
+            {3, 5},
             {4, 8},
-            {5, 14}
+            {5, 13}
         };
         /*Dictionary<int, int> heapScoreTable = new()
         {

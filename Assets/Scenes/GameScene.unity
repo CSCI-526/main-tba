@@ -14711,6 +14711,7 @@ MonoBehaviour:
   passButton: {fileID: 0}
   pastFirstTutorial: 0
   onFinalTutorial: 0
+  MadeWrongChoice: 0
 --- !u!1 &1343919370
 GameObject:
   m_ObjectHideFlags: 0
@@ -16588,17 +16589,17 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
-    2 Parts: 2 Points
+    2 Parts: 3 Points
 
 
-    3 Parts: 4 Points
+    3 Parts: 5 Points
 
 
     4 Parts: 8 Points
 
 
     5
-    Parts!: 14 Points'
+    Parts!: 13 Points'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
