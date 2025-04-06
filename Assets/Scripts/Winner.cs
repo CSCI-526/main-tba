@@ -5,5 +5,5 @@ using UnityEngine;
 
 public static class Winner 
 {
-    public static int gameWinner;
+    public static string gameWinner;
 }

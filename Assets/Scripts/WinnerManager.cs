@@ -11,7 +11,7 @@ public class WinnerManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        winnerText.text = "Player" + Winner.gameWinner + " is winner!";
+        winnerText.text = Winner.gameWinner + " is winner!";
     }
 
     // Update is called once per frame
