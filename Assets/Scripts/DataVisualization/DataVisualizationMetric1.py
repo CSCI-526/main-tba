@@ -55,8 +55,8 @@ bar_width = 0.5
 
 ax.bar(index, counts, bar_width, color='blue')
 ax.set_xlabel('Points')
-ax.set_ylabel('Count of points')
-ax.set_title('Distribution of Points')
+ax.set_ylabel('Count of selling points')
+ax.set_title('Distribution of Selling Points')
 ax.set_xticks(index)
 ax.set_xticklabels(points)
 

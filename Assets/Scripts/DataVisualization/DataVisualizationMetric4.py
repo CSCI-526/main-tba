@@ -45,17 +45,32 @@ robots_weapons_count = Counter(robot_sell_weapon_use)
 # Prepare data for plotting
 robot_or_weapon, counts = zip(*sorted(robots_weapons_count.items()))  # Sorted by points value
 
+
 # Create the plot
 fig, ax = plt.subplots()
-index = np.arange(len(robot_or_weapon))
+index = np.arange(1)  # Single bar at position 0
 bar_width = 0.5
 
-ax.bar(index, counts, bar_width, color='blue')
-#ax.set_xlabel('Weapons')
+# Plot stacked bars (1 bar: blue bottom, orange on top)
+robot_count = counts[0]
+weapon_count = counts[1]
+
+
+#ax.bar(index, counts, bar_width, color='blue')
+bars1 = ax.bar(index, robot_count, width=bar_width, color='blue', label='Robot')
+bars2 = ax.bar(index, weapon_count, width=bar_width, bottom=robot_count, color='orange', label='Weapon')
+
+ax.set_xlim(-0.8, 0.8)
+
+# Add total label on top
+#total = robot_count + weapon_count
+#ax.text(index[0], total + 0.1, str(total), ha='center', va='bottom')
+
+# Final touches
 ax.set_ylabel('Count of Robot Selling and Weapons Using')
-ax.set_title('Ratio of Robot Selling and Weapons Using')
-ax.set_xticks(index)
-ax.set_xticklabels(robot_or_weapon)
+ax.set_title('Robot Selling vs Weapons Using')
+ax.set_xticks([])
+ax.legend()
 
 # Save and show the plot
 plt.savefig("metric4.png")

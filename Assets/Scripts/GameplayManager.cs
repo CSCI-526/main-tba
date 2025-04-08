@@ -203,12 +203,12 @@ public class GameplayManager : MonoBehaviour
         //terminate game when any player reach score 30
         if (playerList[0].score >= pointsToWin){
             Winner.gameWinner = player1Name;
-            AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns);
+            AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns, 1);
             SceneManager.LoadScene(2);
         }
         if (playerList[1].score >= pointsToWin){
             Winner.gameWinner = player2Name;
-            AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns);
+            AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns, 2);
             SceneManager.LoadScene(2);
         }
     }
