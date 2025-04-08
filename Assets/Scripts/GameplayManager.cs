@@ -116,6 +116,7 @@ public class GameplayManager : MonoBehaviour
     public bool pastFirstTutorial = false;
     public bool onFinalTutorial = false;
     public bool MadeWrongChoice = false;
+    public GameObject buildingGuide;
     
 
     // ---------- Singleton Setup -----------
@@ -585,14 +586,61 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
     }
 
-    public IEnumerator RunMoreTutorialMessages()
+    public void RunMoreTutorialMessages()
     {
-        ShowTurnMessage("Nice job!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Add more missing robot parts to complete the robot!", 4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
-        ShowTurnMessage("Or add more of the same part to build a weapon!",4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
+        buildingGuide.SetActive(true);
+    }
+
+    public void RunSkipAhead()
+    {
+        buildingGuide.SetActive(false);
+        StartCoroutine(RunEvenMoreTutorialMessages());
+
+        //Now we should clear everything in the benches and river and reactivate all UI items
+        
+        river.riverData.Clear();
+        List<Card.CardSuit> suits = new List<Card.CardSuit>();
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Red);
+        suits.Add(Card.CardSuit.Blue);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Green);
+
+        List<Card.CardValue> values = new List<Card.CardValue>();
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.RightArm);
+        values.Add(Card.CardValue.LeftFoot);
+        values.Add(Card.CardValue.Head);
+
+        river.PredefinedFlop(deck, suits, values);
+
+        //Clear the banks first then add
+        p1firstWB.ClearBank();
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));
+        /*
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));*/
+        Debug.Log(p1firstWB.bankData.Count);
+        //p1firstWB.drawBench();
+
+        p1secondWB.ClearBank();
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
+        /*
+        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
+        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));*/
+        Debug.Log(p1secondWB.bankData.Count);
+        //p1secondWB.drawBench();
+    }
+
+    public IEnumerator RunEvenMoreTutorialMessages()
+    {
         ShowTurnMessage("Let's skip ahead in the game...", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
         ShowTurnMessage("Can you build a robot and sell it to win this game?", 4f, true, 2, 3);
@@ -617,6 +665,46 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSeconds(4f);
         ShowTurnMessage("Try again!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
+
+        river.riverData.Clear();
+        List<Card.CardSuit> suits = new List<Card.CardSuit>();
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Red);
+        suits.Add(Card.CardSuit.Blue);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Green);
+
+        List<Card.CardValue> values = new List<Card.CardValue>();
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.RightArm);
+        values.Add(Card.CardValue.LeftFoot);
+        values.Add(Card.CardValue.Head);
+
+        river.PredefinedFlop(deck, suits, values);
+
+        //Clear the banks first then add
+        p1firstWB.ClearBank();
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));
+        /*
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
+        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));*/
+        Debug.Log(p1firstWB.bankData.Count);
+        //p1firstWB.drawBench();
+
+        p1secondWB.ClearBank();
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
+        /*
+        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
+        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));*/
+        Debug.Log(p1secondWB.bankData.Count);
+        //p1secondWB.drawBench();
     }
 
     /*
@@ -738,55 +826,11 @@ public class GameplayManager : MonoBehaviour
 
         if (!MadeWrongChoice)
         {
-            yield return StartCoroutine(RunMoreTutorialMessages());
+            RunMoreTutorialMessages();
         } else
         {
             yield return StartCoroutine(FailedTutorialMessages());
         }
-
-        //Now we should clear everything in the benches and river and reactivate all UI items
-        
-        river.riverData.Clear();
-        List<Card.CardSuit> suits = new List<Card.CardSuit>();
-        suits.Add(Card.CardSuit.Black);
-        suits.Add(Card.CardSuit.Red);
-        suits.Add(Card.CardSuit.Blue);
-        suits.Add(Card.CardSuit.Black);
-        suits.Add(Card.CardSuit.Green);
-
-        List<Card.CardValue> values = new List<Card.CardValue>();
-        values.Add(Card.CardValue.LeftArm);
-        values.Add(Card.CardValue.LeftArm);
-        values.Add(Card.CardValue.RightArm);
-        values.Add(Card.CardValue.LeftFoot);
-        values.Add(Card.CardValue.Head);
-
-        river.PredefinedFlop(deck, suits, values);
-
-        //Clear the banks first then add
-        p1firstWB.ClearBank();
-        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
-        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
-        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
-        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));
-        /*
-        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
-        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
-        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
-        p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));*/
-        Debug.Log(p1firstWB.bankData.Count);
-        //p1firstWB.drawBench();
-
-        p1secondWB.ClearBank();
-        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
-        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
-        /*
-        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
-        p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));*/
-        Debug.Log(p1secondWB.bankData.Count);
-        //p1secondWB.drawBench();
-
-
     }
 
     public IEnumerator EndTutorial()
