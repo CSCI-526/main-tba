@@ -625,18 +625,35 @@ public class GameplayManager : MonoBehaviour
      */
     public String GetCardTooltip(Card card)
     {
-        if (SceneManager.GetActiveScene().name == "TutorialScene" && !pastFirstTutorial)
+        if (SceneManager.GetActiveScene().name == "TutorialScene")
         {
-            return "Click a part to select it!";
+            if (!pastFirstTutorial)
+            {
+                return "Click a part to select it!";
+            }
+            else 
+            {
+                if (selected_cards.Count == 0)
+                {
+                    return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+                }
+                else if (selected_cards.Count == 1 && selected_cards[0] != card)
+                {
+                    return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+                }
+            }
         }
 
-        if (selected_cards.Count == 0)
+        else if (SceneManager.GetActiveScene().name != "TutorialScene")
         {
-            return card.cardSuit + " " + card.cardValue + "\nClick to select.";
-        }
-        else if (selected_cards.Count == 1 && selected_cards[0] != card)
-        {
-            return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+            if (selected_cards.Count == 0)
+            {
+                return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+            }
+            else if (selected_cards.Count == 1 && selected_cards[0] != card)
+            {
+                return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+            }
         }
 
         return "";
