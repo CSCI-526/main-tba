@@ -110,7 +110,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 5489539157205895565}
   texture: {fileID: 0}
   gm: {fileID: 0}
-  select: {fileID: 5074201981913270055, guid: d052aae53f0c5044e9813872e6b1bb37, type: 3}
+  select: {fileID: 4591727590017393606, guid: 4222591868c86c24db39f47f8ad936d1, type: 3}
   bankable: 1
   waiting_to_put: 0
   place: 
