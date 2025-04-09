@@ -28,10 +28,14 @@ public class FootAbility : IAbility
         }
         for (int i = 0; i < GameplayManager.Instance.river.riverData.Count; ++i)
         {
-            if (GameplayManager.Instance.river.riverData[i].pos == card1 ||
-                GameplayManager.Instance.river.riverData[i].pos == card2)
+            CardData currentCard = GameplayManager.Instance.river.riverData[i];
+            if (currentCard.pos == card1 ||
+                currentCard.pos == card2)
             {
                 num_card_left++;
+                // delete card from river
+                GameplayManager.Instance.river.LocateAndDelete(currentCard);
+                i--;
             }
         }
 
