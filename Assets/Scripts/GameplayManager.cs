@@ -294,15 +294,28 @@ public class GameplayManager : MonoBehaviour
         if (actionsTakenInRound == 4)
         {
             currPlayerText.text += "New Round!\n";
+            if (activePlayer.playerNum == 1)
+            {
+                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!", player1Name + "'s Turn!"));
+            }
+            else 
+            {
+                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!", player2Name + "'s Turn!"));
+            }
         }
-        if (activePlayer.playerNum == 1)
+        else 
         {
-            currPlayerText.text += player1Name + "'s Turn!";
+            if (activePlayer.playerNum == 1)
+            {
+                currPlayerText.text += player1Name + "'s Turn!";
+            }
+            else if (activePlayer.playerNum == 2)
+            {
+                currPlayerText.text += player2Name + "'s Turn!";
+            }
+            ShowTurnMessage(currPlayerText.text);
         }
-        else
-        {
-            currPlayerText.text += player2Name + "'s Turn!";
-        }
+        
 
         if (activePlayer.playerNum == 1)
         {
@@ -327,7 +340,6 @@ public class GameplayManager : MonoBehaviour
             playerList[0].WB1.GetComponent<Bank>().enabled = false;
             playerList[0].WB2.GetComponent<Bank>().enabled = false;
         }
-        ShowTurnMessage(currPlayerText.text);
 
         // set active frame
         setActiveFrame(playerNum);
@@ -546,6 +558,13 @@ public class GameplayManager : MonoBehaviour
             imageBackgroundTransform.localScale = oldImageScale;
         }
         turnOverlayCoroutine = null;
+    }
+
+    private IEnumerator ShowNewRoundMessage(string newRoundMessage, string turnMessage)
+    {
+        ShowTurnMessage(newRoundMessage);
+        yield return new WaitForSeconds(2.5f);
+        ShowTurnMessage(turnMessage);
     }
 
     public void ShowPointTable()
