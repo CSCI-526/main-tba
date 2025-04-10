@@ -127,10 +127,21 @@ public class Card : MonoBehaviour
                 current.spawnSelection(this.GetCardData());
             }
         }
+        else
+        {
+            //destroy any remaining selects
+            GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+            foreach (GameObject instance in selectInstances)
+            {
+                Destroy(instance);
+            }
+            // clear selected_cards
+            gm.ClearSelectedCards();
+        }
 
         //Tutorial specific on mouse down logic
-        if(SceneManager.GetActiveScene().name == "TutorialScene")
-        { 
+        if (SceneManager.GetActiveScene().name == "TutorialScene")
+        {
             GameplayManager.Instance.UpdateTutorial();
         }
     }
