@@ -562,10 +562,10 @@ public class Bank : MonoBehaviour
             if (bankData.Count < 2)
             {
                 msg += "Collect more parts to build a robot or a weapon!";
-                if (bankData.Count == 1)
+                /*if (bankData.Count == 1)
                 {
                     msg += "\nCurrent Part:\n" + bankData[0].cardSuit + " " + bankData[0].cardValue;
-                }
+                }*/
             }
             else
             {
@@ -574,23 +574,23 @@ public class Bank : MonoBehaviour
                     switch ((int)bankData[0].cardValue)
                     {
                         case 1:
-                        msg += "Copy some parts from opposite workbench.\nCurrent power: " + bankData.Count;
+                        msg += "Copy " + (bankData.Count - 1) + " parts from opposite workbench.";
                         break;
 
                         case 2:
-                        msg += "Destroy parts from opponent's LEFT workbench.\nCurrent power: " + bankData.Count;
+                        msg += "Destroy " + (bankData.Count - 1) +  " parts from opponent's LEFT workbench.";
                         break;
 
                         case 3:
-                        msg += "Destroy parts from opponent's RIGHT workbench.\nCurrent power: " + bankData.Count;
+                        msg += "Destroy " + (bankData.Count - 1) + " parts from opponent's RIGHT workbench.";
                         break;
 
                         case 4:
-                        msg += "Collect points based on cards remaining on LEFT half of conveyor belt.\nCurrent power: " + bankData.Count;
+                        msg += "Destroy parts on the LEFT side of the conveyor belt. Gain " + bankData.Count + " points per part destroyed.";
                         break;
 
                         case 5:
-                        msg += "Collect points based on cards remaining on RIGHT half of conveyor belt.\nCurrent power: " + bankData.Count;
+                        msg += "Destroy parts on the RIGHT side of the conveyor belt. Gain " + bankData.Count + " points per part destroyed.";
                         break;
                     }
                 }
@@ -599,11 +599,11 @@ public class Bank : MonoBehaviour
                 {
                     if (bankData.Count < 5)
                     {
-                        msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far:";
-                        for (int i = 0; i < bankData.Count; i++)
+                        msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far";
+                        /*for (int i = 0; i < bankData.Count; i++)
                         {
                             msg += "\n" + bankData[i].cardValue;
-                        }
+                        }*/
                     }
                     else if (bankData.Count == 5)
                     {
