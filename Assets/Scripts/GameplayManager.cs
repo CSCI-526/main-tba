@@ -48,6 +48,8 @@ public class GameplayManager : MonoBehaviour
     public GamePlayer activePlayer;
     public string player1Name = "Player 1";
     public string player2Name = "Player 2";
+    public TextMeshProUGUI player1NameText;
+    public TextMeshProUGUI player2NameText;
 
     //UI elements
     [SerializeField]
@@ -579,6 +581,8 @@ public class GameplayManager : MonoBehaviour
 
     public void HideNameScreen()
     {
+        player1NameText.text = player1Name;
+        player2NameText.text = player2Name;
         nameScreen.SetActive(false);
         river.Flop(deck);
         turnMessagePanel.SetActive(true);
@@ -588,11 +592,19 @@ public class GameplayManager : MonoBehaviour
     public void GetPlayer1Name(string name)
     {
         player1Name = name;
+        if (player1Name == "")
+        {
+            player1Name = "Player 1";
+        }
     }
 
     public void GetPlayer2Name(string name)
     {
         player2Name = name;
+        if (player2Name == "")
+        {
+            player2Name = "Player 2";
+        }
     }
 
     private IEnumerator RunTutorialMessages()
