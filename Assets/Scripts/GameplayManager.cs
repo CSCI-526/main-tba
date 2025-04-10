@@ -760,6 +760,10 @@ public class GameplayManager : MonoBehaviour
                 {
                     return card.cardSuit + " " + card.cardValue + "\nClick to select.";
                 }
+                else if (selected_cards.Count == 1 && selected_cards[0] == card)
+                {
+                    return card.cardSuit + " " + card.cardValue + "\nClick again to deselect.";
+                }
             }
         }
 
@@ -772,6 +776,10 @@ public class GameplayManager : MonoBehaviour
             else if (selected_cards.Count == 1 && selected_cards[0] != card)
             {
                 return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+            }
+            else if (selected_cards.Count == 1 && selected_cards[0] == card)
+            {
+                return card.cardSuit + " " + card.cardValue + "\nClick again to deselect.";
             }
         }
 

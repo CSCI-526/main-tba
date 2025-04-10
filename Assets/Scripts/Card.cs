@@ -127,7 +127,7 @@ public class Card : MonoBehaviour
                 current.spawnSelection(this.GetCardData());
             }
         }
-        else
+        else //deselecting card
         {
             //destroy any remaining selects
             GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
@@ -135,7 +135,7 @@ public class Card : MonoBehaviour
             {
                 Destroy(instance);
             }
-            // clear selected_cards
+            //clear selected_cards
             gm.ClearSelectedCards();
         }
 
