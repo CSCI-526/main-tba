@@ -6420,6 +6420,8 @@ MonoBehaviour:
   p2secondWB: {fileID: 2127800954}
   player1Name: Player 1
   player2Name: Player 2
+  player1NameText: {fileID: 0}
+  player2NameText: {fileID: 0}
   gameCanvas: {fileID: 1702303719}
   inGameTut1: {fileID: 1556786659}
   inGameTut2: {fileID: 950815938}

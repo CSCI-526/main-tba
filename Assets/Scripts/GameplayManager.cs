@@ -877,6 +877,4 @@ public class GameplayManager : MonoBehaviour
         yield return StartCoroutine(FinalTutorialMessages());
         SceneManager.LoadScene("MainMenuScene");
     }
-
-    
 }
