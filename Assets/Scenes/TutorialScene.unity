@@ -9008,7 +9008,7 @@ MonoBehaviour:
   partType: 6
   bankText: {fileID: 443237935}
   playerNumber: 1
-  select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}
+  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
   sellButton: {fileID: 497129644}
   sellButtonText: {fileID: 954526107}
   robotBody: {fileID: 533343929}
@@ -10443,7 +10443,7 @@ MonoBehaviour:
   partType: 6
   bankText: {fileID: 1682037685}
   playerNumber: 1
-  select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}
+  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
   sellButton: {fileID: 1966371194}
   sellButtonText: {fileID: 1787030923}
   robotBody: {fileID: 1135071829}
