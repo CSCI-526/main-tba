@@ -262,7 +262,13 @@ public class Bank : MonoBehaviour
             //Remove the first item from the bank
             bankData.RemoveAt(0);
             //Use card data to clean takenArray
-            takenParts[(int)cD.cardValue - 1] = false;
+
+            //This is causing arm bug
+            //You should only set this to false if the bench is a robot build, not a set of duplicate parts
+            if (bankData.Count > 1 && !hasOnlyOneType())
+            {
+                takenParts[(int)cD.cardValue - 1] = false;
+            }
 
             //If we're down to our last card, set the color of the workbench, give option back to build robot
             //Need to set the takenParts as well just in case this was a dupe stack
