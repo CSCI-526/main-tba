@@ -333,7 +333,7 @@ public class Bank : MonoBehaviour
     }
 
     //Helper method to tell if a workbench only has one part type in it
-    private bool hasOnlyOneType()
+    public bool hasOnlyOneType()
     {
         int counter = 0;
         for (int i = 0; i < this.takenParts.Length; i++)
@@ -574,7 +574,7 @@ public class Bank : MonoBehaviour
                     switch ((int)bankData[0].cardValue)
                     {
                         case 1:
-                        msg += "Copy " + (bankData.Count - 1) + " parts from opposite workbench.";
+                        msg += "Copy up to " + (bankData.Count) + " parts from opposite workbench.";
                         break;
 
                         case 2:
@@ -723,7 +723,7 @@ public class Bank : MonoBehaviour
         }
     }
 
-    private void drawRobot(CardData cd)
+    public void drawRobot(CardData cd)
     /*
         Method to draw new robot part on bench
         Takes in CardData of added part, sets the corresponding sprite to active, and changes its color accordingly
