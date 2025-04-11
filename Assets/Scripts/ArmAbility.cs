@@ -34,6 +34,11 @@ public class ArmAbility : IAbility
                     //Remove from bank takes care of the nonsense, updating bank ui, taken list, etc
                     otherPlayer.WB1.RemoveFromBank();
                 }
+
+                if (otherPlayer.WB1.bankData.Count == 1)
+                {
+                    otherPlayer.WB1.drawRobot(otherPlayer.WB1.bankData[0]);
+                }
             } else
             {
                 //delete from workbench2
@@ -41,6 +46,11 @@ public class ArmAbility : IAbility
                 {
                     //Remove from bank takes care of the nonsense, updating bank ui, taken list, etc
                     otherPlayer.WB2.RemoveFromBank();
+                }
+                
+                if (otherPlayer.WB2.bankData.Count == 1)
+                {
+                    otherPlayer.WB2.drawRobot(otherPlayer.WB2.bankData[0]);
                 }
             }
         }

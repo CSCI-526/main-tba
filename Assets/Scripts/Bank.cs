@@ -841,5 +841,31 @@ public class Bank : MonoBehaviour
             robotRLeg.SetActive(false);
             break;
         }
+
+        if (this.hasOnlyOneType() && this.bankData.Count <= 1)
+        {
+            switch ((int)cd.cardValue)
+            {
+                case 1:
+                headWeapon.SetActive(false);
+                break;
+
+                case 2:
+                lArmWeapon.SetActive(false);
+                break;
+
+                case 3:
+                rArmWeapon.SetActive(false);
+                break;
+
+                case 4:
+                lLegWeapon.SetActive(false);
+                break;
+
+                case 5:
+                rLegWeapon.SetActive(false);
+                break;
+            }
+        }
     }
 }
