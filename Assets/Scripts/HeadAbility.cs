@@ -62,17 +62,21 @@ public class HeadAbility : IAbility
         
         if (bankToCopy.enabled)
         {
-            for (int i = 0; i < duplicateCount-1; i++)
+            if (!bankToCopy.hasOnlyOneType())
             {
-                
+                workBench.color = bankToCopy.bankData[0].cardSuit;
+            }
+            for (int i = 0; i < duplicateCount; i++)
+            {
                 if (i < bankToCopy.bankData.Count)
                 {
                     Debug.Log("Copying card number " + (i+1));
                     Debug.Log("Own bench enabled? " + workBench.enabled);
-                    workBench.AddToWB(bankToCopy.bankData[i]);
+                    // workBench.AddToWB(bankToCopy.bankData[i]);
+                    workBench.bankData.Add(bankToCopy.bankData[i]);
+                    workBench.drawRobot(bankToCopy.bankData[i]);
                 }
             }
-            GameplayManager.Instance.IncrementActivePlayer();
         }
         else
         {
@@ -103,5 +107,7 @@ public class HeadAbility : IAbility
                 workBench.sellButtonText.text = "SELL";
             }
         }
+        GameplayManager.Instance.decrementActionsTaken();
+        GameplayManager.Instance.IncrementActivePlayer();
     }
 }
