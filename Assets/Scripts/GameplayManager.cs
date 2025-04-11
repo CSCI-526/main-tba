@@ -648,10 +648,26 @@ public class GameplayManager : MonoBehaviour
 
         //Clear the banks first then add
         p1firstWB.ClearBank();
+        /* Debugging
+        Debug.Log("Bank 1 should be clear!! Count: " + p1firstWB.bankData.Count);
+        for (int i = 0; i < 5; i++)
+        {
+            if (p1firstWB.takenParts[i])
+            {
+                Debug.Log("DEBUG: Found the culprit: " + i);
+            }
+        }
+        */
+        if (p1firstWB.takenParts[2])
+        {
+            p1firstWB.takenParts[2] = false;
+        }
+        
         p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
         p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));
         p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftFoot));
         p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.RightFoot));
+        
         /*
         p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
         p1firstWB.bankData.Add(deck.DealSpecificCard(CardSuit.Blue, CardValue.LeftArm));

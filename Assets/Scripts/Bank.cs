@@ -20,7 +20,7 @@ public class Bank : MonoBehaviour
     //partType no longer in use, deletable?
     public Card.CardValue partType = Card.CardValue.empty;
     //init an array of taken parts, this assumes only 5 distinct parts
-    private bool[] takenParts = { false, false, false, false, false };
+    public bool[] takenParts = { false, false, false, false, false };
 
     //text listing all of the cards
     public TMP_Text bankText;
