@@ -37,7 +37,7 @@ public class Bank : MonoBehaviour
 
     // for robot visual representations
     [SerializeField]
-    private GameObject robotBody;
+    public GameObject robotBody;
     [SerializeField]
     private GameObject robotHead;
     [SerializeField]
@@ -191,6 +191,7 @@ public class Bank : MonoBehaviour
         // activate body when all parts are present
         if (takenParts.All(b => b))
         {
+            // Debug.Log("DEBUG: this bench has a complete robot!");
             robotBody.SetActive(true);
             robotBody.GetComponent<SpriteRenderer>().color = getColor(cd);
         }
@@ -797,7 +798,7 @@ public class Bank : MonoBehaviour
         }
     }
 
-    private Color getColor(CardData cd)
+    public Color getColor(CardData cd)
     /*
         Helper method for drawRobot 
         Implemented mostly to avoid nested switch statements for better clarity 

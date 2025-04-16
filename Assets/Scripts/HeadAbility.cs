@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class HeadAbility : IAbility
 {
@@ -73,8 +74,16 @@ public class HeadAbility : IAbility
                     Debug.Log("Copying card number " + (i+1));
                     Debug.Log("Own bench enabled? " + workBench.enabled);
                     // workBench.AddToWB(bankToCopy.bankData[i]);
+
                     workBench.bankData.Add(bankToCopy.bankData[i]);
+                    workBench.takenParts[(int)bankToCopy.bankData[i].cardValue - 1] = true;
                     workBench.drawRobot(bankToCopy.bankData[i]);
+                }
+
+                if (workBench.takenParts.All(b => b))
+                {
+                    workBench.robotBody.SetActive(true);
+                    workBench.robotBody.GetComponent<SpriteRenderer>().color = workBench.getColor(bankToCopy.bankData[0]);
                 }
             }
         }
