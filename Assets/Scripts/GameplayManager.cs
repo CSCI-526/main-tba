@@ -770,7 +770,7 @@ public class GameplayManager : MonoBehaviour
     {
         ShowTurnMessage("Let's skip ahead in the game...", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Can you complete a robot and sell it?", 4f, true, 2, 3);
+        ShowTurnMessage("Can you complete a robot\nand sell it?", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
     }
 
@@ -788,7 +788,7 @@ public class GameplayManager : MonoBehaviour
     {
         ShowTurnMessage("Not quite right!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("You built a weapon!", 3f, true, 2, 3);
+        ShowTurnMessage("You added to a weapon!", 3f, true, 2, 3);
         yield return new WaitForSeconds(4f);
         ShowTurnMessage("Try again!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
