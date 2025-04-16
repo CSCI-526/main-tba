@@ -31,7 +31,7 @@ public class Bank : MonoBehaviour
 
     // button to sell this workbench
     [SerializeField]
-    private Button sellButton;
+    public Button sellButton;
     [SerializeField]
     public TextMeshProUGUI sellButtonText;
 
@@ -228,12 +228,28 @@ public class Bank : MonoBehaviour
             Debug.Log(this.name);
             if(this.name == "P1 Workbench 1")
             {
-                GameplayManager.Instance.p1Work1SellButton.SetActive(true);
-                // StartCoroutine(GameplayManager.Instance.EndTutorial());
+                if (!GameplayManager.Instance.onWeaponTut)
+                {
+                    GameplayManager.Instance.p1Work1SellButton.SetActive(true);
+
+                }
+                else
+                {
+                    StartCoroutine(GameplayManager.Instance.FailedWeaponTutMessages());
+                }
+        
             } else if (this.name == "P1 Workbench 2")
             {
-                GameplayManager.Instance.MadeWrongChoice = true;
-                StartCoroutine(GameplayManager.Instance.TriggerNextTutorial());
+                if (!GameplayManager.Instance.onWeaponTut)
+                {
+                    GameplayManager.Instance.MadeWrongChoice = true;
+                    StartCoroutine(GameplayManager.Instance.TriggerNextTutorial());
+                }
+                else
+                {
+                    GameplayManager.Instance.p1Work2SellButton.SetActive(true);
+                }
+                
             }
         }
 
@@ -399,9 +415,17 @@ public class Bank : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "TutorialScene")
         {
-            // Debug.Log("DEBUG: Tutorial sell button clicked!");  
-            StartCoroutine(GameplayManager.Instance.EndTutorial()); 
-            return false;
+            if (!GameplayManager.Instance.onWeaponTut)
+            {
+                GameplayManager.Instance.RunWeaponTut();
+                return false;
+
+            }
+            else
+            {
+                StartCoroutine(GameplayManager.Instance.EndTutorial());
+                return false;
+            }
         }
         else
         {
