@@ -119,6 +119,7 @@ public class GameplayManager : MonoBehaviour
     public bool onFinalTutorial = false;
     public bool MadeWrongChoice = false;
     public GameObject buildingGuide;
+    public bool onWeaponTut = false;
     
 
     // ---------- Singleton Setup -----------
@@ -693,11 +694,83 @@ public class GameplayManager : MonoBehaviour
         //p1secondWB.drawBench();
     }
 
+
+    public void RunWeaponTut()
+    {
+        StartCoroutine(RunWeaponTutCoroutine());
+    }
+
+    private IEnumerator RunWeaponTutCoroutine()
+    {
+        MadeWrongChoice = false;
+        onWeaponTut = true;
+
+        p1firstWB.robotBody.SetActive(false);
+        p1Work1SellButton.SetActive(false);
+        p2firstWB.gameObject.SetActive(true);
+        p2secondWB.gameObject.SetActive(true);
+
+        yield return StartCoroutine(WeaponTutorialMessages());
+
+        // CLEARING RIVER FIRST and FLOP PREDETERMINED CARDS...
+        river.riverData.Clear();
+
+        List<Card.CardSuit> suits = new List<Card.CardSuit>();
+        suits.Add(Card.CardSuit.Gold);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Red);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Blue);
+
+        List<Card.CardValue> values = new List<Card.CardValue>();
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.Head);
+        values.Add(Card.CardValue.RightArm);
+        values.Add(Card.CardValue.LeftFoot);
+        values.Add(Card.CardValue.Head);
+
+        river.PredefinedFlop(deck, suits, values);
+
+        // CLEAR BANKS FROM PREVIOUS PART and ADD PREDEFINED PARTS...
+        p1firstWB.ClearBank();
+        p1firstWB.cleanupTakenParts();
+        p1secondWB.ClearBank();
+        p1secondWB.cleanupTakenParts();
+        p2firstWB.ClearBank();
+        p2firstWB.cleanupTakenParts();
+        p2secondWB.ClearBank();
+        p2secondWB.cleanupTakenParts();
+
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Red, CardValue.Head));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Red, CardValue.LeftArm));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Red, CardValue.LeftFoot));
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
+
+        yield return null;
+
+        Debug.Log("DEBUG: should be adding to p2wb2 now...");
+        p2secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.Head));
+        p2secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.LeftArm));
+        p2secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
+        Debug.Log("DEBUG: p2wb2 contents: " + p2secondWB.bankData[0].getCardString() + p2secondWB.bankData[1].getCardString() + p2secondWB.bankData[2].getCardString());
+    }
+
+    private IEnumerator WeaponTutorialMessages()
+    {
+        ShowTurnMessage("Nice job!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+        ShowTurnMessage("Build and sell robots for points!\nMore parts collected = more $$$", 4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+        ShowTurnMessage("Now let's try building a weapon!", 4f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+    }
+
+
     public IEnumerator RunEvenMoreTutorialMessages()
     {
         ShowTurnMessage("Let's skip ahead in the game...", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Can you build a robot and sell it to win this game?", 4f, true, 2, 3);
+        ShowTurnMessage("Can you complete a robot and sell it?", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
     }
 
@@ -705,9 +778,9 @@ public class GameplayManager : MonoBehaviour
     {
         ShowTurnMessage("Nice work!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("You completed and sold the robot!", 4f, true, 2, 3);
+        ShowTurnMessage("Each robot part weapon has\na unique powerful ability!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
-        ShowTurnMessage("Try a new game with a friend!", 4f, true, 2, 3);
+        ShowTurnMessage("Tutorial Complete!\nTry a new game with a friend!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
     }
 
@@ -759,6 +832,50 @@ public class GameplayManager : MonoBehaviour
         p1secondWB.bankData.Add(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));*/
         Debug.Log(p1secondWB.bankData.Count);
         //p1secondWB.drawBench();
+    }
+
+    public IEnumerator FailedWeaponTutMessages()
+    {
+        ShowTurnMessage("Not quite right!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+        ShowTurnMessage("You added to a robot!", 3f, true, 2, 3);
+        yield return new WaitForSeconds(4f);
+        ShowTurnMessage("Try again!", 2f, true, 2, 3);
+        yield return new WaitForSeconds(2f);
+
+        // CLEARING RIVER FIRST and FLOP PREDETERMINED CARDS...
+        river.riverData.Clear();
+
+        List<Card.CardSuit> suits = new List<Card.CardSuit>();
+        suits.Add(Card.CardSuit.Gold);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Red);
+        suits.Add(Card.CardSuit.Black);
+        suits.Add(Card.CardSuit.Blue);
+
+        List<Card.CardValue> values = new List<Card.CardValue>();
+        values.Add(Card.CardValue.LeftArm);
+        values.Add(Card.CardValue.Head);
+        values.Add(Card.CardValue.RightArm);
+        values.Add(Card.CardValue.LeftFoot);
+        values.Add(Card.CardValue.Head);
+
+        river.PredefinedFlop(deck, suits, values);
+
+        // CLEAR BANKS FROM PREVIOUS PART and ADD PREDEFINED PARTS...
+        p1firstWB.ClearBank();
+        p1firstWB.cleanupTakenParts();
+        p1secondWB.ClearBank();
+        p1secondWB.cleanupTakenParts();
+
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Red, CardValue.Head));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Red, CardValue.LeftArm));
+        p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Red, CardValue.LeftFoot));
+        p1secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Green, CardValue.RightArm));
+
+        p2secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.Head));
+        p2secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.LeftArm));
+        p2secondWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Gold, CardValue.RightArm));
     }
 
     /*
