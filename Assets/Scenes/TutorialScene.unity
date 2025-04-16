@@ -5948,7 +5948,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -9006,6 +9006,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 5
   partType: 6
+  takenParts: 0000000000
   bankText: {fileID: 443237935}
   playerNumber: 1
   select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
@@ -10441,6 +10442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 5
   partType: 6
+  takenParts: 0000000000
   bankText: {fileID: 1682037685}
   playerNumber: 1
   select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
@@ -11894,7 +11896,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -12710,6 +12712,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 5
   partType: 6
+  takenParts: 0000000000
   bankText: {fileID: 123664602}
   playerNumber: 2
   select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}
@@ -15393,8 +15396,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: 106}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 295, y: 106}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1525860744
 MonoBehaviour:
@@ -19829,8 +19832,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: -65}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 295, y: -65}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1968583961
 MonoBehaviour:
@@ -21600,6 +21603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   color: 5
   partType: 6
+  takenParts: 0000000000
   bankText: {fileID: 1008755885}
   playerNumber: 2
   select: {fileID: 5074201981913270055, guid: 43e2b02e4d2088f418536720a95565c3, type: 3}

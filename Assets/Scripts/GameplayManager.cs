@@ -648,6 +648,9 @@ public class GameplayManager : MonoBehaviour
 
         //Clear the banks first then add
         p1firstWB.ClearBank();
+        p1firstWB.cleanupTakenParts();
+        p1secondWB.ClearBank();
+        p1secondWB.cleanupTakenParts();
         /* Debugging
         Debug.Log("Bank 1 should be clear!! Count: " + p1firstWB.bankData.Count);
         for (int i = 0; i < 5; i++)
@@ -661,6 +664,10 @@ public class GameplayManager : MonoBehaviour
         if (p1firstWB.takenParts[2])
         {
             p1firstWB.takenParts[2] = false;
+        }
+        else if (p1secondWB.takenParts[2])
+        {
+            p1secondWB.takenParts[2] = false;
         }
         
         p1firstWB.AddToWBTutorial(deck.DealSpecificCard(CardSuit.Blue, CardValue.Head));
@@ -698,7 +705,7 @@ public class GameplayManager : MonoBehaviour
     {
         ShowTurnMessage("Nice work!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("You completed the robot!", 4f, true, 2, 3);
+        ShowTurnMessage("You completed and sold the robot!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
         ShowTurnMessage("Try a new game with a friend!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
@@ -868,6 +875,10 @@ public class GameplayManager : MonoBehaviour
             wb2.gameObject.SetActive(true);
         }*/
         workbenches.SetActive(true);
+        GameObject tutWB1 = workbenches.transform.GetChild(0).gameObject;
+        tutWB1.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
+        GameObject tutWB2 = workbenches.transform.GetChild(1).gameObject;
+        tutWB2.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
     }
 
     /*

@@ -228,7 +228,8 @@ public class Bank : MonoBehaviour
             Debug.Log(this.name);
             if(this.name == "P1 Workbench 1")
             {
-                StartCoroutine(GameplayManager.Instance.EndTutorial());
+                GameplayManager.Instance.p1Work1SellButton.SetActive(true);
+                // StartCoroutine(GameplayManager.Instance.EndTutorial());
             } else if (this.name == "P1 Workbench 2")
             {
                 GameplayManager.Instance.MadeWrongChoice = true;
@@ -396,154 +397,151 @@ public class Bank : MonoBehaviour
 
     public bool sellWorkBench(List<CardData> sellData)
     {
-        // Score tables for selling robots and heaps 
-        //   - key is the number of parts
-        //   - value is the points to be awarded 
-        int numRobotParts = 0;
-        int numHeapParts = 0;
-
-        Dictionary<int, int> robotScoreTable = new()
+        if (SceneManager.GetActiveScene().name == "TutorialScene")
         {
-            {2, 3},
-            {3, 5},
-            {4, 8},
-            {5, 13}
-        };
-        /*Dictionary<int, int> heapScoreTable = new()
-        {
-            {2, 2}, 
-            {3, 2},
-            {4, 4},
-            {5, 4},
-            {6, 8},
-            {7, 8},
-            {8, 11},
-            {9, 11},
-            {10, 15}
-        };*/
-
-        if (sellData.Count > 1)
-        {
-            // The checks here only check from the first two cards inside the workbench; 
-            // This is (probably?) sufficient considering validity checks were done by the workbench class 
-            // already when cards were being added
-            if (sellData[0].cardValue == sellData[1].cardValue)
-            {
-                // this workbench contains a heap 
-                Debug.Log("Selling heap...");
-                Debug.Log(sellData[0].cardValue);
-                Debug.Log(sellData[1].cardValue);
-
-                //head ability check
-                Card.CardValue abilityValue = CheckAbility();
-
-                //send cardValue to switch statement that activates the relevant ability
-                //There has to be a more elegant way to do this but for now this is the way
-                switch (abilityValue)
-                {
-                    case Card.CardValue.Head:
-                        Debug.Log("Activating head ability, copying bench");
-                        //activate head ability
-                        isHeadAbilityActive = true;
-                        
-                        int benchNum = 0;
-                        if(gameObject.name == "P1 Workbench 1" || gameObject.name == "P2 Workbench 1")
-                        {
-                            benchNum = 1;
-                        }
-                        else if (gameObject.name == "P1 Workbench 2" || gameObject.name == "P2 Workbench 2")
-                        {
-                            benchNum = 2;
-                        }
-                        // Debug.Log("BENCH NUM OF HEAD: " + benchNum);
-
-                        GameplayManager.Instance.head_ability.Activate(sellData.Count, this, benchNum);
-                        headSound.Play(0);
-                        StartCoroutine(RemoveAfterDelay(3f));
-                        AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
-                        // cleanUpBench();
-                        return true;
-                    case Card.CardValue.LeftArm:
-                        Debug.Log("Activating left arm ability, destroy left bench");
-                        GameplayManager.Instance.arm_ability.setLeft(true);
-                        GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
-                        punchSound.Play(0);
-                        AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
-                        cleanUpBench();
-                        //activate ability
-                        StartCoroutine(RemoveAfterDelay(3f));
-                        return true;
-                    case Card.CardValue.RightArm:
-                        Debug.Log("Activating right arm ability, destroy right bench");
-                        GameplayManager.Instance.arm_ability.setLeft(false);
-                        GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
-                        punchSound.Play(0);
-                        AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
-                        cleanUpBench();
-                        //activate ability
-                        StartCoroutine(RemoveAfterDelay(3f));
-                        return true;
-                    //TODO make this better or add the feet cases, right now I just break out of the 
-                    //switch to do the feet conditions
-                    default:
-                        Debug.Log("Probably leg ability activated");
-                        break;
-                }
-
-                numHeapParts = sellData.Count;
-                // in current build (I believe) possible to have more than 10 parts in a heap, so adjust number
-                if (sellData.Count > 10)
-                {
-                    numHeapParts = 10;
-                }
-
-                int point_award = 0;
-                if (foot_ready_)
-                {
-                    point_award = GameplayManager.Instance.foot_ability.Activate();
-                    footSound.Play(0);
-                    StartCoroutine(RemoveAfterDelay(3f));
-                }
-                
-                GameplayManager.Instance.AwardPoints(point_award);
-                
-                //Analytics 
-                AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
-                
-                cleanUpBench();
-            }
-            else if (sellData[0].cardSuit == sellData[1].cardSuit)
-            {
-                // this workbench contains a robot 
-                Debug.Log("Selling robot...");
-                sellSound.Play(0);
-
-                numRobotParts = sellData.Count;
-                // in current build, possible to have multiple of same body part, so adjust number 
-                if (sellData.Count > 5)
-                {
-                    numRobotParts = 5;
-                }
-
-                GameplayManager.Instance.msg.text = "Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum;
-                StartCoroutine(RemoveAfterDelay(2f));
-                
-                Debug.Log("Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
-                GameplayManager.Instance.AwardPoints(robotScoreTable[numRobotParts]);
-
-                //Analytics 
-                AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[numRobotParts]);
-
-                cleanUpBench();
-            }
-            return true;
+            // Debug.Log("DEBUG: Tutorial sell button clicked!");  
+            StartCoroutine(GameplayManager.Instance.EndTutorial()); 
+            return false;
         }
         else
         {
-            GameplayManager.Instance.msg.text = "This workbench can't be sold yet";
-            StartCoroutine(RemoveAfterDelay(3f));
-            Debug.Log("This workbench can't be sold yet");
-            return false;
+            // Score tables for selling robots and heaps 
+            //   - key is the number of parts
+            //   - value is the points to be awarded 
+            int numRobotParts = 0;
+            int numHeapParts = 0;
+
+            Dictionary<int, int> robotScoreTable = new()
+            {
+                {2, 3},
+                {3, 5},
+                {4, 8},
+                {5, 13}
+            };
+
+            if (sellData.Count > 1)
+            {
+                // The checks here only check from the first two cards inside the workbench; 
+                // This is (probably?) sufficient considering validity checks were done by the workbench class 
+                // already when cards were being added
+                if (sellData[0].cardValue == sellData[1].cardValue)
+                {
+                    // this workbench contains a heap 
+                    Debug.Log("Selling heap...");
+                    Debug.Log(sellData[0].cardValue);
+                    Debug.Log(sellData[1].cardValue);
+
+                    //head ability check
+                    Card.CardValue abilityValue = CheckAbility();
+
+                    //send cardValue to switch statement that activates the relevant ability
+                    //There has to be a more elegant way to do this but for now this is the way
+                    switch (abilityValue)
+                    {
+                        case Card.CardValue.Head:
+                            Debug.Log("Activating head ability, copying bench");
+                            //activate head ability
+                            isHeadAbilityActive = true;
+                        
+                            int benchNum = 0;
+                            if(gameObject.name == "P1 Workbench 1" || gameObject.name == "P2 Workbench 1")
+                            {
+                                benchNum = 1;
+                            }
+                            else if (gameObject.name == "P1 Workbench 2" || gameObject.name == "P2 Workbench 2")
+                            {
+                                benchNum = 2;
+                            }
+                            // Debug.Log("BENCH NUM OF HEAD: " + benchNum);
+
+                            GameplayManager.Instance.head_ability.Activate(sellData.Count, this, benchNum);
+                            headSound.Play(0);
+                            StartCoroutine(RemoveAfterDelay(3f));
+                            AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
+                            // cleanUpBench();
+                            return true;
+                        case Card.CardValue.LeftArm:
+                            Debug.Log("Activating left arm ability, destroy left bench");
+                            GameplayManager.Instance.arm_ability.setLeft(true);
+                            GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
+                            punchSound.Play(0);
+                            AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
+                            cleanUpBench();
+                            //activate ability
+                            StartCoroutine(RemoveAfterDelay(3f));
+                            return true;
+                        case Card.CardValue.RightArm:
+                            Debug.Log("Activating right arm ability, destroy right bench");
+                            GameplayManager.Instance.arm_ability.setLeft(false);
+                            GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
+                            punchSound.Play(0);
+                            AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
+                            cleanUpBench();
+                            //activate ability
+                            StartCoroutine(RemoveAfterDelay(3f));
+                            return true;
+                        //TODO make this better or add the feet cases, right now I just break out of the 
+                        //switch to do the feet conditions
+                        default:
+                            Debug.Log("Probably leg ability activated");
+                            break;
+                    }
+
+                    numHeapParts = sellData.Count;
+                    // in current build (I believe) possible to have more than 10 parts in a heap, so adjust number
+                    if (sellData.Count > 10)
+                    {
+                        numHeapParts = 10;
+                    }
+
+                    int point_award = 0;
+                    if (foot_ready_)
+                    {
+                        point_award = GameplayManager.Instance.foot_ability.Activate();
+                        footSound.Play(0);
+                        StartCoroutine(RemoveAfterDelay(3f));
+                    }
+                
+                    GameplayManager.Instance.AwardPoints(point_award);
+                
+                    //Analytics 
+                    AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
+                
+                    cleanUpBench();
+                }
+                else if (sellData[0].cardSuit == sellData[1].cardSuit)
+                {
+                    // this workbench contains a robot 
+                    Debug.Log("Selling robot...");
+                    sellSound.Play(0);
+
+                    numRobotParts = sellData.Count;
+                    // in current build, possible to have multiple of same body part, so adjust number 
+                    if (sellData.Count > 5)
+                    {
+                        numRobotParts = 5;
+                    }
+
+                    GameplayManager.Instance.msg.text = "Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum;
+                    StartCoroutine(RemoveAfterDelay(2f));
+                
+                    Debug.Log("Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
+                    GameplayManager.Instance.AwardPoints(robotScoreTable[numRobotParts]);
+
+                    //Analytics 
+                    AnalyticsManager.Instance.LogWorkbenchSale(bankData, robotScoreTable[numRobotParts]);
+
+                    cleanUpBench();
+                }
+                return true;
+            }
+            else
+            {
+                GameplayManager.Instance.msg.text = "This workbench can't be sold yet";
+                StartCoroutine(RemoveAfterDelay(3f));
+                Debug.Log("This workbench can't be sold yet");
+                return false;
+            }
         }
     }
     
@@ -630,21 +628,6 @@ public class Bank : MonoBehaviour
                 TooltipManager._instance.SetAndShowTooltip(msg);
             }
         }
-        
-        /*
-        else if(GameplayManager.Instance.selected_cards.Count == 1)
-        {
-            CardData selectedCardData = GameplayManager.Instance.selected_cards[0].GetCardData();
-            if (isValidAddition(selectedCardData))
-            {
-                TooltipManager._instance.SetAndShowTooltip("Click to add selected card.");
-            }
-            else
-            {
-                TooltipManager._instance.SetAndShowTooltip("Selected card cannot be added to this workbench.");
-            }
-        }
-        */
     }
 
     private void OnMouseExit()
