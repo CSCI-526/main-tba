@@ -546,7 +546,7 @@ public class Bank : MonoBehaviour
                         numRobotParts = 5;
                     }
 
-                    GameplayManager.Instance.msg.text = "Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum;
+                    //GameplayManager.Instance.msg.text = "Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum;
                     StartCoroutine(RemoveAfterDelay(2f));
                 
                     Debug.Log("Awarding " + robotScoreTable[numRobotParts] + " points to Player " + GameplayManager.Instance.activePlayer.playerNum);
@@ -590,7 +590,7 @@ public class Bank : MonoBehaviour
             
             if (bankData.Count < 2)
             {
-                msg += "Collect more parts to build a robot or a weapon!";
+                msg += "Collect more parts!";
                 /*if (bankData.Count == 1)
                 {
                     msg += "\nCurrent Part:\n" + bankData[0].cardSuit + " " + bankData[0].cardValue;
@@ -619,7 +619,7 @@ public class Bank : MonoBehaviour
                         break;
 
                         case 5:
-                        msg += "Destroy parts on the RIGHT side of the conveyor belt. Gain " + bankData.Count + " points per part destroyed.";
+                        msg += "Destroy parts on the RIGHT side of the conveyor belt and gain " + bankData.Count + " points per part destroyed.";
                         break;
                     }
                 }
@@ -628,7 +628,7 @@ public class Bank : MonoBehaviour
                 {
                     if (bankData.Count < 5)
                     {
-                        msg += "Building " + bankData[0].cardSuit + " robot...\n" + bankData.Count + " parts so far";
+                        msg += bankData[0].cardSuit + " robot:" + "\n" + bankData.Count + " parts";
                         /*for (int i = 0; i < bankData.Count; i++)
                         {
                             msg += "\n" + bankData[i].cardValue;
@@ -636,7 +636,7 @@ public class Bank : MonoBehaviour
                     }
                     else if (bankData.Count == 5)
                     {
-                        msg += bankData[0].cardSuit + " robot complete!";
+                        msg += bankData[0].cardSuit + " robot\nComplete!";
                     }
                     
                 }

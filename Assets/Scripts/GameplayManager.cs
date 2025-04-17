@@ -884,25 +884,46 @@ public class GameplayManager : MonoBehaviour
      */
     public String GetCardTooltip(Card card)
     {
+        String cardName = card.cardValue + "";
+        if (card.cardValue == CardValue.LeftArm)
+        {
+            cardName = " Left Arm";
+        }
+        else if (card.cardValue == CardValue.RightArm)
+        {
+            cardName = " Right Arm";
+        }
+        else if (card.cardValue == CardValue.LeftFoot)
+        {
+            cardName = " Left Foot";
+        }
+        else if (card.cardValue == CardValue.RightFoot)
+        {
+            cardName = " Right Foot";
+        }
+        else
+        {
+            cardName = " Head";
+        }
         if (SceneManager.GetActiveScene().name == "TutorialScene")
         {
             if (!pastFirstTutorial)
             {
                 return "Click a part to select it!";
             }
-            else 
+            else
             {
                 if (selected_cards.Count == 0)
                 {
-                    return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+                    return card.cardSuit + cardName + "\nClick to select.";
                 }
                 else if (selected_cards.Count == 1 && selected_cards[0] != card)
                 {
-                    return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+                    return card.cardSuit + cardName + "\nClick to select.";
                 }
                 else if (selected_cards.Count == 1 && selected_cards[0] == card)
                 {
-                    return card.cardSuit + " " + card.cardValue + "\nClick again to deselect.";
+                    return card.cardSuit + cardName + "\nClick again to deselect.";
                 }
             }
         }
@@ -911,15 +932,15 @@ public class GameplayManager : MonoBehaviour
         {
             if (selected_cards.Count == 0)
             {
-                return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+                return card.cardSuit + cardName;
             }
             else if (selected_cards.Count == 1 && selected_cards[0] != card)
             {
-                return card.cardSuit + " " + card.cardValue + "\nClick to select.";
+                return card.cardSuit + cardName;
             }
             else if (selected_cards.Count == 1 && selected_cards[0] == card)
             {
-                return card.cardSuit + " " + card.cardValue + "\nClick again to deselect.";
+                return card.cardSuit + cardName;
             }
         }
 

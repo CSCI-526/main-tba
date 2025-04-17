@@ -5704,7 +5704,7 @@ MonoBehaviour:
     Selling a bot of...'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f8d91967c093a694380e6d616abe2758, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -8030248632605770726, guid: f8d91967c093a694380e6d616abe2758, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -5728,8 +5728,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -5769,7 +5769,7 @@ MonoBehaviour:
   m_margin: {x: -0.18069458, y: 0, z: -18.808136, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &496626941
@@ -11568,7 +11568,7 @@ MonoBehaviour:
   m_text: Close
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f8d91967c093a694380e6d616abe2758, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -8030248632605770726, guid: f8d91967c093a694380e6d616abe2758, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -14720,6 +14720,7 @@ MonoBehaviour:
   onFinalTutorial: 0
   MadeWrongChoice: 0
   buildingGuide: {fileID: 0}
+  onWeaponTut: 0
 --- !u!1 &1343919370
 GameObject:
   m_ObjectHideFlags: 0
@@ -16711,7 +16712,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 74, y: 64}
+  m_AnchoredPosition: {x: 74, y: 54}
   m_SizeDelta: {x: 108.61517, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1556388316
@@ -16734,22 +16735,20 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '
-
-    2 Parts: 3 Points
+  m_text: '2 Parts: 3 Pts
 
 
-    3 Parts: 5 Points
+    3 Parts: 5 Pts
 
 
-    4 Parts: 8 Points
+    4 Parts: 8 Pts
 
 
-    5
-    Parts!: 13 Points'
+    5 Parts!:
+    13 Pts'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f8d91967c093a694380e6d616abe2758, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: -8030248632605770726, guid: f8d91967c093a694380e6d616abe2758, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16814,7 +16813,7 @@ MonoBehaviour:
   m_margin: {x: 7.4828796, y: 0, z: -24.282104, w: -96.340485}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!222 &1556388317
