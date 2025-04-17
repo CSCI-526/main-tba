@@ -50,6 +50,9 @@ public class GameplayManager : MonoBehaviour
     public string player2Name = "Player 2";
     public TextMeshProUGUI player1NameText;
     public TextMeshProUGUI player2NameText;
+    public TMP_InputField player1Field;
+    public TMP_InputField player2Field;
+    public int maxCharCount = 12;
 
     //UI elements
     [SerializeField]
@@ -593,18 +596,36 @@ public class GameplayManager : MonoBehaviour
     public void GetPlayer1Name(string name)
     {
         player1Name = name;
-        if (player1Name == "")
+        if (player1Name.Length > maxCharCount)
         {
-            player1Name = "Player 1";
+            player1Name = player1Name.Substring(0, maxCharCount);
+            player1Field.text = player1Name;
         }
     }
 
     public void GetPlayer2Name(string name)
     {
         player2Name = name;
-        if (player2Name == "")
+        if (player2Name.Length > maxCharCount)
         {
-            player2Name = "Player 2";
+            player2Name = player2Name.Substring(0, maxCharCount);
+            player2Field.text = player2Name;
+        }
+    }
+
+    public void Player1NameDefault(string name)
+    {
+        if (name == "")
+        {
+            player1Name = "Player 1";
+        }
+    }
+
+    public void Player2NameDefault(string name)
+    {
+        if (name == "")
+        {
+            player2Name = "Player 1";
         }
     }
 
