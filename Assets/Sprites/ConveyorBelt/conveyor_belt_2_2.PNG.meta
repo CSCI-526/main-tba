@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      conveyor_belt_2_2_0: 7415326233662719678
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
