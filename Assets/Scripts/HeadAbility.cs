@@ -61,16 +61,18 @@ public class HeadAbility : IAbility
         workBench.cleanupTakenParts();
         workBench.color = Card.CardSuit.empty;
         
+        int copyPoints = 0;
         if (bankToCopy.enabled)
         {
             if (!bankToCopy.hasOnlyOneType())
             {
                 workBench.color = bankToCopy.bankData[0].cardSuit;
             }
-            for (int i = 0; i < duplicateCount; i++)
+            for (int i = 0; i < duplicateCount - 1; i++)
             {
                 if (i < bankToCopy.bankData.Count)
                 {
+                    copyPoints += 1;
                     Debug.Log("Copying card number " + (i+1));
                     Debug.Log("Own bench enabled? " + workBench.enabled);
                     // workBench.AddToWB(bankToCopy.bankData[i]);
@@ -116,6 +118,7 @@ public class HeadAbility : IAbility
                 workBench.sellButtonText.text = "SELL";
             }
         }
+        GameplayManager.Instance.AwardPoints(copyPoints);
         GameplayManager.Instance.decrementActionsTaken();
         GameplayManager.Instance.IncrementActivePlayer();
     }

@@ -8,6 +8,7 @@ public class ArmAbility : IAbility
     //If it's a left arm stack take from the left workbench (duplicateCount - 1 cards)
     public void Activate(int duplicateCount, Bank workBench)
     {
+        int destroyPoints = 0;
         //Need to get the other players workbench
         //Workbench1 for both players is left
         //Workbench2 for both players is right
@@ -27,12 +28,15 @@ public class ArmAbility : IAbility
 
             int numCardsToDelete = duplicateCount - 1;
             //We have the other player, now delete some cards from their workbench
+
+            
             if (isLeft)
             {
                 //delete from workbench1
                 for (int i = 0; i < numCardsToDelete; i++) {
                     //Remove from bank takes care of the nonsense, updating bank ui, taken list, etc
                     otherPlayer.WB1.RemoveFromBank();
+                    destroyPoints += 1;
                 }
 
                 if (otherPlayer.WB1.bankData.Count == 1)
@@ -46,6 +50,7 @@ public class ArmAbility : IAbility
                 {
                     //Remove from bank takes care of the nonsense, updating bank ui, taken list, etc
                     otherPlayer.WB2.RemoveFromBank();
+                    destroyPoints += 1;
                 }
                 
                 if (otherPlayer.WB2.bankData.Count == 1)
@@ -54,6 +59,7 @@ public class ArmAbility : IAbility
                 }
             }
         }
+        GameplayManager.Instance.AwardPoints(destroyPoints);
     }
 
     //Sets isLeft variable for the ability
