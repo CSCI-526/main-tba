@@ -603,15 +603,15 @@ public class Bank : MonoBehaviour
                     switch ((int)bankData[0].cardValue)
                     {
                         case 1:
-                        msg += "Copy up to " + (bankData.Count) + " parts from opposite workbench.";
+                        msg += "Copy up to " + (bankData.Count - 1) + " part(s) from opposite workbench.";
                         break;
 
                         case 2:
-                        msg += "Destroy " + (bankData.Count - 1) +  " parts from opponent's LEFT workbench.";
+                        msg += "Destroy " + (bankData.Count - 1) +  " part(s) from opponent's LEFT workbench.";
                         break;
 
                         case 3:
-                        msg += "Destroy " + (bankData.Count - 1) + " parts from opponent's RIGHT workbench.";
+                        msg += "Destroy " + (bankData.Count - 1) + " part(s) from opponent's RIGHT workbench.";
                         break;
 
                         case 4:
