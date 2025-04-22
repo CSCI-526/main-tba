@@ -77,6 +77,9 @@ public class Bank : MonoBehaviour
     public AudioSource footSound;
     public AudioSource headSound;
 
+    // own private footAbility
+    public FootAbility foot_ability;
+
     void Start()
     {
         sellButton.onClick.AddListener(() => sellWorkBench(bankData));
@@ -95,6 +98,7 @@ public class Bank : MonoBehaviour
         lLegWeapon.SetActive(false);
         rLegWeapon.SetActive(false);
 
+        foot_ability = new FootAbility();
     }
 
     void Update()
@@ -105,9 +109,9 @@ public class Bank : MonoBehaviour
             int res = CheckFootAbilityCondition();
             if (res != 0)
             {
-                if (res == 1) GameplayManager.Instance.foot_ability.setLeft(true);
-                else if (res == 2) GameplayManager.Instance.foot_ability.setLeft(false);
-                GameplayManager.Instance.foot_ability.duplicate_count_ = bankData.Count;
+                if (res == 1) foot_ability.setLeft(true);
+                else if (res == 2) foot_ability.setLeft(false);
+                foot_ability.duplicate_count_ = bankData.Count;
                 foot_ready_ = true;
                 // sellButtonText.text = "USE";
             }
@@ -518,20 +522,30 @@ public class Bank : MonoBehaviour
                         numHeapParts = 10;
                     }
 
-                    int point_award = 0;
+                    //int point_award = 0;
                     if (foot_ready_)
                     {
-                        point_award = GameplayManager.Instance.foot_ability.Activate();
-                        footSound.Play(0);
+                        //point_award = GameplayManager.Instance.foot_ability.Activate();
+                        //footSound.Play(0);
                         StartCoroutine(RemoveAfterDelay(3f));
+                        if (foot_ability.getLeft())
+                        {
+
+                            StartCoroutine(lLegWeapon.GetComponent<FootAnim>().FootAnimation(this, true));
+                        }
+                        else
+                        {
+                            StartCoroutine(rLegWeapon.GetComponent<FootAnim>().FootAnimation(this, false));
+                        }
+                        StartCoroutine(RemoveAfterDelay(6f));
                     }
                 
-                    GameplayManager.Instance.AwardPoints(point_award);
+                    //GameplayManager.Instance.AwardPoints(point_award);
                 
                     //Analytics 
-                    AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
+                    //AnalyticsManager.Instance.LogWorkbenchSale(bankData, point_award);
                 
-                    cleanUpBench();
+                    //cleanUpBench();
                 }
                 else if (sellData[0].cardSuit == sellData[1].cardSuit)
                 {
