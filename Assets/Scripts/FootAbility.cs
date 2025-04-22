@@ -57,4 +57,9 @@ public class FootAbility : IAbility
     {
         left_ = value;
     }
+
+    public bool getLeft()
+    {
+        return left_;
+    }
 }
