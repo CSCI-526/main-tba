@@ -9,9 +9,22 @@ public class TutorialVisualManager : MonoBehaviour
     public GameObject darken2;
     public GameObject frame2;
     public GameObject darken3;
+
+
     public GameObject buildTutorial;
-    public TMP_Text chosenColor;
-    public TMP_Text weaponText;
+    public GameObject buildTutContinue;
+
+    public GameObject robotTutorial;
+    public GameObject robotWhatDo;
+    public GameObject robotHowBuild;
+    public GameObject robotTutButton;
+
+    public GameObject weaponTutorial;
+    public GameObject weaponWhatDo;
+    public GameObject weaponHowBuild;
+    public GameObject weaponTutButton;
+
+
     public Image robotIcon;
     public Image headWeaponIcon;
     public Image lArmWeaponIcon;
@@ -20,21 +33,25 @@ public class TutorialVisualManager : MonoBehaviour
     public Image rLegWeaponIcon;
     public GameObject moreRobotInfo;
     public GameObject moreWeaponInfo;
+
+    private bool seenRobotTut = false;
+    private bool seenWeaponTut = false;
+
     private int tutorialStep;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         tutorialStep = 1;
+
+        // Activate first darken
         darken1.SetActive(false);
         darken2.SetActive(false);
         darken3.SetActive(false);
 
-        headWeaponIcon.gameObject.SetActive(false);
-        lArmWeaponIcon.gameObject.SetActive(false);
-        rArmWeaponIcon.gameObject.SetActive(false);
-        lLegWeaponIcon.gameObject.SetActive(false);
-        rLegWeaponIcon.gameObject.SetActive(false);
+        buildTutContinue.SetActive(false);
+        robotTutorial.SetActive(false);
+        weaponTutorial.SetActive(false);
 
         buildTutorial.SetActive(false);
         moreRobotInfo.SetActive(false);
@@ -66,12 +83,10 @@ public class TutorialVisualManager : MonoBehaviour
             
             if (GameplayManager.Instance.playerList[0].WB1.bankData.Count > 0)
             {
-                SetTextIcons(GameplayManager.Instance.playerList[0].WB1.bankData[0]);
                 tutorialStep = 3;
             }
             else if (GameplayManager.Instance.playerList[0].WB2.bankData.Count > 0)
             {
-                SetTextIcons(GameplayManager.Instance.playerList[0].WB2.bankData[0]);
                 tutorialStep = 3;
             }
             
@@ -89,93 +104,93 @@ public class TutorialVisualManager : MonoBehaviour
         }
     }
 
-    void SetTextIcons(CardData choice)
-    {
-        string colorChoice = choice.cardSuit.ToString();
-        string partChoice = choice.cardValue.ToString();
-
-        chosenColor.text = colorChoice;
-
-        switch (colorChoice)
-        {
-            case "Black":
-            chosenColor.color = Color.black;
-            robotIcon.color = Color.black;
-            break;
-
-            case "Blue":
-            chosenColor.color = Color.blue;
-            robotIcon.color = Color.blue;
-            break;
-
-            case "Red":
-            chosenColor.color = Color.red;
-            robotIcon.color = Color.red;
-            break;
-
-            case "Green":
-            chosenColor.color = Color.green;
-            robotIcon.color = Color.green;
-            break;
-
-            case "Gold":
-            chosenColor.color = Color.yellow;
-            robotIcon.color = Color.yellow;
-            break;
-
-            case "empty":
-            chosenColor.color = Color.white;
-            robotIcon.color = Color.white;
-            break;
-        }
-
-        switch (partChoice)
-        {
-            case "Head":
-            headWeaponIcon.gameObject.SetActive(true);
-            break;
-
-            case "LeftArm":
-            lArmWeaponIcon.gameObject.SetActive(true);
-            break;
-
-            case "RightArm":
-            rArmWeaponIcon.gameObject.SetActive(true);
-            break;
-
-            case "LeftFoot":
-            lLegWeaponIcon.gameObject.SetActive(true);
-            break;
-
-            case "RightFoot":
-            rLegWeaponIcon.gameObject.SetActive(true);
-            break;
-        }
-
-        weaponText.text += partChoice + " parts =";
-    }
 
     public void AdditionalRobotInfo()
     {
-        if (!moreRobotInfo.activeInHierarchy)
-        {
-            moreRobotInfo.SetActive(true);
-        }
-        else
-        {
-            moreRobotInfo.SetActive(false);
-        }
+        seenRobotTut = true;
+        buildTutorial.SetActive(false);
+        robotTutorial.SetActive(true);
     }
 
     public void AdditionalWeaponInfo()
     {
-        if (!moreWeaponInfo.activeInHierarchy)
+        seenWeaponTut = true;
+        buildTutorial.SetActive(false);
+        weaponTutorial.SetActive(true);
+    }
+
+    public void ReturnBuildInfo()
+    {
+        robotTutorial.SetActive(false);
+        weaponTutorial.SetActive(false);
+        buildTutorial.SetActive(true);
+        if (seenRobotTut)
         {
-            moreWeaponInfo.SetActive(true);
+            robotTutButton.SetActive(false);
+            if (!seenWeaponTut)
+            {
+                buildTutContinue.SetActive(false);
+            }
+        }
+        if (seenWeaponTut)
+        {
+            weaponTutButton.SetActive(false);
+            if (!seenRobotTut)
+            {
+                buildTutContinue.SetActive(false);
+            }
+        }
+        if (seenRobotTut && seenWeaponTut)
+        {
+            buildTutContinue.SetActive(true);
+        }
+    }
+
+    public void ToggleRobotDoInfo()
+    {
+        if(!robotWhatDo.activeSelf)
+        {
+            robotWhatDo.SetActive(true);
         }
         else
         {
-            moreWeaponInfo.SetActive(false);
+            robotWhatDo.SetActive(false);
+        }
+    }
+
+    public void ToggleRobotBuildInfo()
+    {
+        if(!robotHowBuild.activeSelf)
+        {
+            robotHowBuild.SetActive(true);
+        }
+        else
+        {
+            robotHowBuild.SetActive(false);
+        }
+    }
+
+    public void ToggleWeaponDoInfo()
+    {
+        if(!weaponWhatDo.activeSelf)
+        {
+            weaponWhatDo.SetActive(true);
+        }
+        else
+        {
+            weaponWhatDo.SetActive(false);
+        }
+    }
+
+    public void ToggleWeaponBuildInfo()
+    {
+        if(!weaponHowBuild.activeSelf)
+        {
+            weaponHowBuild.SetActive(true);
+        }
+        else
+        {
+            weaponHowBuild.SetActive(false);
         }
     }
 }
