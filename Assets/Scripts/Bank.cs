@@ -79,6 +79,7 @@ public class Bank : MonoBehaviour
 
     // own private footAbility
     public FootAbility foot_ability;
+    public ArmAbility arm_ability;
 
     void Start()
     {
@@ -99,6 +100,7 @@ public class Bank : MonoBehaviour
         rLegWeapon.SetActive(false);
 
         foot_ability = new FootAbility();
+        arm_ability = new ArmAbility();
     }
 
     void Update()
@@ -121,17 +123,19 @@ public class Bank : MonoBehaviour
                 // sellButtonText.text = "SELL";
             }
         }
-
         if (GameplayManager.Instance.activePlayer.playerNum == playerNumber && bankData.Count >= 2)
         {
             if (SceneManager.GetActiveScene().name != "TutorialScene")
             {
+                if (this.name == "P2 Workbench 1")
+                    Debug.Log("Yoooo: " + this.name + " " + playerNumber + " " + bankData.Count + " selllly " + sellButton.gameObject.activeSelf);
                 sellButton.gameObject.SetActive(true);
             }
         }
         else
         {
-            sellButton.gameObject.SetActive(false);
+            if (this.name[0] == 'P') // For the love of GOD keep this line of code cuz it took so dam long to fix this fucking bug
+                sellButton.gameObject.SetActive(false);
         }
     }
 
@@ -490,23 +494,15 @@ public class Bank : MonoBehaviour
                             return true;
                         case Card.CardValue.LeftArm:
                             Debug.Log("Activating left arm ability, destroy left bench");
-                            GameplayManager.Instance.arm_ability.setLeft(true);
-                            GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
-                            punchSound.Play(0);
-                            AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
-                            cleanUpBench();
                             //activate ability
-                            StartCoroutine(RemoveAfterDelay(3f));
+                            StartCoroutine(lArmWeapon.GetComponent<ArmAnim>().ArmAnimation(this, true, playerNumber, sellData));
+                            StartCoroutine(RemoveAfterDelay(6f));
                             return true;
                         case Card.CardValue.RightArm:
                             Debug.Log("Activating right arm ability, destroy right bench");
-                            GameplayManager.Instance.arm_ability.setLeft(false);
-                            GameplayManager.Instance.arm_ability.Activate(sellData.Count, this);
-                            punchSound.Play(0);
-                            AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
-                            cleanUpBench();
+                            StartCoroutine(rArmWeapon.GetComponent<ArmAnim>().ArmAnimation(this, false, playerNumber, sellData));
                             //activate ability
-                            StartCoroutine(RemoveAfterDelay(3f));
+                            StartCoroutine(RemoveAfterDelay(6f));
                             return true;
                         //TODO make this better or add the feet cases, right now I just break out of the 
                         //switch to do the feet conditions
@@ -722,8 +718,8 @@ public class Bank : MonoBehaviour
         //decrement turns in round
         GameplayManager.Instance.decrementActionsTaken();
         GameplayManager.Instance.IncrementActivePlayer();
-        
-        sellButton.gameObject.SetActive(false);
+
+        //sellButton.gameObject.SetActive(false);
 
         // remove all sprites
         robotBody.SetActive(false);
