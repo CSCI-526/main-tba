@@ -1894,6 +1894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 126748050}
   - component: {fileID: 126748051}
+  - component: {fileID: 126748052}
   m_Layer: 0
   m_Name: RArmWeapon
   m_TagString: Untagged
@@ -1971,6 +1972,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &126748052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126748049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &131630253
 GameObject:
   m_ObjectHideFlags: 0
@@ -5836,6 +5851,7 @@ GameObject:
   m_Component:
   - component: {fileID: 500345760}
   - component: {fileID: 500345761}
+  - component: {fileID: 500345762}
   m_Layer: 0
   m_Name: RArmWeapon
   m_TagString: Untagged
@@ -5913,6 +5929,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &500345762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 500345759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &512294041
 GameObject:
   m_ObjectHideFlags: 0
@@ -6670,6 +6700,7 @@ GameObject:
   m_Component:
   - component: {fileID: 591889446}
   - component: {fileID: 591889447}
+  - component: {fileID: 591889448}
   m_Layer: 0
   m_Name: LArmWeapon
   m_TagString: Untagged
@@ -6747,6 +6778,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &591889448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 591889445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &605811457
 GameObject:
   m_ObjectHideFlags: 0
@@ -8836,6 +8881,7 @@ GameObject:
   m_Component:
   - component: {fileID: 766802009}
   - component: {fileID: 766802010}
+  - component: {fileID: 766802011}
   m_Layer: 0
   m_Name: LArmWeapon
   m_TagString: Untagged
@@ -8913,6 +8959,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &766802011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766802008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &768933101
 GameObject:
   m_ObjectHideFlags: 0
@@ -10567,7 +10627,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 913907247}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d9ac1ee669cf12f4aabb505c5e4ec348, type: 3}
@@ -17023,6 +17083,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1472112303}
   - component: {fileID: 1472112304}
+  - component: {fileID: 1472112305}
   m_Layer: 0
   m_Name: LArmWeapon
   m_TagString: Untagged
@@ -17100,6 +17161,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1472112305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1472112302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &1508802580
 GameObject:
   m_ObjectHideFlags: 0
@@ -20328,6 +20403,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1833215838}
   - component: {fileID: 1833215839}
+  - component: {fileID: 1833215840}
   m_Layer: 0
   m_Name: RArmWeapon
   m_TagString: Untagged
@@ -20405,6 +20481,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1833215840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1833215837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &1835960738
 GameObject:
   m_ObjectHideFlags: 0
@@ -20918,6 +21008,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1877891086}
   - component: {fileID: 1877891087}
+  - component: {fileID: 1877891088}
   m_Layer: 0
   m_Name: RArmWeapon
   m_TagString: Untagged
@@ -20995,6 +21086,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1877891088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877891085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &1883234580
 GameObject:
   m_ObjectHideFlags: 0
@@ -22724,6 +22829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2011781645}
   - component: {fileID: 2011781646}
+  - component: {fileID: 2011781647}
   m_Layer: 0
   m_Name: LArmWeapon
   m_TagString: Untagged
@@ -22801,6 +22907,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2011781647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2011781644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 337056628}
+  cashSound: {fileID: 332159105}
 --- !u!1 &2014281572
 GameObject:
   m_ObjectHideFlags: 0
