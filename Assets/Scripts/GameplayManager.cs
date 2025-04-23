@@ -780,8 +780,8 @@ public class GameplayManager : MonoBehaviour
     {
         ShowTurnMessage("Nice job!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Build and sell robots for points!\nMore parts collected = more $$$", 4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
+        // ShowTurnMessage("Build and sell robots for points!\nMore parts collected = more points!", 4f, true, 2, 3);
+        // yield return new WaitForSeconds(4f);
         ShowTurnMessage("Now let's try building a weapon!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
     }
@@ -799,8 +799,8 @@ public class GameplayManager : MonoBehaviour
     {
         ShowTurnMessage("Nice work!", 2f, true, 2, 3);
         yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Each robot part weapon has\na unique powerful ability!", 4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
+        // ShowTurnMessage("Each robot part weapon has\na unique powerful ability!", 4f, true, 2, 3);
+        // yield return new WaitForSeconds(4f);
         ShowTurnMessage("Tutorial Complete!\nTry a new game with a friend!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
     }
