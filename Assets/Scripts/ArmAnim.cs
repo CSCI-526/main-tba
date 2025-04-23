@@ -72,14 +72,14 @@ public class ArmAnim : MonoBehaviour
             if(rotate)
             {
                 // also need to rotate arm for P1
-                transform.rotation = Quaternion.Lerp(startRotation, Quaternion.Euler(0.0f, 0.0f, 180.0f), elapsedTime / duration);
+                transform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(0.0f, 0.0f, 180.0f), elapsedTime / duration);
                 // Adjust scale to compensate for aspect ratio during rotation
                 float rotationFactor = Mathf.Abs(Mathf.Sin((elapsedTime / duration) * Mathf.PI));
                 float scaleModifier = Mathf.Lerp(1.0f, aspectRatio, rotationFactor);
 
                 // Apply scale modification
                 transform.localScale = new Vector3(
-                    originalScale.x,
+                    originalScale.x * scaleModifier,
                     originalScale.y / scaleModifier,
                     originalScale.z
                 );
