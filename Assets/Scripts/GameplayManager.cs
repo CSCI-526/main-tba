@@ -75,6 +75,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField]
     private GameObject p2ScoreMeter;
     public GameObject pointTable;
+    public GameObject weaponTable;
     public GameObject nameScreen;
 
     public TMP_Text currPlayerText;
@@ -675,6 +676,16 @@ public class GameplayManager : MonoBehaviour
     public void HidePointTable()
     {
         pointTable.SetActive(false);
+    }
+    
+    public void ShowWeaponTable()
+    {
+        weaponTable.SetActive(true);
+    }
+
+    public void HideWeaponTable()
+    {
+        weaponTable.SetActive(false);
     }
 
     public void HideNameScreen()
