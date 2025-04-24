@@ -80,6 +80,7 @@ public class Bank : MonoBehaviour
     // own private footAbility
     public FootAbility foot_ability;
     public ArmAbility arm_ability;
+    public HeadAbility head_ability;
 
     void Start()
     {
@@ -101,6 +102,7 @@ public class Bank : MonoBehaviour
 
         foot_ability = new FootAbility();
         arm_ability = new ArmAbility();
+        head_ability = new HeadAbility();
     }
 
     void Update()
@@ -485,11 +487,9 @@ public class Bank : MonoBehaviour
                                 benchNum = 2;
                             }
                             // Debug.Log("BENCH NUM OF HEAD: " + benchNum);
-
-                            GameplayManager.Instance.head_ability.Activate(sellData.Count, this, benchNum);
-                            headSound.Play(0);
-                            StartCoroutine(RemoveAfterDelay(3f));
-                            AnalyticsManager.Instance.LogWorkbenchSale(bankData, 0);
+                            StartCoroutine(headWeapon.GetComponent<HeadAnim>().HeadAnimation(this, playerNumber, sellData, benchNum));
+                            StartCoroutine(RemoveAfterDelay(7f));
+ 
                             // cleanUpBench();
                             return true;
                         case Card.CardValue.LeftArm:

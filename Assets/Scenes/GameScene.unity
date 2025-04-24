@@ -13954,6 +13954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1251974298}
   - component: {fileID: 1251974299}
+  - component: {fileID: 1251974300}
   m_Layer: 0
   m_Name: HeadWeapon
   m_TagString: Untagged
@@ -14031,6 +14032,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1251974300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251974297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e2ff4c80f57a84091e1d0d2ede3c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headSound: {fileID: 1690764434}
+  cashSound: {fileID: 332159105}
 --- !u!1 &1252769636
 GameObject:
   m_ObjectHideFlags: 0
@@ -18604,6 +18619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1681459442}
   - component: {fileID: 1681459443}
+  - component: {fileID: 1681459444}
   m_Layer: 0
   m_Name: HeadWeapon
   m_TagString: Untagged
@@ -18681,6 +18697,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1681459444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1681459441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e2ff4c80f57a84091e1d0d2ede3c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headSound: {fileID: 1690764434}
+  cashSound: {fileID: 332159105}
 --- !u!1 &1689030393
 GameObject:
   m_ObjectHideFlags: 0
@@ -20713,6 +20743,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1839363395}
   - component: {fileID: 1839363396}
+  - component: {fileID: 1839363397}
   m_Layer: 0
   m_Name: HeadWeapon
   m_TagString: Untagged
@@ -20790,6 +20821,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1839363397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839363394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e2ff4c80f57a84091e1d0d2ede3c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headSound: {fileID: 1690764434}
+  cashSound: {fileID: 332159105}
 --- !u!1 &1856268209
 GameObject:
   m_ObjectHideFlags: 0
@@ -22381,6 +22426,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1980889647}
   - component: {fileID: 1980889648}
+  - component: {fileID: 1980889649}
   m_Layer: 0
   m_Name: HeadWeapon
   m_TagString: Untagged
@@ -22458,6 +22504,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1980889649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1980889646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e2ff4c80f57a84091e1d0d2ede3c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headSound: {fileID: 1690764434}
+  cashSound: {fileID: 332159105}
 --- !u!1 &1993348865
 GameObject:
   m_ObjectHideFlags: 0
