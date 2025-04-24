@@ -9,6 +9,7 @@ public class ArmAnim : MonoBehaviour
 
     public IEnumerator ArmAnimation(Bank wb, bool isLeft, int playerNum, List<CardData> sellData)
     {
+        GameplayManager.Instance.ToggleOffInteractives();
         SpriteRenderer sr = this.GetComponent<SpriteRenderer>();
         sr.sortingOrder = 50;
 
@@ -35,6 +36,7 @@ public class ArmAnim : MonoBehaviour
         Debug.Log("Points awarded via Arm ability");
         sr.sortingOrder = 15;
         wb.cleanUpBench();
+        GameplayManager.Instance.ToggleOnInteractives();
     }
 
     private IEnumerator ScaleObject(float duration)

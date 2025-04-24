@@ -9,6 +9,7 @@ public class HeadAnim : MonoBehaviour
 
     public IEnumerator HeadAnimation(Bank wb, int playerNum, List<CardData> sellData, int benchNum)
     {
+        GameplayManager.Instance.ToggleOffInteractives();
         SpriteRenderer sr = this.GetComponent<SpriteRenderer>();
         sr.sortingOrder = 50;
 
@@ -32,6 +33,7 @@ public class HeadAnim : MonoBehaviour
 
         Debug.Log("Points awarded via Head ability");
         sr.sortingOrder = 15;
+        GameplayManager.Instance.ToggleOnInteractives();
     }
 
     private IEnumerator ScaleObject(float duration)
