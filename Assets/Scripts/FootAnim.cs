@@ -8,6 +8,7 @@ public class FootAnim : MonoBehaviour
 
     public IEnumerator FootAnimation(Bank wb, bool isLeft)
     {
+        GameplayManager.Instance.ToggleOffInteractives();
         int point_award = 0;
         SpriteRenderer sr = this.GetComponent<SpriteRenderer>();
         sr.sortingOrder = 50;
@@ -30,6 +31,8 @@ public class FootAnim : MonoBehaviour
         Debug.Log("Points awarded via Foot ability");
         sr.sortingOrder = 15;
         wb.cleanUpBench();
+        
+        GameplayManager.Instance.ToggleOnInteractives();
     }
 
     private IEnumerator ScaleObject(float duration)

@@ -44,18 +44,12 @@ public class AudioManager : MonoBehaviour
         if (audioUI.activeSelf)
         {
             audioUI.SetActive(false);
-            GameplayManager.Instance.in_game_tutorial = false;
-            GameplayManager.Instance.ToggleCards();
-            GameplayManager.Instance.ToggleWBs();
-            GameplayManager.Instance.cards_tmp_holder.Clear();
-            GameplayManager.Instance.wbs_tmp_holder.Clear();
+            GameplayManager.Instance.ToggleOnInteractives();
         }
         else
         {
             audioUI.SetActive(true);
-            GameplayManager.Instance.in_game_tutorial = true;
-            GameplayManager.Instance.ToggleCards();
-            GameplayManager.Instance.ToggleWBs();
+            GameplayManager.Instance.ToggleOffInteractives();
         }
     }
 

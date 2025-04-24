@@ -8,6 +8,7 @@ TagManager:
   - SelectPrefab
   - WorkBench
   - Card
+  - Button
   layers:
   - Default
   - TransparentFX
