@@ -167,6 +167,7 @@ public class Card : MonoBehaviour
 
     public IEnumerator LinearAnimation(Vector2 targetPosition, Bank wb, CardData cd)
     {
+        GameplayManager.Instance.ToggleOffInteractives();
         Vector2 startPosition = transform.position;
         float elapsedTime = 0f;
 
@@ -179,5 +180,6 @@ public class Card : MonoBehaviour
 
         transform.position = targetPosition;
         wb.AddToWB(cd);
+        GameplayManager.Instance.ToggleOnInteractives();
     }
 }
