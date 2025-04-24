@@ -103,6 +103,7 @@ public class GameplayManager : MonoBehaviour
     
     public List<GameObject> cards_tmp_holder = new List<GameObject>();
     public List<GameObject> wbs_tmp_holder = new List<GameObject>();
+    public List<GameObject> buttons_tmp_holder = new List<GameObject>();
 
     // Audio Sources
     public AudioSource passSound;
@@ -167,6 +168,15 @@ public class GameplayManager : MonoBehaviour
     //control handler
     void Update()
     {
+        /*if (Input.GetKeyDown(KeyCode.A))
+        {
+            ToggleOffInteractives();
+        }
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            ToggleOnInteractives();
+        }*/
+        
         /*
         //dev debug keys - h to hide hand, s to show hand
         if (Input.GetKeyDown(KeyCode.H))
@@ -492,8 +502,91 @@ public class GameplayManager : MonoBehaviour
 
         totalTurns++;
     }
+
+    public void ToggleOffInteractives()
+    {
+        // 1) Find all active objects with tag "card"
+        if (cards_tmp_holder.Count == 0)
+        {
+            cards_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("Card"));
+            cards_tmp_holder.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("SelectPrefab")));
+        }
+        
+        Debug.Log("toggle cards " + cards_tmp_holder.Count);
+        
+        foreach (var card in cards_tmp_holder)
+        {
+            var mb = card.GetComponent<MonoBehaviour>();
+            mb.enabled = false;
+            
+            var col = card.GetComponent<BoxCollider2D>();
+            col.enabled = false;
+        }
+        
+        if (wbs_tmp_holder.Count == 0)
+        {
+            wbs_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("WorkBench"));
+        }
+        
+        Debug.Log("toggle wbs " + wbs_tmp_holder.Count);
+        
+        foreach (var wb in wbs_tmp_holder)
+        {
+            var mb = wb.GetComponent<MonoBehaviour>();
+            mb.enabled = false;
+            
+            var col = wb.GetComponent<BoxCollider2D>();
+            col.enabled = false;
+        }
+
+        if (buttons_tmp_holder.Count == 0)
+        {
+            buttons_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("Button"));
+        }
+        
+        Debug.Log("toggle buttons " + buttons_tmp_holder.Count);
+
+        foreach (var btn in buttons_tmp_holder)
+        {
+            Button btn_mb = btn.GetComponent<Button>();
+            btn_mb.interactable = false;
+        }
+    }
     
-    // Call this function whenever you change `inGameTutorial`.
+    public void ToggleOnInteractives()
+    {
+        foreach (var card in cards_tmp_holder)
+        {
+            var mb = card.GetComponent<MonoBehaviour>();
+            mb.enabled = true;
+
+            var col = card.GetComponent<BoxCollider2D>();
+            col.enabled = true;
+        }
+        
+        cards_tmp_holder.Clear();
+        
+        foreach (var wb in wbs_tmp_holder)
+        {
+            var mb = wb.GetComponent<MonoBehaviour>();
+            mb.enabled = true;
+            
+            var col = wb.GetComponent<BoxCollider2D>();
+            col.enabled = true;
+        }
+        
+        wbs_tmp_holder.Clear();
+
+        foreach (var btn in buttons_tmp_holder)
+        {
+            Button btn_mb = btn.GetComponent<Button>();
+            btn_mb.interactable = true;
+        }
+        
+        buttons_tmp_holder.Clear();
+    }
+    
+    // Do not use this function use ToggleOffInteractives() and ToggleOnInteractives() instead
     public void ToggleCards()
     {
         // 1) Find all active objects with tag "card"
@@ -513,6 +606,7 @@ public class GameplayManager : MonoBehaviour
         }
     }
     
+    // Do not use this function use ToggleOffInteractives() and ToggleOnInteractives() instead
     public void ToggleWBs()
     {
         // 1) Find all active objects with tag "card"

@@ -10806,7 +10806,7 @@ GameObject:
   - component: {fileID: 935738500}
   m_Layer: 5
   m_Name: passButton
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15760,6 +15760,7 @@ MonoBehaviour:
   pointsToWin: 20
   cards_tmp_holder: []
   wbs_tmp_holder: []
+  buttons_tmp_holder: []
   passSound: {fileID: 1670192917}
   totalTurns: 0
   totalPassTurns: 0
