@@ -94,37 +94,5 @@ public class ArmAnim : MonoBehaviour
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
         }
     }
-
-    /*private IEnumerator StompAction(float duration, int stomp)
-    {
-        Vector3 basePosition = transform.position;
-        float stompHeight = 60.0f;
-
-        for (int i = 0; i < stomp; i++)
-        {
-            // Jerk up
-            yield return StartCoroutine(MoveObject(basePosition, basePosition + Vector3.up * stompHeight, duration));
-            if (i == 0)
-            {
-                punchSound.Play(0);
-            }
-            // Jerk down
-            yield return StartCoroutine(MoveObject(basePosition + Vector3.up * stompHeight, basePosition, duration));
-        }
-    }
-
-    private IEnumerator MoveObject(Vector3 startPos, Vector3 endPos, float duration)
-    {
-        float elapsedTime = 0;
-
-        while (elapsedTime < duration)
-        {
-            transform.position = Vector3.Lerp(startPos, endPos, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        transform.position = endPos; // Ensure final position is exactly what we want
-    }*/
 }
 
