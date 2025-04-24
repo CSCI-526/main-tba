@@ -504,86 +504,67 @@ public class GameplayManager : MonoBehaviour
         totalTurns++;
     }
 
-    public void ToggleOffInteractives()
+ public void ToggleOffInteractives()
     {
-        // 1) Find all active objects with tag "card"
+        // ———  Cards & SelectPrefabs  ———
         if (cards_tmp_holder.Count == 0)
         {
-            cards_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("Card"));
-            cards_tmp_holder.AddRange(new List<GameObject>(GameObject.FindGameObjectsWithTag("SelectPrefab")));
+            cards_tmp_holder.AddRange(GameObject.FindGameObjectsWithTag("Card"));
+            cards_tmp_holder.AddRange(GameObject.FindGameObjectsWithTag("SelectPrefab"));
         }
-        
-        Debug.Log("toggle cards " + cards_tmp_holder.Count);
-        
-        foreach (var card in cards_tmp_holder)
+
+        foreach (var go in cards_tmp_holder)
         {
-            var mb = card.GetComponent<MonoBehaviour>();
-            mb.enabled = false;
-            
-            var col = card.GetComponent<BoxCollider2D>();
-            col.enabled = false;
+            if (go.TryGetComponent<Card>(        out var card)) card.enabled = false;
+            if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = false;
         }
-        
+
+        // ———  WorkBenches  ———
         if (wbs_tmp_holder.Count == 0)
         {
-            wbs_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("WorkBench"));
-        }
-        
-        Debug.Log("toggle wbs " + wbs_tmp_holder.Count);
-        
-        foreach (var wb in wbs_tmp_holder)
-        {
-            var mb = wb.GetComponent<MonoBehaviour>();
-            mb.enabled = false;
-            
-            var col = wb.GetComponent<BoxCollider2D>();
-            col.enabled = false;
+            wbs_tmp_holder.AddRange(GameObject.FindGameObjectsWithTag("WorkBench"));
         }
 
+        foreach (var go in wbs_tmp_holder)
+        {
+            if (go.TryGetComponent<Bank>(        out var bank)) bank.enabled = false;
+            if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = false;
+        }
+
+        // ———  UI Buttons  ———
         if (buttons_tmp_holder.Count == 0)
         {
-            buttons_tmp_holder = new List<GameObject>(GameObject.FindGameObjectsWithTag("Button"));
+            buttons_tmp_holder.AddRange(GameObject.FindGameObjectsWithTag("Button"));
         }
-        
-        Debug.Log("toggle buttons " + buttons_tmp_holder.Count);
 
-        foreach (var btn in buttons_tmp_holder)
-        {
-            Button btn_mb = btn.GetComponent<Button>();
-            btn_mb.interactable = false;
-        }
+        foreach (var go in buttons_tmp_holder)
+            if (go.TryGetComponent<Button>(out var btn)) btn.interactable = false;
     }
-    
+
+    /* ------------------------------------------------------------------ */
+    /*  Enable                                                            */
+    /* ------------------------------------------------------------------ */
     public void ToggleOnInteractives()
     {
-        foreach (var card in cards_tmp_holder)
+        foreach (var go in cards_tmp_holder)
         {
-            var mb = card.GetComponent<MonoBehaviour>();
-            mb.enabled = true;
-
-            var col = card.GetComponent<BoxCollider2D>();
-            col.enabled = true;
+            if (go.TryGetComponent<Card>(        out var card)) card.enabled = true;
+            if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = true;
         }
-        
         cards_tmp_holder.Clear();
-        
-        foreach (var wb in wbs_tmp_holder)
+
+        foreach (var go in wbs_tmp_holder)
         {
-            var mb = wb.GetComponent<MonoBehaviour>();
-            mb.enabled = true;
-            
-            var col = wb.GetComponent<BoxCollider2D>();
-            col.enabled = true;
+            if (go.TryGetComponent<Bank>(        out var bank)) bank.enabled = true;
+            if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = true;
         }
-        
         wbs_tmp_holder.Clear();
 
-        foreach (var btn in buttons_tmp_holder)
+        foreach (var go in buttons_tmp_holder)
         {
-            Button btn_mb = btn.GetComponent<Button>();
-            btn_mb.interactable = true;
+            if (go.TryGetComponent<Button>(out var btn)) btn.interactable = true;
         }
-        
+
         buttons_tmp_holder.Clear();
     }
     
