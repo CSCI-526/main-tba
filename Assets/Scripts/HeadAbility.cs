@@ -64,7 +64,8 @@ public class HeadAbility : IAbility
         int copyPoints = 0;
         if (bankToCopy.enabled)
         {
-            if (!bankToCopy.hasOnlyOneType())
+            //If the bank to copy isn't a weapon type OR we're only copying 1 card
+            if (!bankToCopy.hasOnlyOneType() || duplicateCount == 2)
             {
                 workBench.color = bankToCopy.bankData[0].cardSuit;
             }
