@@ -311,13 +311,17 @@ public class GameplayManager : MonoBehaviour
         if (actionsTakenInRound == 4)
         {
             currPlayerText.text += "New Round!\n";
-            if (activePlayer.playerNum == 1)
+            if (totalTurns == 0)
             {
                 StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!", player1Name + "'s Turn!"));
             }
+            else if (activePlayer.playerNum == 1)
+            {
+                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!\n(" + player2Name + " began last round)", player1Name + "'s Turn!"));
+            }
             else 
             {
-                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!", player2Name + "'s Turn!"));
+                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!\n(" + player1Name + " began last round)", player2Name + "'s Turn!"));
             }
         }
         else 
