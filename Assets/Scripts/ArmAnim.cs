@@ -12,6 +12,7 @@ public class ArmAnim : MonoBehaviour
         GameplayManager.Instance.ToggleOffInteractives();
         SpriteRenderer sr = this.GetComponent<SpriteRenderer>();
         sr.sortingOrder = 50;
+        Vector3 originalPosition = transform.position;
 
         Vector3 windUpPosition = new Vector3(isLeft ? -100f : 90f, playerNum == 1 ? transform.position.y - 60.0f : transform.position.y + 60.0f, 0.0f);
         Vector3 punchPosition = new Vector3(isLeft ? -100f : 90f, playerNum == 1 ? transform.position.y + 224.0f : transform.position.y - 224.0f, 0.0f);
@@ -36,6 +37,7 @@ public class ArmAnim : MonoBehaviour
         Debug.Log("Points awarded via Arm ability");
         sr.sortingOrder = 15;
         wb.cleanUpBench();
+        cleanUp(originalPosition);
         GameplayManager.Instance.ToggleOnInteractives();
     }
 
@@ -71,7 +73,7 @@ public class ArmAnim : MonoBehaviour
         while (elapsedTime < duration)
         {
             transform.position = Vector3.Lerp(startPos, targetLocation, elapsedTime / duration);
-            if(rotate)
+            if (rotate)
             {
                 // also need to rotate arm for P1
                 transform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(0.0f, 0.0f, 180.0f), elapsedTime / duration);
@@ -96,5 +98,11 @@ public class ArmAnim : MonoBehaviour
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, 180.0f);
         }
     }
+
+    private void cleanUp (Vector3 originalPosition) {
+        transform.position = originalPosition;
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+        transform.localScale = new Vector3(0.6f, 1.0f, 1.0f);
+        }
 }
 

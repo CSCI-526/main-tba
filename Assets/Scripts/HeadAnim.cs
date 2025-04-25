@@ -33,6 +33,7 @@ public class HeadAnim : MonoBehaviour
 
         Debug.Log("Points awarded via Head ability");
         sr.sortingOrder = 15;
+        cleanUp(returnPosition);
         GameplayManager.Instance.ToggleOnInteractives();
     }
 
@@ -92,10 +93,10 @@ public class HeadAnim : MonoBehaviour
         transform.position = originalPosition;
     }
 
-    private IEnumerator Delay(float seconds)
+    private void cleanUp(Vector3 originalPosition)
     {
-        headSound.Play(0);
-        yield return new WaitForSeconds(seconds);
+        transform.position = originalPosition;
+        transform.localScale = new Vector3(0.6f, 1.0f, 1.0f);
     }
 }
 

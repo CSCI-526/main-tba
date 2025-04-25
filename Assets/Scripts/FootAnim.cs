@@ -12,6 +12,7 @@ public class FootAnim : MonoBehaviour
         int point_award = 0;
         SpriteRenderer sr = this.GetComponent<SpriteRenderer>();
         sr.sortingOrder = 50;
+        Vector3 originalPosition = transform.position;
         // Step 1: Scale up
         yield return StartCoroutine(ScaleObject(1.0f));
 
@@ -31,6 +32,7 @@ public class FootAnim : MonoBehaviour
         Debug.Log("Points awarded via Foot ability");
         sr.sortingOrder = 15;
         wb.cleanUpBench();
+        cleanUp(originalPosition);
         
         GameplayManager.Instance.ToggleOnInteractives();
     }
@@ -96,5 +98,11 @@ public class FootAnim : MonoBehaviour
         }
 
         transform.position = endPos; // Ensure final position is exactly what we want
+    }
+
+    private void cleanUp(Vector3 originalPosition)
+    {
+        transform.position = originalPosition;
+        transform.localScale = new Vector3(0.6f, 1.0f, 1.0f);
     }
 }
