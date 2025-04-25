@@ -9,6 +9,7 @@ public class TurnAction
     //Pass the turn
 
     public int riverCardToTake;
+    //0 for left workbench 1 for right
     public int workBenchToPlaceCard;
     public bool sellLeftWorkbench;
     public bool sellRightWorkbench;
