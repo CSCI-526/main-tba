@@ -651,7 +651,7 @@ public class GameplayManager : MonoBehaviour
 
     public void ShowPointTable()
     {
-        pointTable.SetActive(true);
+        pointTable.SetActive(!pointTable.activeSelf);
     }
 
     public void HidePointTable()
