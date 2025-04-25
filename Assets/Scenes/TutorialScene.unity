@@ -1091,7 +1091,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 55801196}
-  - component: {fileID: 55801195}
   - component: {fileID: 55801194}
   - component: {fileID: 55801193}
   m_Layer: 0
@@ -1202,44 +1201,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &55801195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 55801192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 0}
-  playerNumber: 1
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 0}
-  sellButtonText: {fileID: 0}
-  robotBody: {fileID: 0}
-  robotHead: {fileID: 0}
-  robotLArm: {fileID: 0}
-  robotRArm: {fileID: 0}
-  robotLLeg: {fileID: 0}
-  robotRLeg: {fileID: 0}
-  headWeapon: {fileID: 0}
-  lArmWeapon: {fileID: 0}
-  rArmWeapon: {fileID: 0}
-  lLegWeapon: {fileID: 0}
-  rLegWeapon: {fileID: 0}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 0}
-  sellSound: {fileID: 0}
-  punchSound: {fileID: 0}
-  footSound: {fileID: 0}
-  headSound: {fileID: 0}
 --- !u!4 &55801196
 Transform:
   m_ObjectHideFlags: 0
@@ -1249,12 +1210,11 @@ Transform:
   m_GameObject: {fileID: 55801192}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 160.7594, y: -99.5, z: 0}
-  m_LocalScale: {x: 10.5, y: 9, z: 1}
+  m_LocalPosition: {x: 0.005841534, y: -0.00625, z: 0}
+  m_LocalScale: {x: 0.08076923, y: 0.112500004, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 855735617}
-  m_Father: {fileID: 480297677}
+  m_Children: []
+  m_Father: {fileID: 855735617}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &57323397
 GameObject:
@@ -6017,7 +5977,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 457344461}
-  - component: {fileID: 457344460}
   - component: {fileID: 457344459}
   - component: {fileID: 457344458}
   m_Layer: 0
@@ -6128,44 +6087,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &457344460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 457344457}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 0}
-  playerNumber: 2
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 0}
-  sellButtonText: {fileID: 0}
-  robotBody: {fileID: 0}
-  robotHead: {fileID: 0}
-  robotLArm: {fileID: 0}
-  robotRArm: {fileID: 0}
-  robotLLeg: {fileID: 0}
-  robotRLeg: {fileID: 0}
-  headWeapon: {fileID: 0}
-  lArmWeapon: {fileID: 0}
-  rArmWeapon: {fileID: 0}
-  lLegWeapon: {fileID: 0}
-  rLegWeapon: {fileID: 0}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 0}
-  sellSound: {fileID: 0}
-  punchSound: {fileID: 0}
-  footSound: {fileID: 0}
-  headSound: {fileID: 0}
 --- !u!4 &457344461
 Transform:
   m_ObjectHideFlags: 0
@@ -6510,8 +6431,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 736979313}
-  - {fileID: 55801196}
+  - {fileID: 994040456}
+  - {fileID: 855735617}
   - {fileID: 1253221709}
   - {fileID: 2127800951}
   m_Father: {fileID: 134671484}
@@ -9950,7 +9871,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 736979313}
-  - component: {fileID: 736979312}
   - component: {fileID: 736979311}
   - component: {fileID: 736979310}
   m_Layer: 0
@@ -10061,44 +9981,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &736979312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 736979309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 0}
-  playerNumber: 1
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 0}
-  sellButtonText: {fileID: 0}
-  robotBody: {fileID: 0}
-  robotHead: {fileID: 0}
-  robotLArm: {fileID: 0}
-  robotRArm: {fileID: 0}
-  robotLLeg: {fileID: 0}
-  robotRLeg: {fileID: 0}
-  headWeapon: {fileID: 0}
-  lArmWeapon: {fileID: 0}
-  rArmWeapon: {fileID: 0}
-  lLegWeapon: {fileID: 0}
-  rLegWeapon: {fileID: 0}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 0}
-  sellSound: {fileID: 0}
-  punchSound: {fileID: 0}
-  footSound: {fileID: 0}
-  headSound: {fileID: 0}
 --- !u!4 &736979313
 Transform:
   m_ObjectHideFlags: 0
@@ -10108,12 +9990,11 @@ Transform:
   m_GameObject: {fileID: 736979309}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.240601, y: -99.5, z: 0}
-  m_LocalScale: {x: 10.5, y: 9, z: 1}
+  m_LocalPosition: {x: 0.005841534, y: -0.00625, z: 0}
+  m_LocalScale: {x: 0.08076923, y: 0.112500004, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 994040456}
-  m_Father: {fileID: 480297677}
+  m_Children: []
+  m_Father: {fileID: 994040456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &738184727
 GameObject:
@@ -11011,8 +10892,8 @@ Transform:
   m_GameObject: {fileID: 855735616}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07232375, y: 0.055555556, z: 0}
-  m_LocalScale: {x: 12.380952, y: 8.888889, z: 1}
+  m_LocalPosition: {x: 160, y: -99, z: 0}
+  m_LocalScale: {x: 130, y: 80, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 261542862}
@@ -11026,7 +10907,8 @@ Transform:
   - {fileID: 1276141270}
   - {fileID: 593449826}
   - {fileID: 2025176074}
-  m_Father: {fileID: 55801196}
+  - {fileID: 55801196}
+  m_Father: {fileID: 480297677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &855735618
 SpriteRenderer:
@@ -12585,8 +12467,8 @@ Transform:
   m_GameObject: {fileID: 994040455}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.07232375, y: 0.055555556, z: 0}
-  m_LocalScale: {x: 12.380952, y: 8.888889, z: 1}
+  m_LocalPosition: {x: -10, y: -99, z: 0}
+  m_LocalScale: {x: 130, y: 80, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1749358109}
@@ -12600,7 +12482,8 @@ Transform:
   - {fileID: 1313795519}
   - {fileID: 2013216824}
   - {fileID: 1135071830}
-  m_Father: {fileID: 736979313}
+  - {fileID: 736979313}
+  m_Father: {fileID: 480297677}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &994040457
 SpriteRenderer:
@@ -21817,7 +21700,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1709851029}
-  - component: {fileID: 1709851028}
   - component: {fileID: 1709851027}
   - component: {fileID: 1709851026}
   m_Layer: 0
@@ -21928,44 +21810,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1709851028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1709851025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 0}
-  playerNumber: 2
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 0}
-  sellButtonText: {fileID: 0}
-  robotBody: {fileID: 0}
-  robotHead: {fileID: 0}
-  robotLArm: {fileID: 0}
-  robotRArm: {fileID: 0}
-  robotLLeg: {fileID: 0}
-  robotRLeg: {fileID: 0}
-  headWeapon: {fileID: 0}
-  lArmWeapon: {fileID: 0}
-  rArmWeapon: {fileID: 0}
-  lLegWeapon: {fileID: 0}
-  rLegWeapon: {fileID: 0}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 0}
-  sellSound: {fileID: 0}
-  punchSound: {fileID: 0}
-  footSound: {fileID: 0}
-  headSound: {fileID: 0}
 --- !u!4 &1709851029
 Transform:
   m_ObjectHideFlags: 0

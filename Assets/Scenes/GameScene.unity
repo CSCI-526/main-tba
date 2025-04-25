@@ -12200,7 +12200,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1069556523}
-  - component: {fileID: 1069556525}
   - component: {fileID: 1069556522}
   - component: {fileID: 1069556524}
   m_Layer: 0
@@ -12327,44 +12326,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1069556525
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1069556521}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 1343919372}
-  playerNumber: 2
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 198065689}
-  sellButtonText: {fileID: 1835960740}
-  robotBody: {fileID: 1302874854}
-  robotHead: {fileID: 1111442997}
-  robotLArm: {fileID: 1012324173}
-  robotRArm: {fileID: 1883234580}
-  robotLLeg: {fileID: 858150069}
-  robotRLeg: {fileID: 442272099}
-  headWeapon: {fileID: 1839363394}
-  lArmWeapon: {fileID: 591889445}
-  rArmWeapon: {fileID: 1833215837}
-  lLegWeapon: {fileID: 1615586531}
-  rLegWeapon: {fileID: 614291153}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 487297331}
-  sellSound: {fileID: 332159105}
-  punchSound: {fileID: 337056628}
-  footSound: {fileID: 746521897}
-  headSound: {fileID: 1690764434}
 --- !u!1 &1075289281
 GameObject:
   m_ObjectHideFlags: 0
@@ -12857,7 +12818,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112128346}
-  - component: {fileID: 1112128348}
   - component: {fileID: 1112128345}
   - component: {fileID: 1112128347}
   m_Layer: 0
@@ -12984,44 +12944,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1112128348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112128344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 163644145}
-  playerNumber: 1
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 1339494086}
-  sellButtonText: {fileID: 1955050247}
-  robotBody: {fileID: 1429960208}
-  robotHead: {fileID: 1284487762}
-  robotLArm: {fileID: 416516067}
-  robotRArm: {fileID: 628731208}
-  robotLLeg: {fileID: 1548899913}
-  robotRLeg: {fileID: 311694059}
-  headWeapon: {fileID: 1251974297}
-  lArmWeapon: {fileID: 766802008}
-  rArmWeapon: {fileID: 1877891085}
-  lLegWeapon: {fileID: 52364083}
-  rLegWeapon: {fileID: 1768400628}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 487297331}
-  sellSound: {fileID: 332159105}
-  punchSound: {fileID: 337056628}
-  footSound: {fileID: 746521897}
-  headSound: {fileID: 1690764434}
 --- !u!1 &1119269797
 GameObject:
   m_ObjectHideFlags: 0
@@ -14466,7 +14388,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1252769638}
-  - component: {fileID: 1252769640}
   - component: {fileID: 1252769637}
   - component: {fileID: 1252769639}
   m_Layer: 0
@@ -14593,44 +14514,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1252769640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1252769636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 301548354}
-  playerNumber: 2
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 1416570253}
-  sellButtonText: {fileID: 1100575064}
-  robotBody: {fileID: 1956813767}
-  robotHead: {fileID: 1012685972}
-  robotLArm: {fileID: 1531323150}
-  robotRArm: {fileID: 1251431935}
-  robotLLeg: {fileID: 995818241}
-  robotRLeg: {fileID: 1911738875}
-  headWeapon: {fileID: 1980889646}
-  lArmWeapon: {fileID: 1472112302}
-  rArmWeapon: {fileID: 126748049}
-  lLegWeapon: {fileID: 20973343}
-  rLegWeapon: {fileID: 1552920639}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 487297331}
-  sellSound: {fileID: 332159105}
-  punchSound: {fileID: 337056628}
-  footSound: {fileID: 746521897}
-  headSound: {fileID: 1690764434}
 --- !u!1 &1253303219
 GameObject:
   m_ObjectHideFlags: 0
@@ -25382,7 +25265,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2141697781}
-  - component: {fileID: 2141697783}
   - component: {fileID: 2141697780}
   - component: {fileID: 2141697782}
   m_Layer: 0
@@ -25509,44 +25391,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &2141697783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141697779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ee06de3789c4124ca01f3c0850718d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  color: 5
-  partType: 6
-  takenParts: 0000000000
-  bankText: {fileID: 2011563591}
-  playerNumber: 1
-  select: {fileID: 5294651447043549942, guid: 72ffd0aff3deb6046bea1c2fec7ae771, type: 3}
-  sellButton: {fileID: 1876394394}
-  sellButtonText: {fileID: 1202430322}
-  robotBody: {fileID: 871818221}
-  robotHead: {fileID: 1398644920}
-  robotLArm: {fileID: 117149844}
-  robotRArm: {fileID: 250403636}
-  robotLLeg: {fileID: 35054256}
-  robotRLeg: {fileID: 669930400}
-  headWeapon: {fileID: 1681459441}
-  lArmWeapon: {fileID: 2011781644}
-  rArmWeapon: {fileID: 500345759}
-  lLegWeapon: {fileID: 397400022}
-  rLegWeapon: {fileID: 1761568671}
-  isHeadAbilityActive: 0
-  enabled: 1
-  insertSound: {fileID: 487297331}
-  sellSound: {fileID: 332159105}
-  punchSound: {fileID: 337056628}
-  footSound: {fileID: 746521897}
-  headSound: {fileID: 1690764434}
 --- !u!1 &2141960421
 GameObject:
   m_ObjectHideFlags: 0
