@@ -665,7 +665,7 @@ public class GameplayManager : MonoBehaviour
     
     public void ShowWeaponTable()
     {
-        weaponTable.SetActive(true);
+        weaponTable.SetActive(!weaponTable.activeSelf);
     }
 
     public void HideWeaponTable()
