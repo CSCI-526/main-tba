@@ -44,11 +44,11 @@ public class ArmAnim : MonoBehaviour
     private IEnumerator ScaleObject(float duration)
     {
         float elapsedTime = 0;
-        Vector3 endScale = new Vector3(1.2f, 2.0f, 1.0f);
+        Vector3 endScale = new Vector3(2.0f, 2.0f, 2.0f);
 
         while (elapsedTime < duration)
         {
-            transform.localScale = Vector3.Lerp(new Vector3(0.6f, 1.0f, 1.0f), endScale, elapsedTime / duration);
+            transform.localScale = Vector3.Lerp(new Vector3(1.0f, 1.0f, 1.0f), endScale, elapsedTime / duration);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -77,16 +77,6 @@ public class ArmAnim : MonoBehaviour
             {
                 // also need to rotate arm for P1
                 transform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(0.0f, 0.0f, 180.0f), elapsedTime / duration);
-                // Adjust scale to compensate for aspect ratio during rotation
-                float rotationFactor = Mathf.Abs(Mathf.Sin((elapsedTime / duration) * Mathf.PI));
-                float scaleModifier = Mathf.Lerp(1.0f, aspectRatio, rotationFactor);
-
-                // Apply scale modification
-                transform.localScale = new Vector3(
-                    originalScale.x * scaleModifier,
-                    originalScale.y / scaleModifier,
-                    originalScale.z
-                );
             }
             elapsedTime += Time.deltaTime;
             yield return null;
@@ -102,7 +92,7 @@ public class ArmAnim : MonoBehaviour
     private void cleanUp (Vector3 originalPosition) {
         transform.position = originalPosition;
         transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-        transform.localScale = new Vector3(0.6f, 1.0f, 1.0f);
+        transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 }
 

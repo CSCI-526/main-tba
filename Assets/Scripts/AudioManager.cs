@@ -65,8 +65,8 @@ public class AudioManager : MonoBehaviour
 
     public void SetSFXVolume(float volume)
     {
-        sellSound.volume = volume;
-        insertSound.volume = volume / 1.8f;
+        sellSound.volume = volume / 2.0f;
+        insertSound.volume = volume / 3.0f;
         punchSound.volume = volume;
         footSound.volume = volume;
         headSound.volume = volume;
