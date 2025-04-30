@@ -167,7 +167,7 @@ public class GameplayManager : MonoBehaviour
         //important to note that scene names matter
         if(SceneManager.GetActiveScene().name == "TutorialScene")
         {
-            StartTutorial();
+            StartCoroutine(StartTutorial());
         }
     }
 
@@ -541,6 +541,8 @@ public class GameplayManager : MonoBehaviour
 
         foreach (var go in cards_tmp_holder)
         {
+            if (go == null) continue;
+            // Debug.Log(go.GetComponent<Card>().GetCardData().getCardString());
             if (go.TryGetComponent<Card>(        out var card)) card.enabled = false;
             if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = false;
         }
@@ -553,6 +555,7 @@ public class GameplayManager : MonoBehaviour
 
         foreach (var go in wbs_tmp_holder)
         {
+            if (go == null) continue;
             if (go.TryGetComponent<Bank>(        out var bank)) bank.enabled = false;
             if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = false;
         }
@@ -564,7 +567,10 @@ public class GameplayManager : MonoBehaviour
         }
 
         foreach (var go in buttons_tmp_holder)
+        {
+            if (go == null) continue;
             if (go.TryGetComponent<Button>(out var btn)) btn.interactable = false;
+        }
     }
 
     /* ------------------------------------------------------------------ */
@@ -574,6 +580,7 @@ public class GameplayManager : MonoBehaviour
     {
         foreach (var go in cards_tmp_holder)
         {
+            if (go == null) continue;
             if (go.TryGetComponent<Card>(        out var card)) card.enabled = true;
             if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = true;
         }
@@ -581,6 +588,7 @@ public class GameplayManager : MonoBehaviour
 
         foreach (var go in wbs_tmp_holder)
         {
+            if (go == null) continue;
             if (go.TryGetComponent<Bank>(        out var bank)) bank.enabled = true;
             if (go.TryGetComponent<BoxCollider2D>(out var col))  col.enabled  = true;
         }
@@ -588,6 +596,7 @@ public class GameplayManager : MonoBehaviour
 
         foreach (var go in buttons_tmp_holder)
         {
+            if (go == null) continue;
             if (go.TryGetComponent<Button>(out var btn)) btn.interactable = true;
         }
 
@@ -648,6 +657,9 @@ public class GameplayManager : MonoBehaviour
 
     private IEnumerator ShowTurnMessageCoroutine(string turnMessage, float duration, bool scaleImage, float scaleX, float scaleY)
     {
+
+        ToggleOffInteractives();
+
         turnMessageText.text = turnMessage;
         Vector3 oldImageScale = new Vector3(1f,1f,1f);
         if (scaleImage)
@@ -665,6 +677,9 @@ public class GameplayManager : MonoBehaviour
             Transform imageBackgroundTransform = turnMessagePanel.transform.Find("Image");
             imageBackgroundTransform.localScale = oldImageScale;
         }
+
+        ToggleOnInteractives();
+
         turnOverlayCoroutine = null;
     }
 
@@ -749,16 +764,15 @@ public class GameplayManager : MonoBehaviour
 
     private IEnumerator RunTutorialMessages()
     {
-        ShowTurnMessage("Welcome to Bot or be Bought!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Build robots and sell them for points! First player to reach 20 points wins!", 4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
-        ShowTurnMessage("Your turn!", 2f);
-        yield return new WaitForSeconds(2f);
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Welcome to Bot or Be Bought!", 2f, true, 2f, 3f));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Build robots and sell them for points! First player to reach 20 points wins!", 4f, true, 2f, 3f));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Your turn!", 2f, true, 2f, 3f));
     }
 
     public void RunMoreTutorialMessages()
     {
+        // ToggleOffInteractives();
+        workbenches.SetActive(false);
         buildingGuide.SetActive(true);
     }
 
@@ -768,7 +782,6 @@ public class GameplayManager : MonoBehaviour
         StartCoroutine(RunEvenMoreTutorialMessages());
 
         //Now we should clear everything in the benches and river and reactivate all UI items
-        
         river.riverData.Clear();
         List<Card.CardSuit> suits = new List<Card.CardSuit>();
         suits.Add(Card.CardSuit.Black);
@@ -902,35 +915,35 @@ public class GameplayManager : MonoBehaviour
         // yield return new WaitForSeconds(4f);
         ShowTurnMessage("Now let's try building a weapon!", 4f, true, 2, 3);
         yield return new WaitForSeconds(4f);
+        workbenches.SetActive(true);
     }
 
 
     public IEnumerator RunEvenMoreTutorialMessages()
     {
-        ShowTurnMessage("Let's skip ahead in the game...", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
-        ShowTurnMessage("Can you complete a robot\nand sell it?", 4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
+        // ToggleOffInteractives();
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Let's skip ahead in the game...", 2f, true, 2f, 3f));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Can you complete a robot\nand sell it?", 4f, true, 2f, 3f));
+        workbenches.SetActive(true);
+        // ToggleOnInteractives();
     }
 
     private IEnumerator FinalTutorialMessages()
     {
-        ShowTurnMessage("Nice work!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
+        workbenches.SetActive(false);
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Nice work!", 2f, true, 2f, 3f));
         // ShowTurnMessage("Each robot part weapon has\na unique powerful ability!", 4f, true, 2, 3);
         // yield return new WaitForSeconds(4f);
-        ShowTurnMessage("Tutorial Complete!\nTry a new game with a friend!", 4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Tutorial Complete!\nTry a new game with a friend!", 4f, true, 2f, 3f));
     }
 
     public IEnumerator FailedTutorialMessages()
     {
-        ShowTurnMessage("Not quite right!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
-        ShowTurnMessage("You added to a weapon!", 3f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
-        ShowTurnMessage("Try again!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
+        workbenches.SetActive(false);
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Not quite right!", 2f, true, 2f, 3f));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("You added to a weapon!", 3f, true, 2f, 3f));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Try again!", 2f, true, 2f, 3f));
+        workbenches.SetActive(true);
 
         river.riverData.Clear();
         List<Card.CardSuit> suits = new List<Card.CardSuit>();
@@ -973,14 +986,18 @@ public class GameplayManager : MonoBehaviour
         //p1secondWB.drawBench();
     }
 
+    public void RunFailedWeaponTut()
+    {
+        StartCoroutine(FailedWeaponTutMessages());
+    }
+
     public IEnumerator FailedWeaponTutMessages()
     {
-        ShowTurnMessage("Not quite right!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
-        ShowTurnMessage("You added to a robot!", 3f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
-        ShowTurnMessage("Try again!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
+        workbenches.SetActive(false);
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Not quite right!", 2f, true, 2f, 3f));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("You added to a robot!", 3f, true, 2f, 3f));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Try again!", 2f, true, 2f, 3f));
+        workbenches.SetActive(true);
 
         // CLEARING RIVER FIRST and FLOP PREDETERMINED CARDS...
         river.riverData.Clear();
@@ -1090,8 +1107,10 @@ public class GameplayManager : MonoBehaviour
      * Method to start the tutorial if gameplay manager detects in start 
      * it is in TutorialScene scene.
      */
-    public void StartTutorial()
+    public IEnumerator StartTutorial()
     {
+        Debug.Log("Tutorial starts");
+        
         //Turn off everythign that isn't needed for now UI wise
         //Stuff in Game Components
         workbenches.SetActive(false);
@@ -1108,10 +1127,11 @@ public class GameplayManager : MonoBehaviour
         p2Work1SellButton.SetActive(false);
         p2Work2SellButton.SetActive(false);
         passButton.SetActive(false);
-        
-        
-        StartCoroutine(RunTutorialMessages());
 
+        // ToggleOffInteractives();
+        yield return StartCoroutine(RunTutorialMessages());
+        // ToggleOnInteractives();
+        
         //Once the message completes, we need to fill the bench with some cards
         //Set player as active?
    
@@ -1131,7 +1151,6 @@ public class GameplayManager : MonoBehaviour
         values.Add(Card.CardValue.RightFoot);
 
         river.PredefinedFlop(deck, suits, values);
-
     }
 
     /*
