@@ -343,7 +343,7 @@ public class GameplayManager : MonoBehaviour
             {
                 currPlayerText.text += player2Name + "'s Turn!";
             }
-            ShowTurnMessage(currPlayerText.text);
+            ShowTurnMessage(currPlayerText.text + "\n" + actionsTakenInRound + " turns left in round!");
         }
         
 
@@ -671,7 +671,7 @@ public class GameplayManager : MonoBehaviour
         }
         ShowTurnMessage(newRoundMessage);
         yield return new WaitForSeconds(2.5f);
-        ShowTurnMessage(turnMessage);
+        ShowTurnMessage(turnMessage + "\n4 turns left in round!");
     }
 
     public void ShowPointTable()
