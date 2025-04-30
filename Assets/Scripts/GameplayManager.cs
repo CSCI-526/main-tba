@@ -90,7 +90,7 @@ public class GameplayManager : MonoBehaviour
     public HeadAbility head_ability;
     public ArmAbility arm_ability;
 
-    public TextMeshProUGUI msg;
+    //public TextMeshProUGUI msg;
 
     private int actionsTakenInRound = 4;
 

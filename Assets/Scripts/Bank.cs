@@ -604,7 +604,7 @@ public class Bank : MonoBehaviour
     IEnumerator RemoveAfterDelay(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        GameplayManager.Instance.msg.text = "";
+        //GameplayManager.Instance.msg.text = "";
     }
 
     private void OnMouseEnter()

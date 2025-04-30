@@ -39,7 +39,7 @@ public class FootAbility : IAbility
             }
         }
 
-        if (left_)
+        /*if (left_)
         {
             GameplayManager.Instance.msg.text = "Award Using left foot: Remain left " + num_card_left + " * heap size " +
                                                 duplicate_count_ + " = " + num_card_left * duplicate_count_;
@@ -48,7 +48,7 @@ public class FootAbility : IAbility
         {
             GameplayManager.Instance.msg.text = "Award using right foot: Remain left " + num_card_left + " * heap size " +
                                                 duplicate_count_ + " = " + num_card_left * duplicate_count_;
-        }
+        }*/
         
         return num_card_left * duplicate_count_;
     }
