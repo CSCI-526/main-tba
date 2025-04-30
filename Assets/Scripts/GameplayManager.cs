@@ -78,6 +78,8 @@ public class GameplayManager : MonoBehaviour
     public GameObject weaponTable;
     public GameObject nameScreen;
 
+    public TMP_Text turnsLeftText;
+
     public TMP_Text currPlayerText;
     public Button next_button;
     public Button rules_button;
@@ -316,18 +318,21 @@ public class GameplayManager : MonoBehaviour
             //currPlayerText.text += "New Round!\n";
             if (totalTurns == 0)
             {
+                turnsLeftText.text = "";
                 StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!", player1Name + "'s Turn!", true));
                 p1activeText.text = "(Started this round)";
                 p2activeText.text = "";
             }
             else if (activePlayer.playerNum == 1)
             {
+                turnsLeftText.text = "";
                 StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!\n(" + player2Name + " began last round)", player1Name + "'s Turn!", false));
                 p1activeText.text = "(Started this round)";
                 p2activeText.text = "";
             }
             else 
             {
+                turnsLeftText.text = "";
                 StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!\n(" + player1Name + " began last round)", player2Name + "'s Turn!", false));
                 p2activeText.text = "(Started this round)";
                 p1activeText.text = "";
@@ -343,7 +348,8 @@ public class GameplayManager : MonoBehaviour
             {
                 currPlayerText.text += player2Name + "'s Turn!";
             }
-            ShowTurnMessage(currPlayerText.text + "\n" + actionsTakenInRound + " turns left in round!");
+            turnsLeftText.text = actionsTakenInRound + " turns left in round!";
+            ShowTurnMessage(currPlayerText.text);
         }
         
 
@@ -671,7 +677,8 @@ public class GameplayManager : MonoBehaviour
         }
         ShowTurnMessage(newRoundMessage);
         yield return new WaitForSeconds(2.5f);
-        ShowTurnMessage(turnMessage + "\n4 turns left in round!");
+        turnsLeftText.text = "4 turns left in round!";
+        ShowTurnMessage(turnMessage);
     }
 
     public void ShowPointTable()
