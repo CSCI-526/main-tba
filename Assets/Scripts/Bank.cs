@@ -246,7 +246,9 @@ public class Bank : MonoBehaviour
                 }
                 else
                 {
-                    StartCoroutine(GameplayManager.Instance.FailedWeaponTutMessages());
+                    
+                    GameplayManager.Instance.RunFailedWeaponTut();
+                    
                 }
         
             } else if (this.name == "P1 Workbench 2")
@@ -449,13 +451,14 @@ public class Bank : MonoBehaviour
         {
             if (!GameplayManager.Instance.onWeaponTut)
             {
+                GameplayManager.Instance.workbenches.SetActive(false);
                 GameplayManager.Instance.RunWeaponTut();
                 return false;
 
             }
             else
             {
-                StartCoroutine(GameplayManager.Instance.EndTutorial());
+                GameplayManager.Instance.StartCoroutine(GameplayManager.Instance.EndTutorial());
                 return false;
             }
         }
@@ -925,5 +928,10 @@ public class Bank : MonoBehaviour
                 break;
             }
         }
+    }
+
+    private IEnumerator DelayedTutorialEnd()
+    {
+        yield return GameplayManager.Instance.EndTutorial();
     }
 }
