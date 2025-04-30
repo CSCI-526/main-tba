@@ -95,7 +95,10 @@ public class GameplayManager : MonoBehaviour
     public bool in_game_tutorial = false;
     public GameObject frame1;
     public GameObject frame2;
-    
+
+    public TMP_Text p1activeText;
+    public TMP_Text p2activeText;
+
     // currectly selected cards
     public List<Card> selected_cards = new List<Card>();
 
@@ -310,18 +313,24 @@ public class GameplayManager : MonoBehaviour
         currPlayerText.text = "";
         if (actionsTakenInRound == 4)
         {
-            currPlayerText.text += "New Round!\n";
+            //currPlayerText.text += "New Round!\n";
             if (totalTurns == 0)
             {
-                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!", player1Name + "'s Turn!"));
+                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!", player1Name + "'s Turn!", true));
+                p1activeText.text = "(Started this round)";
+                p2activeText.text = "";
             }
             else if (activePlayer.playerNum == 1)
             {
-                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!\n(" + player2Name + " began last round)", player1Name + "'s Turn!"));
+                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!\n(" + player2Name + " began last round)", player1Name + "'s Turn!", false));
+                p1activeText.text = "(Started this round)";
+                p2activeText.text = "";
             }
             else 
             {
-                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!\n(" + player1Name + " began last round)", player2Name + "'s Turn!"));
+                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!\n(" + player1Name + " began last round)", player2Name + "'s Turn!", false));
+                p2activeText.text = "(Started this round)";
+                p1activeText.text = "";
             }
         }
         else 
@@ -352,7 +361,6 @@ public class GameplayManager : MonoBehaviour
             playerList[0].WB2.GetComponent<Bank>().addable = true;
             playerList[1].WB1.GetComponent<Bank>().addable = false;
             playerList[1].WB2.GetComponent<Bank>().addable = false;
-
         }
         else if (activePlayer.playerNum == 2)
         {
@@ -654,8 +662,13 @@ public class GameplayManager : MonoBehaviour
         turnOverlayCoroutine = null;
     }
 
-    private IEnumerator ShowNewRoundMessage(string newRoundMessage, string turnMessage)
+    private IEnumerator ShowNewRoundMessage(string newRoundMessage, string turnMessage, bool isGameStart)
     {
+        if (!isGameStart)
+        {
+            ShowTurnMessage("New Round!\nRefreshing Conveyor Belt...", 1.5f);
+            yield return new WaitForSeconds(2f);
+        }
         ShowTurnMessage(newRoundMessage);
         yield return new WaitForSeconds(2.5f);
         ShowTurnMessage(turnMessage);
