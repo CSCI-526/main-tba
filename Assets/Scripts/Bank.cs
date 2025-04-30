@@ -630,23 +630,23 @@ public class Bank : MonoBehaviour
                     switch ((int)bankData[0].cardValue)
                     {
                         case 1:
-                        msg += "Copy up to " + (bankData.Count - 1) + " part(s) from opposite workbench.";
+                        msg += "Use to copy " + (bankData.Count - 1) + " part(s) from opposite workbench. Gain + " + (bankData.Count - 1) + " points.";
                         break;
 
                         case 2:
-                        msg += "Destroy " + (bankData.Count - 1) +  " part(s) from opponent's LEFT workbench.";
+                        msg += "Use to destroy " + (bankData.Count - 1) +  " part(s) from opponent's LEFT workbench. Gain " + (bankData.Count - 1) + " points.";
                         break;
 
                         case 3:
-                        msg += "Destroy " + (bankData.Count - 1) + " part(s) from opponent's RIGHT workbench.";
+                        msg += "Use to destroy " + (bankData.Count - 1) + " part(s) from opponent's RIGHT workbench. Gain " + (bankData.Count - 1) + " points.";
                         break;
 
                         case 4:
-                        msg += "Destroy parts on the LEFT side of the conveyor belt. Gain " + bankData.Count + " points per part destroyed.";
+                        msg += "Use to destroy LEFT conveyor belt parts. Gain " + bankData.Count + " points per part destroyed.";
                         break;
 
                         case 5:
-                        msg += "Destroy parts on the RIGHT side of the conveyor belt and gain " + bankData.Count + " points per part destroyed.";
+                        msg += "Use to destroy RIGHT conveyor belt parts. Gain " + bankData.Count + " points per part destroyed.";
                         break;
                     }
                 }
@@ -655,7 +655,19 @@ public class Bank : MonoBehaviour
                 {
                     if (bankData.Count < 5)
                     {
-                        msg += bankData[0].cardSuit + " robot:" + "\n" + bankData.Count + " parts";
+                        msg += bankData[0].cardSuit + " robot:" + "\n" + bankData.Count + " parts\n";
+                        if (bankData.Count == 2)
+                        {
+                            msg += "(3 points)";
+                        }
+                        else if (bankData.Count == 3)
+                        {
+                            msg += "(5 points)";
+                        }
+                        else if (bankData.Count == 4)
+                        {
+                            msg += "(8 points)";
+                        }
                         /*for (int i = 0; i < bankData.Count; i++)
                         {
                             msg += "\n" + bankData[i].cardValue;
@@ -663,7 +675,7 @@ public class Bank : MonoBehaviour
                     }
                     else if (bankData.Count == 5)
                     {
-                        msg += bankData[0].cardSuit + " robot\nComplete!";
+                        msg += bankData[0].cardSuit + " robot\nComplete!\n(13 points)";
                     }
                     
                 }
