@@ -151,7 +151,7 @@ public class Bank : MonoBehaviour
         }
         else
         {
-            GameplayManager.Instance.msg.text = "Invalid Add!";
+            //GameplayManager.Instance.msg.text = "Invalid Add!";
             StartCoroutine(RemoveAfterDelay(3f));
             Debug.Log("Card is invalid!");
             return false;
@@ -593,7 +593,7 @@ public class Bank : MonoBehaviour
             }
             else
             {
-                GameplayManager.Instance.msg.text = "This workbench can't be sold yet";
+                //GameplayManager.Instance.msg.text = "This workbench can't be sold yet";
                 StartCoroutine(RemoveAfterDelay(3f));
                 Debug.Log("This workbench can't be sold yet");
                 return false;

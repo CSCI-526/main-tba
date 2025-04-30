@@ -3434,6 +3434,7 @@ MonoBehaviour:
   rLegWeapon: {fileID: 614291153}
   isHeadAbilityActive: 0
   enabled: 1
+  addable: 1
   insertSound: {fileID: 487297331}
   sellSound: {fileID: 332159105}
   punchSound: {fileID: 337056628}
@@ -7545,6 +7546,7 @@ MonoBehaviour:
   rLegWeapon: {fileID: 1761568671}
   isHeadAbilityActive: 0
   enabled: 1
+  addable: 1
   insertSound: {fileID: 487297331}
   sellSound: {fileID: 332159105}
   punchSound: {fileID: 337056628}
@@ -9769,8 +9771,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f8d91967c093a694380e6d616abe2758, type: 2}
-  m_sharedMaterial: {fileID: -8030248632605770726, guid: f8d91967c093a694380e6d616abe2758, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ad466be10f7ce53438d3b3145defd844, type: 2}
+  m_sharedMaterial: {fileID: -8152462202158381379, guid: ad466be10f7ce53438d3b3145defd844, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -9794,8 +9796,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -14818,6 +14820,7 @@ MonoBehaviour:
   rLegWeapon: {fileID: 1768400628}
   isHeadAbilityActive: 0
   enabled: 1
+  addable: 1
   insertSound: {fileID: 487297331}
   sellSound: {fileID: 332159105}
   punchSound: {fileID: 337056628}
@@ -16204,6 +16207,7 @@ MonoBehaviour:
   rLegWeapon: {fileID: 1552920639}
   isHeadAbilityActive: 0
   enabled: 1
+  addable: 1
   insertSound: {fileID: 487297331}
   sellSound: {fileID: 332159105}
   punchSound: {fileID: 337056628}
