@@ -4758,7 +4758,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 74, y: 59}
+  m_AnchoredPosition: {x: 74, y: 70}
   m_SizeDelta: {x: 108.61517, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &358705750
@@ -4781,14 +4781,21 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Head: Copy L/R opponent parts, gain points.
+  m_text: 'Head:
+
+    Copy parts from opposite workbench
 
 
-    Arm: Destroy L/R opponent
-    parts, gain points.
+    Arm:
+
+    Destroy
+    parts on opponent''s left/right workbench
 
 
-    Leg: Destory L/R conveyer belt parts, gain points.
+    Leg:
+
+    Destory left/right
+    conveyer belt parts.
 
 
 '
@@ -24665,7 +24672,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Weapons:
 
-    More = Stronger'
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ad466be10f7ce53438d3b3145defd844, type: 2}
   m_sharedMaterial: {fileID: -8152462202158381379, guid: ad466be10f7ce53438d3b3145defd844, type: 2}
@@ -24692,8 +24699,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
