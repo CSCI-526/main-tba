@@ -69,6 +69,7 @@ public class Bank : MonoBehaviour
 
     // public variable to see if the bank is enabled or not
     public bool enabled = true;
+    public bool addable = true;
 
     // audio files to play
     public AudioSource insertSound;
@@ -356,6 +357,10 @@ public class Bank : MonoBehaviour
 
     public bool isValidAddition(CardData cd)
     {
+        if (!addable)
+        {
+            return false;
+        }
         if (bankData.Count == 0)
         {
             return true;

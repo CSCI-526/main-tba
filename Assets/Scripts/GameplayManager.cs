@@ -348,6 +348,11 @@ public class GameplayManager : MonoBehaviour
             playerList[0].WB2.GetComponent<Bank>().enabled = true;
             playerList[1].WB1.GetComponent<Bank>().enabled = false;
             playerList[1].WB2.GetComponent<Bank>().enabled = false;
+            playerList[0].WB1.GetComponent<Bank>().addable = true;
+            playerList[0].WB2.GetComponent<Bank>().addable = true;
+            playerList[1].WB1.GetComponent<Bank>().addable = false;
+            playerList[1].WB2.GetComponent<Bank>().addable = false;
+            Debug.LogError("Player1 Active!");
 
         }
         else if (activePlayer.playerNum == 2)
@@ -360,6 +365,11 @@ public class GameplayManager : MonoBehaviour
             playerList[1].WB2.GetComponent<Bank>().enabled = true;
             playerList[0].WB1.GetComponent<Bank>().enabled = false;
             playerList[0].WB2.GetComponent<Bank>().enabled = false;
+            playerList[1].WB1.GetComponent<Bank>().addable = true;
+            playerList[1].WB2.GetComponent<Bank>().addable = true;
+            playerList[0].WB1.GetComponent<Bank>().addable = false;
+            playerList[0].WB2.GetComponent<Bank>().addable = false;
+            Debug.LogError("Player2 Active!");
         }
 
         // set active frame
