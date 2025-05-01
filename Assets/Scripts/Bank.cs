@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 //using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class Bank : MonoBehaviour
@@ -423,6 +424,12 @@ public class Bank : MonoBehaviour
 
     public void OnMouseDown()
     {
+        // Exit early if the mouse is over any UI element like the sell button
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            //Debug.Log("Blocked an add during a sell");
+            return;
+        }
         //Mousing down on a workbench means we either are adding a card to it, or selling the bench
         if (GameplayManager.Instance.selected_cards.Count == 1)
         {
@@ -464,6 +471,7 @@ public class Bank : MonoBehaviour
         }
         else
         {
+
             // Score tables for selling robots and heaps 
             //   - key is the number of parts
             //   - value is the points to be awarded 
