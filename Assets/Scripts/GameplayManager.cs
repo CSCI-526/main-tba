@@ -113,6 +113,7 @@ public class GameplayManager : MonoBehaviour
 
     // Audio Sources
     public AudioSource passSound;
+    public AudioSource refreshSound;
 
     // analytics
     public int totalTurns = 0;
@@ -495,6 +496,7 @@ public class GameplayManager : MonoBehaviour
             river.riverData.Clear();
             river.Flop(deck);
             actionsTakenInRound = 4;
+            refreshSound.Play(0);
         }
     }
 
