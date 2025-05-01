@@ -424,11 +424,14 @@ public class Bank : MonoBehaviour
 
     public void OnMouseDown()
     {
-        // Exit early if the mouse is over any UI element like the sell button
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (SceneManager.GetActiveScene().name != "TutorialScene")
         {
-            //Debug.Log("Blocked an add during a sell");
-            return;
+            // Exit early if the mouse is over any UI element like the sell button
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                //Debug.Log("Blocked an add during a sell");
+                return;
+            }
         }
         //Mousing down on a workbench means we either are adding a card to it, or selling the bench
         if (GameplayManager.Instance.selected_cards.Count == 1)
