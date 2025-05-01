@@ -42,7 +42,7 @@ public class ScoreMeter : MonoBehaviour
         fillBar.localPosition = initialPosition + new Vector3(offset, 0, 0);
     }
 
-    private IEnumerator UpdateFillCoroutine(int points)
+    public IEnumerator UpdateFillCoroutine(int points)
     {
         float targetFillAmount = (float) currScore / 20;
 

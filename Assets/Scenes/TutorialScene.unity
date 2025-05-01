@@ -7852,6 +7852,7 @@ MonoBehaviour:
   next_button: {fileID: 694666960}
   rules_button: {fileID: 1446448192}
   rules_panel: {fileID: 1545399067}
+  ConveyorBelt: {fileID: 0}
   in_game_tutorial: 0
   frame1: {fileID: 132926381}
   frame2: {fileID: 887078339}
@@ -15973,6 +15974,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1276141270}
   - component: {fileID: 1276141271}
+  - component: {fileID: 1276141272}
   m_Layer: 0
   m_Name: RArmWeapon
   m_TagString: Untagged
@@ -16050,6 +16052,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1276141272
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276141269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 260b460332aad5348a901fa8d396d044, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchSound: {fileID: 330510298}
+  cashSound: {fileID: 72074503}
 --- !u!1 &1278431597
 GameObject:
   m_ObjectHideFlags: 0
