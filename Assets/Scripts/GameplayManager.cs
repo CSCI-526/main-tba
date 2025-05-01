@@ -89,6 +89,7 @@ public class GameplayManager : MonoBehaviour
     public FootAbility foot_ability;
     public HeadAbility head_ability;
     public ArmAbility arm_ability;
+    public GameObject ConveyorBelt;
 
     //public TextMeshProUGUI msg;
 
@@ -495,6 +496,12 @@ public class GameplayManager : MonoBehaviour
         {
             river.riverData.Clear();
             river.Flop(deck);
+            StartCoroutine(FlopCoroutine());
+        
+            IEnumerator FlopCoroutine()
+            {
+                yield return StartCoroutine(ConveyorBelt.GetComponent<ConveyorBeltAnim>().ConveyorBeltAnimation(river.riverCards));
+            }
             actionsTakenInRound = 4;
             refreshSound.Play(0);
         }
@@ -724,8 +731,14 @@ public class GameplayManager : MonoBehaviour
         player2NameText.text = player2Name;
         nameScreen.SetActive(false);
         river.Flop(deck);
-        turnMessagePanel.SetActive(true);
-        SetActivePlayer(0);
+        StartCoroutine(FlopCoroutine());
+        
+        IEnumerator FlopCoroutine()
+        {
+            yield return StartCoroutine(ConveyorBelt.GetComponent<ConveyorBeltAnim>().ConveyorBeltAnimation(river.riverCards));
+            turnMessagePanel.SetActive(true);
+            SetActivePlayer(0);
+        }
     }
 
     public void GetPlayer1Name(string name)
