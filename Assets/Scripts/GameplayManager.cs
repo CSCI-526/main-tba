@@ -800,6 +800,7 @@ public class GameplayManager : MonoBehaviour
         buildingGuide.SetActive(false);
         StartCoroutine(RunEvenMoreTutorialMessages());
 
+
         //Now we should clear everything in the benches and river and reactivate all UI items
         river.riverData.Clear();
         List<Card.CardSuit> suits = new List<Card.CardSuit>();
@@ -883,6 +884,7 @@ public class GameplayManager : MonoBehaviour
 
         yield return StartCoroutine(WeaponTutorialMessages());
 
+        p1ScoreMeter.SetActive(true);
         // CLEARING RIVER FIRST and FLOP PREDETERMINED CARDS...
         river.riverData.Clear();
 
@@ -928,13 +930,11 @@ public class GameplayManager : MonoBehaviour
 
     private IEnumerator WeaponTutorialMessages()
     {
-        ShowTurnMessage("Nice job!", 2f, true, 2, 3);
-        yield return new WaitForSeconds(2f);
-        // ShowTurnMessage("Build and sell robots for points!\nMore parts collected = more points!", 4f, true, 2, 3);
-        // yield return new WaitForSeconds(4f);
-        ShowTurnMessage("Now let's try building a weapon!", 4f, true, 2, 3);
-        yield return new WaitForSeconds(4f);
+        p1ScoreMeter.SetActive(false);
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Nice job!", 2f, true, 2, 3));
+        yield return StartCoroutine(ShowTurnMessageCoroutine("Now let's try building a weapon!", 4f, true, 2, 3));
         workbenches.SetActive(true);
+        p1ScoreMeter.SetActive(true);
     }
 
 
@@ -944,12 +944,14 @@ public class GameplayManager : MonoBehaviour
         yield return StartCoroutine(ShowTurnMessageCoroutine("Let's skip ahead in the game...", 2f, true, 2f, 3f));
         yield return StartCoroutine(ShowTurnMessageCoroutine("Can you complete a robot\nand sell it?", 4f, true, 2f, 3f));
         workbenches.SetActive(true);
+        p1ScoreMeter.SetActive(true);
         // ToggleOnInteractives();
     }
 
     private IEnumerator FinalTutorialMessages()
     {
         workbenches.SetActive(false);
+        p1ScoreMeter.SetActive(false);
         yield return StartCoroutine(ShowTurnMessageCoroutine("Nice work!", 2f, true, 2f, 3f));
         // ShowTurnMessage("Each robot part weapon has\na unique powerful ability!", 4f, true, 2, 3);
         // yield return new WaitForSeconds(4f);
@@ -959,10 +961,12 @@ public class GameplayManager : MonoBehaviour
     public IEnumerator FailedTutorialMessages()
     {
         workbenches.SetActive(false);
+        p1ScoreMeter.SetActive(false);
         yield return StartCoroutine(ShowTurnMessageCoroutine("Not quite right!", 2f, true, 2f, 3f));
         yield return StartCoroutine(ShowTurnMessageCoroutine("You added to a weapon!", 3f, true, 2f, 3f));
         yield return StartCoroutine(ShowTurnMessageCoroutine("Try again!", 2f, true, 2f, 3f));
         workbenches.SetActive(true);
+        p1ScoreMeter.SetActive(true);
 
         river.riverData.Clear();
         List<Card.CardSuit> suits = new List<Card.CardSuit>();
@@ -1013,10 +1017,12 @@ public class GameplayManager : MonoBehaviour
     public IEnumerator FailedWeaponTutMessages()
     {
         workbenches.SetActive(false);
+        p1ScoreMeter.SetActive(false);
         yield return StartCoroutine(ShowTurnMessageCoroutine("Not quite right!", 2f, true, 2f, 3f));
         yield return StartCoroutine(ShowTurnMessageCoroutine("You added to a robot!", 3f, true, 2f, 3f));
         yield return StartCoroutine(ShowTurnMessageCoroutine("Try again!", 2f, true, 2f, 3f));
         workbenches.SetActive(true);
+        p1ScoreMeter.SetActive(true);
 
         // CLEARING RIVER FIRST and FLOP PREDETERMINED CARDS...
         river.riverData.Clear();

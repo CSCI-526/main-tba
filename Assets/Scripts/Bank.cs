@@ -461,14 +461,13 @@ public class Bank : MonoBehaviour
         {
             if (!GameplayManager.Instance.onWeaponTut)
             {
-                GameplayManager.Instance.workbenches.SetActive(false);
-                GameplayManager.Instance.RunWeaponTut();
+                StartCoroutine(TutorialSellRobot());
                 return false;
 
             }
             else
             {
-                GameplayManager.Instance.StartCoroutine(GameplayManager.Instance.EndTutorial());
+                StartCoroutine(TutorialArmAnim(sellData));
                 return false;
             }
         }
@@ -944,5 +943,26 @@ public class Bank : MonoBehaviour
     private IEnumerator DelayedTutorialEnd()
     {
         yield return GameplayManager.Instance.EndTutorial();
+    }
+
+    private IEnumerator TutorialArmAnim(List<CardData> sellData)
+    {
+        yield return StartCoroutine(rArmWeapon.GetComponent<ArmAnim>().ArmAnimation(this, false, playerNumber, sellData));
+        GameplayManager.Instance.StartCoroutine(GameplayManager.Instance.EndTutorial());
+    }
+
+    private IEnumerator TutorialSellRobot()
+    {
+        GameplayManager.Instance.AwardPoints(13);
+        sellSound.Play(0);
+        robotBody.SetActive(false);
+        robotHead.SetActive(false);
+        robotLArm.SetActive(false);
+        robotRArm.SetActive(false);
+        robotLLeg.SetActive(false);
+        robotRLeg.SetActive(false);
+        yield return new WaitForSeconds(1f);
+        GameplayManager.Instance.workbenches.SetActive(false);
+        GameplayManager.Instance.RunWeaponTut();
     }
 }

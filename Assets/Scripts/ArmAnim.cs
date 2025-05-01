@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+
 
 public class ArmAnim : MonoBehaviour
 {
@@ -24,6 +26,10 @@ public class ArmAnim : MonoBehaviour
         // Step 3: Throw that punch
         yield return StartCoroutine(MoveArm(0.5f, punchPosition, true, false));
 
+        if (wb.arm_ability == null)
+        {
+            wb.arm_ability = new ArmAbility();
+        }
         // Step 4: Do the ability function here
         if (isLeft)
             wb.arm_ability.setLeft(true);
@@ -32,13 +38,16 @@ public class ArmAnim : MonoBehaviour
         wb.arm_ability.Activate(sellData.Count, wb);
         cashSound.Play(0);
         //Analytics 
-        AnalyticsManager.Instance.LogWorkbenchSale(wb.bankData, 0);
+        if (SceneManager.GetActiveScene().name != "TutorialScene")
+        {
+            AnalyticsManager.Instance.LogWorkbenchSale(wb.bankData, 0);
 
-        Debug.Log("Points awarded via Arm ability");
-        sr.sortingOrder = 15;
-        wb.cleanUpBench();
-        cleanUp(originalPosition);
-        GameplayManager.Instance.ToggleOnInteractives();
+            Debug.Log("Points awarded via Arm ability");
+            sr.sortingOrder = 15;
+            wb.cleanUpBench();
+            cleanUp(originalPosition);
+            GameplayManager.Instance.ToggleOnInteractives();
+        }
     }
 
     private IEnumerator ScaleObject(float duration)
