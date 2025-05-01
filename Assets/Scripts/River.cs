@@ -18,6 +18,8 @@ public class River : MonoBehaviour
     public float xshift = 70f;
     public float yshift;
 
+    public AudioSource refreshSound;
+
     //initial flop
     public void Flop(Deck deck)
     {
@@ -31,6 +33,7 @@ public class River : MonoBehaviour
         riverData[3].pos = 3;
         addToRiver(deck);
         riverData[4].pos = 4;
+        refreshSound.Play(0);
         RefreshRiver();
     }
 

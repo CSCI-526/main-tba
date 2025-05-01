@@ -229,12 +229,12 @@ public class GameplayManager : MonoBehaviour
         if (playerList[0].score >= pointsToWin){
             Winner.gameWinner = player1Name;
             AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns, 1);
-            SceneManager.LoadScene(2);
+            StartCoroutine(TheFinalOne());
         }
         if (playerList[1].score >= pointsToWin){
             Winner.gameWinner = player2Name;
             AnalyticsManager.Instance.LogGameTurns(totalTurns, totalPassTurns, 2);
-            SceneManager.LoadScene(2);
+            StartCoroutine(TheFinalOne());
         }
     }
 
@@ -1224,5 +1224,11 @@ public class GameplayManager : MonoBehaviour
     {
         yield return StartCoroutine(FinalTutorialMessages());
         SceneManager.LoadScene("MainMenuScene");
+    }
+
+    private IEnumerator TheFinalOne()
+    {
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene(2);
     }
 }

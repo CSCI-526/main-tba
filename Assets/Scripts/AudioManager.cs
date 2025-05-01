@@ -25,6 +25,8 @@ public class AudioManager : MonoBehaviour
     private AudioSource headSound;
     [SerializeField]
     private AudioSource passSound;
+    [SerializeField]
+    private AudioSource refreshSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -71,5 +73,6 @@ public class AudioManager : MonoBehaviour
         footSound.volume = volume;
         headSound.volume = volume;
         passSound.volume = volume;
+        refreshSound.volume = volume / 3.0f;
     }
 }

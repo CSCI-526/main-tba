@@ -52,7 +52,7 @@ public class ScoreMeter : MonoBehaviour
         Vector3 targetPosition = initialPosition + new Vector3(offset, 0, 0);
 
         float elapsedTime = 0f;
-        float duration = (float) points / 0.5f;
+        float duration = 2.0f;
 
         while (elapsedTime < duration)
         {
