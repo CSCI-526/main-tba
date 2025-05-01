@@ -328,14 +328,24 @@ public class GameplayManager : MonoBehaviour
             else if (activePlayer.playerNum == 1)
             {
                 turnsLeftText.text = "";
-                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!\n(" + player2Name + " began last round)", player1Name + "'s Turn!", false));
+                StartCoroutine(FlopCoroutine());
+                IEnumerator FlopCoroutine()
+                {
+                    yield return StartCoroutine(ConveyorBelt.GetComponent<ConveyorBeltAnim>().ConveyorBeltAnimation(river.riverCards));
+                    yield return StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player1Name + " starts!\n(" + player2Name + " began last round)", player1Name + "'s Turn!", false));
+                }
                 p1activeText.text = "(Started this round)";
                 p2activeText.text = "";
             }
             else 
             {
                 turnsLeftText.text = "";
-                StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!\n(" + player1Name + " began last round)", player2Name + "'s Turn!", false));
+                StartCoroutine(FlopCoroutine());
+                IEnumerator FlopCoroutine()
+                {
+                    yield return StartCoroutine(ConveyorBelt.GetComponent<ConveyorBeltAnim>().ConveyorBeltAnimation(river.riverCards));
+                    yield return StartCoroutine(ShowNewRoundMessage(currPlayerText.text + player2Name + " starts!\n(" + player1Name + " began last round)", player2Name + "'s Turn!", false));
+                }
                 p2activeText.text = "(Started this round)";
                 p1activeText.text = "";
             }
@@ -496,12 +506,6 @@ public class GameplayManager : MonoBehaviour
         {
             river.riverData.Clear();
             river.Flop(deck);
-            StartCoroutine(FlopCoroutine());
-        
-            IEnumerator FlopCoroutine()
-            {
-                yield return StartCoroutine(ConveyorBelt.GetComponent<ConveyorBeltAnim>().ConveyorBeltAnimation(river.riverCards));
-            }
             actionsTakenInRound = 4;
             refreshSound.Play(0);
         }
