@@ -37,6 +37,8 @@ public class Card : MonoBehaviour
     public bool waiting_to_put = false;
     public string place;
 
+    public Vector3 originalPosition;
+
     // Start is called before the first frame update
     void Start()
     {

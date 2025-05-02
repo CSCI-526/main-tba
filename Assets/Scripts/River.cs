@@ -74,6 +74,8 @@ public class River : MonoBehaviour
             riverCards.Add(Instantiate(cardPrefab));
             riverCards[i].GetComponent<Card>().Initialize(riverData[i].cardValue, riverData[i].cardSuit, riverData[i].texture);
             riverCards[i].transform.position = new Vector3((xshift * riverData[i].pos) - xshift*2.25f, yshift, 0f);
+            //Debug.Log(riverCards[i].transform.position);
+            riverCards[i].GetComponent<Card>().originalPosition = riverCards[i].transform.position;
         }
     }
 
