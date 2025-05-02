@@ -44,7 +44,7 @@ public class ScoreMeter : MonoBehaviour
 
     public IEnumerator UpdateFillCoroutine(int points)
     {
-        float targetFillAmount = (float) currScore / 20;
+        float targetFillAmount = Mathf.Min((float) currScore / 20, 20.0f);
 
         Vector3 targetScale = new Vector3(fullScale.x * targetFillAmount, fullScale.y, fullScale.z);
 
