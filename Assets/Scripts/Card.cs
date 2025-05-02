@@ -37,7 +37,12 @@ public class Card : MonoBehaviour
     public bool waiting_to_put = false;
     public string place;
 
+    //Dragging variables
+    public int originalSortingOrder;
     public Vector3 originalPosition;
+    private bool isDragging = false;
+    private float timeToHold = 0.15f;
+    private float timeOfClick;
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +79,7 @@ public class Card : MonoBehaviour
         float finalScale = Mathf.Min(scaleX, scaleY);
  
         spriteRenderer.transform.localScale = new Vector3(finalScale, finalScale, 1f);
+        originalSortingOrder = spriteRenderer.sortingOrder;
     }
 
     public CardData GetCardData()
@@ -107,7 +113,7 @@ public class Card : MonoBehaviour
 
     //when clicked, pass to gameplay manager to find it in the river or hand and bank it
     //when clicked, a card should be banked
-    private void OnMouseDown()
+    /*private void OnMouseDown()
     {
         if (!GameplayManager.Instance.selected_cards.Contains(this))
         {
@@ -146,8 +152,137 @@ public class Card : MonoBehaviour
         {
             GameplayManager.Instance.UpdateTutorial();
         }
+    }*/
+
+    private void OnMouseDown()
+    {
+        timeOfClick = Time.time;
+        isDragging = false;
+
+        
     }
 
+    private void OnMouseDrag()
+    {
+        Debug.Log("This is being called on mouse drag");
+        if(Time.time - timeOfClick > timeToHold)
+        {
+            Debug.Log("This is being called drag check");
+            isDragging = true;
+
+            //Raise sort order of the card to arbitrarily high value
+            spriteRenderer.sortingOrder = 100;
+
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = new Vector3(mousePos.x, mousePos.y, 0);
+
+            //Little bug here, what if this is the second click?
+            //The click that removes all the selects?
+            //While the card is being dragged, put it back in the selected cards
+            if (!GameplayManager.Instance.selected_cards.Contains(this))
+            {
+                // destroy other selects first
+                GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+                foreach (GameObject instance in selectInstances)
+                {
+                    Destroy(instance);
+                }
+                // clear selected_cards first then add this to selected_cards
+                gm.ClearSelectedCards();
+                GameplayManager.Instance.selected_cards.Add(this);
+                Instantiate(select, new Vector2(originalPosition.x, originalPosition.y), Quaternion.identity);
+                // spawn selected parts for workbench here
+                GameObject[] workbenches = GameObject.FindGameObjectsWithTag("WorkBench");
+                foreach (GameObject wb in workbenches)
+                {
+                    Bank current = wb.GetComponent<Bank>();
+                    current.spawnSelection(this.GetCardData());
+                }
+            }
+        }
+
+
+    }
+
+    private void OnMouseUp()
+    {
+        if (isDragging) 
+        {
+            //Handle the logic for when we drop the card into 
+            //the valid bench
+
+            //Grab the work benches, check to see if the card 
+            //is over any that is a valid add
+            GameObject[] workbenches = GameObject.FindGameObjectsWithTag("WorkBench");
+            foreach (GameObject wb in workbenches)
+            {
+                Bank bank = wb.GetComponent<Bank>();
+                if (bank.GetComponent<BoxCollider2D>().bounds.Contains(transform.position)) 
+                {
+                    if (bank.AddToBank(this.GetCardData()))
+                    {
+                        return;
+                    } else
+                    {
+                        //GameplayManager.Instance.ShakeCard();
+                        ResetCardPosition();
+                    }
+                }
+            }
+            ResetCardPosition();
+        } else
+        {
+            //Need to accomodate both styles of card selection
+            //Still need the old logic
+
+            if (!GameplayManager.Instance.selected_cards.Contains(this))
+            {
+                // destroy other selects first
+                GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+                foreach (GameObject instance in selectInstances)
+                {
+                    Destroy(instance);
+                }
+                // clear selected_cards first then add this to selected_cards
+                gm.ClearSelectedCards();
+                GameplayManager.Instance.selected_cards.Add(this);
+                Instantiate(select, new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
+                // spawn selected parts for workbench here
+                GameObject[] workbenches = GameObject.FindGameObjectsWithTag("WorkBench");
+                foreach (GameObject wb in workbenches)
+                {
+                    Bank current = wb.GetComponent<Bank>();
+                    current.spawnSelection(this.GetCardData());
+                }
+            }
+            else //deselecting card
+            {
+                //destroy any remaining selects
+                GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+                foreach (GameObject instance in selectInstances)
+                {
+                    Destroy(instance);
+                }
+                //clear selected_cards
+                gm.ClearSelectedCards();
+            }
+
+            //Tutorial specific on mouse down logic
+            if (SceneManager.GetActiveScene().name == "TutorialScene")
+            {
+                GameplayManager.Instance.UpdateTutorial();
+            }
+
+        }
+
+        //Reset sortingOrder
+        spriteRenderer.sortingOrder = originalSortingOrder;
+    }
+
+    private void ResetCardPosition()
+    {
+        transform.position = originalPosition;
+    }
     public IEnumerator Shake()
     {
         Vector3 position = transform.position;

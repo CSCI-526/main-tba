@@ -1196,10 +1196,13 @@ public class GameplayManager : MonoBehaviour
             wb2.gameObject.SetActive(true);
         }*/
         workbenches.SetActive(true);
-        GameObject tutWB1 = workbenches.transform.GetChild(0).gameObject;
-        tutWB1.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
-        GameObject tutWB2 = workbenches.transform.GetChild(1).gameObject;
-        tutWB2.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
+        if (selected_cards.Count > 0)
+        {
+            GameObject tutWB1 = workbenches.transform.GetChild(0).gameObject;
+            tutWB1.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
+            GameObject tutWB2 = workbenches.transform.GetChild(1).gameObject;
+            tutWB2.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
+        }
     }
 
     /*
