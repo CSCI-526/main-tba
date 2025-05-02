@@ -199,6 +199,12 @@ public class Card : MonoBehaviour
                     current.spawnSelection(this.GetCardData());
                 }
             }
+
+            //Tutorial specific on mouse down logic
+            if (SceneManager.GetActiveScene().name == "TutorialScene")
+            {
+                GameplayManager.Instance.UpdateTutorial();
+            }
         }
 
 

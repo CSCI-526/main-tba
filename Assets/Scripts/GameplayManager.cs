@@ -1195,13 +1195,28 @@ public class GameplayManager : MonoBehaviour
             wb1.gameObject.SetActive(true);
             wb2.gameObject.SetActive(true);
         }*/
-        workbenches.SetActive(true);
-        if (selected_cards.Count > 0)
+        GameObject[] selectInstances = GameObject.FindGameObjectsWithTag("SelectPrefab");
+
+        //if there are no select instances already, then do this
+        if (selectInstances.Length == 1)
         {
-            GameObject tutWB1 = workbenches.transform.GetChild(0).gameObject;
-            tutWB1.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
-            GameObject tutWB2 = workbenches.transform.GetChild(1).gameObject;
-            tutWB2.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
+            workbenches.SetActive(true);
+            if (selected_cards.Count > 0)
+            {
+                GameObject tutWB1 = workbenches.transform.GetChild(0).gameObject;
+                tutWB1.SetActive(true);
+                tutWB1.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
+                GameObject tutWB2 = workbenches.transform.GetChild(1).gameObject;
+                tutWB2.SetActive(true);
+                tutWB2.GetComponent<Bank>().spawnSelection(selected_cards[0].GetCardData());
+
+                //Disable the other 2 opponent benches 2dboxcolliders, needed for dragging func
+                GameObject tutWB3 = workbenches.transform.GetChild(2).gameObject;
+                GameObject tutWB4 = workbenches.transform.GetChild(3).gameObject;
+
+                tutWB3.GetComponent<BoxCollider2D>().enabled = false;
+                tutWB4.GetComponent<BoxCollider2D>().enabled = false;
+            }
         }
     }
 
